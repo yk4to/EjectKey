@@ -16,6 +16,7 @@
 		D6288AEE289EC0E200F80FF1 /* Defaults in Frameworks */ = {isa = PBXBuildFile; productRef = D6288AED289EC0E200F80FF1 /* Defaults */; };
 		D6288AF1289EC10100F80FF1 /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = D6288AF0289EC10100F80FF1 /* LaunchAtLogin */; };
 		D6288AF4289EC11700F80FF1 /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = D6288AF3289EC11700F80FF1 /* SFSafeSymbols */; };
+		D6288AF6289EC1CF00F80FF1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6288AF5289EC1CF00F80FF1 /* AppDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		D6288AE3289EBD1C00F80FF1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D6288AE5289EBD1D00F80FF1 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D6288AE8289EBE5600F80FF1 /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
+		D6288AF5289EC1CF00F80FF1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 			isa = PBXGroup;
 			children = (
 				D6288AD1289EB5DB00F80FF1 /* EjectKeyApp.swift */,
+				D6288AF5289EC1CF00F80FF1 /* AppDelegate.swift */,
 				D6288AD3289EB5DB00F80FF1 /* ContentView.swift */,
 				D6288AD5289EB5DC00F80FF1 /* Assets.xcassets */,
 				D6288AE4289EBD1C00F80FF1 /* Localizable.strings */,
@@ -213,6 +216,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D6288AF6289EC1CF00F80FF1 /* AppDelegate.swift in Sources */,
 				D6288AD4289EB5DB00F80FF1 /* ContentView.swift in Sources */,
 				D6288AE9289EBE5600F80FF1 /* Strings.swift in Sources */,
 				D6288AD2289EB5DB00F80FF1 /* EjectKeyApp.swift in Sources */,
