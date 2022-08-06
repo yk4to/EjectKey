@@ -13,6 +13,9 @@
 		D6288AD9289EB5DC00F80FF1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6288AD8289EB5DC00F80FF1 /* Preview Assets.xcassets */; };
 		D6288AE2289EBD1C00F80FF1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D6288AE4289EBD1C00F80FF1 /* Localizable.strings */; };
 		D6288AE9289EBE5600F80FF1 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6288AE8289EBE5600F80FF1 /* Strings.swift */; };
+		D6288AEE289EC0E200F80FF1 /* Defaults in Frameworks */ = {isa = PBXBuildFile; productRef = D6288AED289EC0E200F80FF1 /* Defaults */; };
+		D6288AF1289EC10100F80FF1 /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = D6288AF0289EC10100F80FF1 /* LaunchAtLogin */; };
+		D6288AF4289EC11700F80FF1 /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = D6288AF3289EC11700F80FF1 /* SFSafeSymbols */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +35,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D6288AF4289EC11700F80FF1 /* SFSafeSymbols in Frameworks */,
+				D6288AF1289EC10100F80FF1 /* LaunchAtLogin in Frameworks */,
+				D6288AEE289EC0E200F80FF1 /* Defaults in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -102,6 +108,11 @@
 			dependencies = (
 			);
 			name = EjectKey;
+			packageProductDependencies = (
+				D6288AED289EC0E200F80FF1 /* Defaults */,
+				D6288AF0289EC10100F80FF1 /* LaunchAtLogin */,
+				D6288AF3289EC11700F80FF1 /* SFSafeSymbols */,
+			);
 			productName = EjectKey;
 			productReference = D6288ACE289EB5DB00F80FF1 /* EjectKey.app */;
 			productType = "com.apple.product-type.application";
@@ -131,6 +142,11 @@
 				ja,
 			);
 			mainGroup = D6288AC5289EB5DB00F80FF1;
+			packageReferences = (
+				D6288AEC289EC0E200F80FF1 /* XCRemoteSwiftPackageReference "Defaults" */,
+				D6288AEF289EC10100F80FF1 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */,
+				D6288AF2289EC11700F80FF1 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */,
+			);
 			productRefGroup = D6288ACF289EB5DB00F80FF1 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -407,6 +423,51 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D6288AEC289EC0E200F80FF1 /* XCRemoteSwiftPackageReference "Defaults" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/Defaults";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		D6288AEF289EC10100F80FF1 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/LaunchAtLogin";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		D6288AF2289EC11700F80FF1 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SFSafeSymbols/SFSafeSymbols";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D6288AED289EC0E200F80FF1 /* Defaults */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D6288AEC289EC0E200F80FF1 /* XCRemoteSwiftPackageReference "Defaults" */;
+			productName = Defaults;
+		};
+		D6288AF0289EC10100F80FF1 /* LaunchAtLogin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D6288AEF289EC10100F80FF1 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */;
+			productName = LaunchAtLogin;
+		};
+		D6288AF3289EC11700F80FF1 /* SFSafeSymbols */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D6288AF2289EC11700F80FF1 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */;
+			productName = SFSafeSymbols;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D6288AC6289EB5DB00F80FF1 /* Project object */;
 }
