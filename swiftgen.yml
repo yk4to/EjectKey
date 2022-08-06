@@ -1,0 +1,6 @@
+strings:
+  inputs:
+    - EjectKey/en.lproj/Localizable.strings
+  outputs:
+    - templateName: structured-swift5
+      output: EjectKey/Generated/Strings.swift
