@@ -92,6 +92,7 @@
 			buildConfigurationList = D6288ADD289EB5DC00F80FF1 /* Build configuration list for PBXNativeTarget "EjectKey" */;
 			buildPhases = (
 				D6288AE6289EBD3A00F80FF1 /* SwiftGen */,
+				D6288AEB289EBF3F00F80FF1 /* SwiftLint */,
 				D6288ACA289EB5DB00F80FF1 /* Sources */,
 				D6288ACB289EB5DB00F80FF1 /* Frameworks */,
 				D6288ACC289EB5DB00F80FF1 /* Resources */,
@@ -170,6 +171,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# For M1 Mac, add the path to Homebrew\nif [ $(uname -m) = \"arm64\" ]; then\n  export PATH=\"/opt/homebrew/bin:/opt/homebrew/sbin:${PATH+:$PATH}\";\nfi\n\n\nif which mint >/dev/null; then\n  xcrun --sdk macosx mint run SwiftGen swiftgen\nelse\n  echo \"Warning: Mint is not installed\"\nfi\n";
+		};
+		D6288AEB289EBF3F00F80FF1 /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# For M1 Mac, add the path to Homebrew\nif [ $(uname -m) = \"arm64\" ]; then\n  export PATH=\"/opt/homebrew/bin:/opt/homebrew/sbin:${PATH+:$PATH}\";\nfi\n\nif which mint >/dev/null; then\n  xcrun --sdk macosx mint run SwiftLint swiftlint\nelse\n  echo \"Warning: Mint is not installed\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
