@@ -29,7 +29,7 @@ extension Defaults.Keys {
     static let showEjectAllVolumesInDiskButtons = Key<Bool>("showEjectAllVolumesInDiskButtons", default: true)
     // Touch Bar
     static let showControlStripButton = Key<Bool>("showControlStripButton", default: true)
-    static let displayOnlyWhenExternalVolumeIsConnected = Key<Bool>("displayOnlyWhenExternalVolumeIsConnected", default: true)
+    static let displayOnlyWhenExternalVolumeIsConnected = Key<Bool>("displayOnlyWhenExternalVolumeIsConnected", default: false)
     static let controlStripButtonAction = Key<ControlStripButtonAction>("controlStripButtonAction", default: .ejectAll)
     // Notifications
     static let enableNotifications = Key<Bool>("enableNotifications", default: true)
