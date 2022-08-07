@@ -9,8 +9,7 @@ import Cocoa
 import Defaults
 
 enum ControlStripButtonAction: String, CaseIterable, Defaults.Serializable {
-    case ejectAll = "Eject All"
-    case actAsMediaEjectKey = "Act as Media Eject Key"
+    case ejectAll, actAsMediaEjectKey
     
     var localized: String {
         switch self {
