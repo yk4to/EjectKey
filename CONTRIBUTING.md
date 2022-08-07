@@ -14,7 +14,7 @@ Currently, English and Japanese localizations are offered.
 
 If you can help us improve translations or support new languages, please post [an issue](https://github.com/Fus1onDev/EjectKey/issues) or [a pull request](https://github.com/Fus1onDev/EjectKey/pulls).
 
-[Localization Editor](https://github.com/igorkulman/iOSLocalizationEditor) is recommended for editing Localizable.strings.
+[Localization Editor](https://github.com/igorkulman/iOSLocalizationEditor) is recommended for editing `Localizable.strings`.
 
 ## Coding Style
 
