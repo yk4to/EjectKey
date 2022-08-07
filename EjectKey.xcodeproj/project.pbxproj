@@ -75,7 +75,7 @@
 		D6288B18289EC7B600F80FF1 /* Unique.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Unique.swift; sourceTree = "<group>"; };
 		D6288B1A289EC7D200F80FF1 /* Defaults+Workaround.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Defaults+Workaround.swift"; sourceTree = "<group>"; };
 		D6288B38289F412000F80FF1 /* DFRFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DFRFoundation.framework; path = ../../../../System/Library/PrivateFrameworks/DFRFoundation.framework; sourceTree = "<group>"; };
-		D6288B3A289F41A800F80FF1 /* EjectKey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EjectKey.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D6288B3A289F41A800F80FF1 /* EjectKey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = EjectKey.app; path = /Users/yuta/develop/EjectKey/build/Debug/EjectKey.app; sourceTree = "<absolute>"; };
 		D6288B3D289F43DC00F80FF1 /* EjectKey-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EjectKey-Bridging-Header.h"; sourceTree = "<group>"; };
 		D6288B3E289F44D100F80FF1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -100,7 +100,6 @@
 			children = (
 				D6288B38289F412000F80FF1 /* DFRFoundation.framework */,
 				D6288AD0289EB5DB00F80FF1 /* EjectKey */,
-				D6288B3A289F41A800F80FF1 /* EjectKey.app */,
 			);
 			sourceTree = "<group>";
 		};
