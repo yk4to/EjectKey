@@ -1,7 +1,81 @@
-/* 
-  Localizable.strings
-  EjectKey
 
-  Created by Fus1onDev on 2022/08/07.
-  
-*/
+
+"about_ejectkey" = "About EjectKey";
+
+
+"act_as_media_eject_key" = "Act as Media Eject Key";
+
+
+"action_when_button_is_pressed" = "Action when button is pressed";
+
+
+"check_for_updates" = "Check for Updates...";
+
+
+"check_for_updates_automatically" = "Check for updates automatically";
+
+
+"disk_num" = "Disk %d";
+
+
+"display_only_when_external_volumeIs_connected" = "Display only when external volume is connected";
+
+
+"eject_all_volumes" = "Eject All Volumes";
+
+
+"eject_num_volumes" = "Eject %d Volumes";
+
+
+"enable_notifications" = "Enable Notifications";
+
+
+"failed_to_eject_vol" = "Failed to eject \"%@\"";
+
+
+"general" = "General";
+
+
+"launch_at_login" = "Launch at Login";
+
+
+"menu_bar" = "Menu Bar";
+
+
+"no_external_volume_connected" = "No external volume connected";
+
+
+"notifications" = "Notifications";
+
+
+"notifications_are_not_allowed" = "Notifications are not allowed, please change the setting in your Mac preferences.";
+
+
+"open_preferences" = "Open Preferences...";
+
+
+"preferences" = "Preferences...";
+
+
+"quit_ejectkey" = "Quit EjectKey";
+
+
+"safely_removed" = "The device can now be safely removed.";
+
+
+"show_control_strip_button" = "Show Eject Button on Control Strip";
+
+
+"show_eject_all_volumes_button" = "Show \"Eject All Volumes\" Button";
+
+
+"show_eject_all_volumes_in_disk_buttons" = "Show \"Eject All Volumes in Disk\" Buttons";
+
+
+"touch_bar" = "Touch Bar";
+
+
+"updates" = "Updates";
+
+
+"vol_was_successfully_ejected" = "\"%@\" was successfully ejected";

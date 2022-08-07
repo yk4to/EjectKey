@@ -1,7 +1,81 @@
-/* 
-  Localizable.strings
-  EjectKey
 
-  Created by Fus1onDev on 2022/08/07.
-  
-*/
+
+"about_ejectkey" = "Ejectkeyについて";
+
+
+"act_as_media_eject_key" = "メディアイジェクトキーとして振る舞う";
+
+
+"action_when_button_is_pressed" = "ボタンを押した時の動作";
+
+
+"check_for_updates" = "アップデートを確認...";
+
+
+"check_for_updates_automatically" = "アップデートを自動的に確認";
+
+
+"disk_num" = "ディスク%d";
+
+
+"display_only_when_external_volumeIs_connected" = "外部ボリュームが接続されている時だけ表示する";
+
+
+"eject_all_volumes" = "すべてのボリュームを取り出す";
+
+
+"eject_num_volumes" = "%d個のボリュームを取り出す";
+
+
+"enable_notifications" = "通知を有効化";
+
+
+"failed_to_eject_vol" = "\"%@\"の取り出しに失敗しました";
+
+
+"general" = "一般";
+
+
+"launch_at_login" = "ログイン時に起動";
+
+
+"menu_bar" = "メニューバー";
+
+
+"no_external_volume_connected" = "接続された外部ボリュームはありません";
+
+
+"notifications" = "通知";
+
+
+"notifications_are_not_allowed" = "通知が許可されていません。Macの環境設定から設定を変更してください。";
+
+
+"open_preferences" = "環境設定を開く...";
+
+
+"preferences" = "環境設定...";
+
+
+"quit_ejectkey" = "Ejectkeyを終了";
+
+
+"safely_removed" = "デバイスは安全に取り外すことができます。";
+
+
+"show_control_strip_button" = "Control Stripにボタンを表示";
+
+
+"show_eject_all_volumes_button" = "「すべてのボリュームを取り出す」ボタンを表示";
+
+
+"show_eject_all_volumes_in_disk_buttons" = "「ディスク内のすべてのボリュームを取り出す」ボタンを表示";
+
+
+"touch_bar" = "Touch Bar";
+
+
+"updates" = "更新";
+
+
+"vol_was_successfully_ejected" = "\"%@\"は正常に取り出されました";
