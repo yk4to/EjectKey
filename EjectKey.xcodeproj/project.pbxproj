@@ -33,6 +33,9 @@
 		D6288B1B289EC7D200F80FF1 /* Defaults+Workaround.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6288B1A289EC7D200F80FF1 /* Defaults+Workaround.swift */; };
 		D6288B3B289F41A800F80FF1 /* DFRFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6288B38289F412000F80FF1 /* DFRFoundation.framework */; };
 		D6288B3C289F41A800F80FF1 /* DFRFoundation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D6288B38289F412000F80FF1 /* DFRFoundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D6288B4128A0CB9800F80FF1 /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = D6288B4028A0CB9800F80FF1 /* KeyboardShortcuts */; };
+		D6288B4328A0CBB500F80FF1 /* Shortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6288B4228A0CBB500F80FF1 /* Shortcuts.swift */; };
+		D6288B4728A0CE2E00F80FF1 /* ShortcutsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6288B4628A0CE2E00F80FF1 /* ShortcutsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -78,6 +81,8 @@
 		D6288B3A289F41A800F80FF1 /* EjectKey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = EjectKey.app; path = /Users/yuta/develop/EjectKey/build/Debug/EjectKey.app; sourceTree = "<absolute>"; };
 		D6288B3D289F43DC00F80FF1 /* EjectKey-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EjectKey-Bridging-Header.h"; sourceTree = "<group>"; };
 		D6288B3E289F44D100F80FF1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		D6288B4228A0CBB500F80FF1 /* Shortcuts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shortcuts.swift; sourceTree = "<group>"; };
+		D6288B4628A0CE2E00F80FF1 /* ShortcutsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +92,7 @@
 			files = (
 				D6288AF4289EC11700F80FF1 /* SFSafeSymbols in Frameworks */,
 				D6288AF1289EC10100F80FF1 /* LaunchAtLogin in Frameworks */,
+				D6288B4128A0CB9800F80FF1 /* KeyboardShortcuts in Frameworks */,
 				D6288B3B289F41A800F80FF1 /* DFRFoundation.framework in Frameworks */,
 				D6288AEE289EC0E200F80FF1 /* Defaults in Frameworks */,
 			);
@@ -147,6 +153,7 @@
 			children = (
 				D6288AFE289EC45A00F80FF1 /* Volume.swift */,
 				D6288B00289EC47D00F80FF1 /* Defaults.swift */,
+				D6288B4228A0CBB500F80FF1 /* Shortcuts.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -176,6 +183,7 @@
 				D6288B0D289EC6F700F80FF1 /* GeneralView.swift */,
 				D6288B0F289EC71200F80FF1 /* MenuBarView.swift */,
 				D6288B11289EC72A00F80FF1 /* TouchBarView.swift */,
+				D6288B4628A0CE2E00F80FF1 /* ShortcutsView.swift */,
 				D6288B13289EC73F00F80FF1 /* NotificationsView.swift */,
 			);
 			path = Settings;
@@ -214,6 +222,7 @@
 				D6288AED289EC0E200F80FF1 /* Defaults */,
 				D6288AF0289EC10100F80FF1 /* LaunchAtLogin */,
 				D6288AF3289EC11700F80FF1 /* SFSafeSymbols */,
+				D6288B4028A0CB9800F80FF1 /* KeyboardShortcuts */,
 			);
 			productName = EjectKey;
 			productReference = D6288B3A289F41A800F80FF1 /* EjectKey.app */;
@@ -248,6 +257,7 @@
 				D6288AEC289EC0E200F80FF1 /* XCRemoteSwiftPackageReference "Defaults" */,
 				D6288AEF289EC10100F80FF1 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */,
 				D6288AF2289EC11700F80FF1 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */,
+				D6288B3F28A0CB9800F80FF1 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */,
 			);
 			productRefGroup = D6288AC5289EB5DB00F80FF1;
 			projectDirPath = "";
@@ -323,11 +333,13 @@
 				D6288AE9289EBE5600F80FF1 /* Strings.swift in Sources */,
 				D6288AFA289EC41900F80FF1 /* Observers.swift in Sources */,
 				D6288B12289EC72A00F80FF1 /* TouchBarView.swift in Sources */,
+				D6288B4728A0CE2E00F80FF1 /* ShortcutsView.swift in Sources */,
 				D6288B07289EC54A00F80FF1 /* TouchBar.swift in Sources */,
 				D6288B04289EC4B800F80FF1 /* MenuBar.swift in Sources */,
 				D6288B1B289EC7D200F80FF1 /* Defaults+Workaround.swift in Sources */,
 				D6288B17289EC7A200F80FF1 /* Resize.swift in Sources */,
 				D6288AF8289EC3F200F80FF1 /* Commands.swift in Sources */,
+				D6288B4328A0CBB500F80FF1 /* Shortcuts.swift in Sources */,
 				D6288AFF289EC45A00F80FF1 /* Volume.swift in Sources */,
 				D6288B0E289EC6F700F80FF1 /* GeneralView.swift in Sources */,
 				D6288AD2289EB5DB00F80FF1 /* EjectKeyApp.swift in Sources */,
@@ -580,6 +592,14 @@
 				minimumVersion = 3.0.0;
 			};
 		};
+		D6288B3F28A0CB9800F80FF1 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/KeyboardShortcuts";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -597,6 +617,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D6288AF2289EC11700F80FF1 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */;
 			productName = SFSafeSymbols;
+		};
+		D6288B4028A0CB9800F80FF1 /* KeyboardShortcuts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D6288B3F28A0CB9800F80FF1 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */;
+			productName = KeyboardShortcuts;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
