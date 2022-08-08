@@ -32,6 +32,8 @@ extension AppDelegate {
             } else {
                 setEjectAllVolumesButton(menu)
                 
+                menu.addItem(NSMenuItem.separator())
+                
                 units.forEach {
                     setEjectVolumesInDiskButtons(menu, $0)
                 }
@@ -50,7 +52,6 @@ extension AppDelegate {
                 action: #selector(AppDelegate.ejectAll(_:)),
                 keyEquivalent: ""
             ))
-            menu.addItem(NSMenuItem.separator())
         }
     }
     
@@ -84,7 +85,7 @@ extension AppDelegate {
         menu.addItem(NSMenuItem(
             title: L10n.preferences,
             action: #selector(openPreferencesWindow),
-            keyEquivalent: ""
+            keyEquivalent: ","
         ))
         
         menu.addItem(NSMenuItem(
