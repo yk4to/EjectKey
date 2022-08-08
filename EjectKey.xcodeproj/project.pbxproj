@@ -82,7 +82,7 @@
 		D6288B3E289F44D100F80FF1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D6288B4228A0CBB500F80FF1 /* Shortcuts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shortcuts.swift; sourceTree = "<group>"; };
 		D6288B4628A0CE2E00F80FF1 /* ShortcutsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutsView.swift; sourceTree = "<group>"; };
-		D6288B4928A0DAB100F80FF1 /* EjectKey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = EjectKey.app; path = /Users/yuta/develop/EjectKey/build/Debug/EjectKey.app; sourceTree = "<absolute>"; };
+		D6288B4928A0DAB100F80FF1 /* EjectKey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = EjectKey.app; path = BUILT_PRODUCTS_DIR/EjectKey.app; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
