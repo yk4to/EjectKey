@@ -7,6 +7,7 @@
 
 import Cocoa
 import Defaults
+import KeyboardShortcuts
 
 extension AppDelegate {
     func setVolumeObservers() {
@@ -32,5 +33,11 @@ extension AppDelegate {
         _ = Defaults.observe(keys: .showControlStripButton, .displayOnlyWhenExternalVolumeIsConnected) {
             self.setupTouchBar()
         }.tieToLifetime(of: self)
+    }
+    
+    func setShortcutObservers() {
+        KeyboardShortcuts.onKeyDown(for: .ejectAllVolumes) {
+            self.ejectAll()
+        }
     }
 }

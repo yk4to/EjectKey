@@ -27,6 +27,10 @@ struct SettingsView: View {
                         Label(L10n.touchBar, systemSymbol: .rectangle)
                     }
                 }
+            ShortcutsView()
+                .tabItem {
+                    Label(L10n.shortcuts, systemSymbol: .command)
+                }
             NotificationsView()
                 .tabItem {
                     Label(L10n.notifications, systemSymbol: .bell)

@@ -63,6 +63,9 @@
 "safely_removed" = "The device can now be safely removed.";
 
 
+"shortcuts" = "Shortcuts";
+
+
 "show_control_strip_button" = "Show Eject Button on Control Strip";
 
 

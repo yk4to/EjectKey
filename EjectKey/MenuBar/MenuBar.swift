@@ -8,6 +8,7 @@
 import Cocoa
 import Defaults
 import SFSafeSymbols
+import KeyboardShortcuts
 
 extension AppDelegate {
     func createMenu() {
@@ -47,11 +48,13 @@ extension AppDelegate {
     
     private func setEjectAllVolumesButton(_ menu: NSMenu) {
         if Defaults[.showEjectAllVolumesButton] && units.count > 1 {
-            menu.addItem(NSMenuItem(
+            let ejectAllVolumesButton = NSMenuItem(
                 title: L10n.ejectAllVolumes,
                 action: #selector(AppDelegate.ejectAll(_:)),
                 keyEquivalent: ""
-            ))
+            )
+            ejectAllVolumesButton.setShortcut(for: .ejectAllVolumes)
+            menu.addItem(ejectAllVolumesButton)
         }
     }
     

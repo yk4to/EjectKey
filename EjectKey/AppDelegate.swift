@@ -39,6 +39,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         setVolumeObservers()
         setMenuBarObservers()
         setTouchBarObservers()
+        setShortcutObservers()
         reload()
     }
     
