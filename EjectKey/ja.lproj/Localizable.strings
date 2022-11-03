@@ -48,7 +48,7 @@
 "notifications" = "通知";
 
 
-"notifications_are_not_allowed" = "通知が許可されていません。Macの環境設定から設定を変更してください。";
+"notifications_are_not_allowed" = "通知が許可されていません。Macのシステム設定から設定を変更してください。";
 
 
 "open_settings" = "設定を開く...";
@@ -76,6 +76,9 @@
 
 
 "show_menu_bar_extra" = "メニューバーエクストラを表示";
+
+
+"show_number_of_connected_volumes" = "接続されたボリュームの数を表示";
 
 
 "touch_bar" = "Touch Bar";

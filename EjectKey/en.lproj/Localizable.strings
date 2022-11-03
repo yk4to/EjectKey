@@ -48,7 +48,7 @@
 "notifications" = "Notifications";
 
 
-"notifications_are_not_allowed" = "Notifications are not allowed, please change the setting in your Mac preferences.";
+"notifications_are_not_allowed" = "Notifications are not allowed, please change the setting in your Mac Settings.";
 
 
 "open_settings" = "Open Settings...";
@@ -76,6 +76,9 @@
 
 
 "show_menu_bar_extra" = "Show Menu Bar Extra";
+
+
+"show_number_of_connected_volumes" = "Show Number of Connected Volumes";
 
 
 "touch_bar" = "Touch Bar";

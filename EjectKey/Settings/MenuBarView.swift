@@ -13,6 +13,7 @@ struct MenuBarView: View {
     var body: some View {
         Form {
             Defaults.Toggle(L10n.showMenuBarExtra, key: .showMenuBarExtra)
+            Defaults.Toggle(L10n.showNumberOfConnectedVolumes, key: .showNumberOfConnectedVolumes)
             Defaults.Toggle(L10n.showEjectAllVolumesButton, key: .showEjectAllVolumesButton)
             Defaults.Toggle(L10n.showEjectAllVolumesInDiskButtons, key: .showEjectAllVolumesInDiskButtons)
         }
