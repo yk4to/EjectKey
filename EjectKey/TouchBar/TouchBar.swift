@@ -9,7 +9,7 @@ import Cocoa
 import Defaults
 import SFSafeSymbols
 
-extension AppDelegate {
+extension AppModel {
     func setupTouchBar() {
         let isPresent = !(Defaults[.displayOnlyWhenExternalVolumeIsConnected] && units.isEmpty) && Defaults[.showControlStripButton]
         

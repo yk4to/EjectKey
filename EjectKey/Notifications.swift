@@ -9,7 +9,7 @@ import Foundation
 import Defaults
 import UserNotifications
 
-extension AppDelegate {
+extension AppModel {
     func requestNotificationAuth() {
         userNotificationCenter.requestAuthorization(options: [.alert, .sound]) { authorized, _ in
             guard authorized else {
