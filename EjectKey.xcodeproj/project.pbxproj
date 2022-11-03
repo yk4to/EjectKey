@@ -20,11 +20,8 @@
 		D6288AFC289EC43400F80FF1 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6288AFB289EC43400F80FF1 /* Notifications.swift */; };
 		D6288AFF289EC45A00F80FF1 /* Volume.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6288AFE289EC45A00F80FF1 /* Volume.swift */; };
 		D6288B01289EC47D00F80FF1 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6288B00289EC47D00F80FF1 /* Defaults.swift */; };
-		D6288B07289EC54A00F80FF1 /* TouchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6288B06289EC54A00F80FF1 /* TouchBar.swift */; };
 		D6288B0C289EC69D00F80FF1 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6288B0B289EC69D00F80FF1 /* SettingsView.swift */; };
 		D6288B0E289EC6F700F80FF1 /* GeneralView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6288B0D289EC6F700F80FF1 /* GeneralView.swift */; };
-		D6288B10289EC71200F80FF1 /* MenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6288B0F289EC71200F80FF1 /* MenuBarView.swift */; };
-		D6288B12289EC72A00F80FF1 /* TouchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6288B11289EC72A00F80FF1 /* TouchBarView.swift */; };
 		D6288B14289EC73F00F80FF1 /* NotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6288B13289EC73F00F80FF1 /* NotificationsView.swift */; };
 		D6288B17289EC7A200F80FF1 /* Resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6288B16289EC7A200F80FF1 /* Resize.swift */; };
 		D6288B19289EC7B600F80FF1 /* Unique.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6288B18289EC7B600F80FF1 /* Unique.swift */; };
@@ -66,18 +63,13 @@
 		D6288AFB289EC43400F80FF1 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		D6288AFE289EC45A00F80FF1 /* Volume.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Volume.swift; sourceTree = "<group>"; };
 		D6288B00289EC47D00F80FF1 /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
-		D6288B06289EC54A00F80FF1 /* TouchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchBar.swift; sourceTree = "<group>"; };
-		D6288B08289EC58C00F80FF1 /* TouchBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TouchBar.h; sourceTree = "<group>"; };
 		D6288B0B289EC69D00F80FF1 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		D6288B0D289EC6F700F80FF1 /* GeneralView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralView.swift; sourceTree = "<group>"; };
-		D6288B0F289EC71200F80FF1 /* MenuBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarView.swift; sourceTree = "<group>"; };
-		D6288B11289EC72A00F80FF1 /* TouchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchBarView.swift; sourceTree = "<group>"; };
 		D6288B13289EC73F00F80FF1 /* NotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsView.swift; sourceTree = "<group>"; };
 		D6288B16289EC7A200F80FF1 /* Resize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resize.swift; sourceTree = "<group>"; };
 		D6288B18289EC7B600F80FF1 /* Unique.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Unique.swift; sourceTree = "<group>"; };
 		D6288B1A289EC7D200F80FF1 /* Defaults+Workaround.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Defaults+Workaround.swift"; sourceTree = "<group>"; };
 		D6288B38289F412000F80FF1 /* DFRFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DFRFoundation.framework; path = ../../../../System/Library/PrivateFrameworks/DFRFoundation.framework; sourceTree = "<group>"; };
-		D6288B3D289F43DC00F80FF1 /* EjectKey-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EjectKey-Bridging-Header.h"; sourceTree = "<group>"; };
 		D6288B3E289F44D100F80FF1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D6288B4228A0CBB500F80FF1 /* Shortcuts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shortcuts.swift; sourceTree = "<group>"; };
 		D6288B4628A0CE2E00F80FF1 /* ShortcutsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutsView.swift; sourceTree = "<group>"; };
@@ -123,7 +115,6 @@
 				D6288AFB289EC43400F80FF1 /* Notifications.swift */,
 				D6288AFD289EC45000F80FF1 /* Objects */,
 				D6288B02289EC4A900F80FF1 /* MenuBar */,
-				D6288B05289EC4FC00F80FF1 /* TouchBar */,
 				D6288B0A289EC5D500F80FF1 /* Settings */,
 				D6288B15289EC78900F80FF1 /* Utils */,
 				D6288AD5289EB5DC00F80FF1 /* Assets.xcassets */,
@@ -169,23 +160,11 @@
 			path = MenuBar;
 			sourceTree = "<group>";
 		};
-		D6288B05289EC4FC00F80FF1 /* TouchBar */ = {
-			isa = PBXGroup;
-			children = (
-				D6288B3D289F43DC00F80FF1 /* EjectKey-Bridging-Header.h */,
-				D6288B06289EC54A00F80FF1 /* TouchBar.swift */,
-				D6288B08289EC58C00F80FF1 /* TouchBar.h */,
-			);
-			path = TouchBar;
-			sourceTree = "<group>";
-		};
 		D6288B0A289EC5D500F80FF1 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
 				D6288B0B289EC69D00F80FF1 /* SettingsView.swift */,
 				D6288B0D289EC6F700F80FF1 /* GeneralView.swift */,
-				D6288B0F289EC71200F80FF1 /* MenuBarView.swift */,
-				D6288B11289EC72A00F80FF1 /* TouchBarView.swift */,
 				D6288B4628A0CE2E00F80FF1 /* ShortcutsView.swift */,
 				D6288B13289EC73F00F80FF1 /* NotificationsView.swift */,
 			);
@@ -330,15 +309,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				D6288AFC289EC43400F80FF1 /* Notifications.swift in Sources */,
-				D6288B10289EC71200F80FF1 /* MenuBarView.swift in Sources */,
 				D6288B01289EC47D00F80FF1 /* Defaults.swift in Sources */,
 				D6288B19289EC7B600F80FF1 /* Unique.swift in Sources */,
 				D6288AE9289EBE5600F80FF1 /* Strings.swift in Sources */,
 				D6288AFA289EC41900F80FF1 /* Observers.swift in Sources */,
 				D696B78B29126D65001DD6FE /* MenuView.swift in Sources */,
-				D6288B12289EC72A00F80FF1 /* TouchBarView.swift in Sources */,
 				D6288B4728A0CE2E00F80FF1 /* ShortcutsView.swift in Sources */,
-				D6288B07289EC54A00F80FF1 /* TouchBar.swift in Sources */,
 				D696B78F2912A19D001DD6FE /* AppModel.swift in Sources */,
 				D696B793291367FD001DD6FE /* Hidden.swift in Sources */,
 				D6288B1B289EC7D200F80FF1 /* Defaults+Workaround.swift in Sources */,
@@ -507,7 +483,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = dev.fus1on.EjectKey;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "EjectKey/TouchBar/EjectKey-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
 				SYSTEM_FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -542,7 +518,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = dev.fus1on.EjectKey;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "EjectKey/TouchBar/EjectKey-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
 				SYSTEM_FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

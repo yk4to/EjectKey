@@ -15,8 +15,6 @@ final class AppModel: ObservableObject {
 
     let userNotificationCenter = UNUserNotificationCenter.current()
     
-    var touchBarItem: NSCustomTouchBarItem?
-    
     init() {
         // For debug
         // Defaults[.isFirstLaunch] = true
@@ -29,13 +27,11 @@ final class AppModel: ObservableObject {
         }
         
         setVolumeObservers()
-        setTouchBarObservers()
         setShortcutObservers()
         reload()
     }
     
     @objc func reload() {
         getVolumes()
-        setupTouchBar()
     }
 }

@@ -75,9 +75,6 @@
 "show_action_menu" = "アクションメニューを表示";
 
 
-"show_control_strip_button" = "Control Stripにボタンを表示";
-
-
 "show_detailed_information" = "詳細な情報を表示";
 
 
@@ -90,16 +87,7 @@
 "show_in_finder" = "Finderで表示";
 
 
-"show_menu_bar_extra" = "メニューバーエクストラを表示";
-
-
 "show_number_of_connected_volumes" = "接続されたボリュームの数を表示";
-
-
-"touch_bar" = "Touch Bar";
-
-
-"updates" = "更新";
 
 
 "vol_was_successfully_ejected" = "\"%@\"は正常に取り出されました";

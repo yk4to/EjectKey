@@ -15,18 +15,6 @@ struct SettingsView: View {
                 .tabItem {
                     Label(L10n.general, systemSymbol: .sliderHorizontal3)
                 }
-            MenuBarView()
-                .tabItem {
-                    Label(L10n.menuBar, systemSymbol: .menubarRectangle)
-                }
-            TouchBarView()
-                .tabItem {
-                    if #available(macOS 12.0, *) {
-                        Label(L10n.touchBar, systemSymbol: .rectangleAndHandPointUpLeft)
-                    } else {
-                        Label(L10n.touchBar, systemSymbol: .rectangle)
-                    }
-                }
             ShortcutsView()
                 .tabItem {
                     Label(L10n.shortcuts, systemSymbol: .command)

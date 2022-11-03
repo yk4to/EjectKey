@@ -7,6 +7,7 @@
 
 import SwiftUI
 import LaunchAtLogin
+import Defaults
 
 struct GeneralView: View {
 
@@ -15,6 +16,11 @@ struct GeneralView: View {
             LaunchAtLogin.Toggle {
                 Text(L10n.launchAtLogin)
             }
+            Defaults.Toggle(L10n.showNumberOfConnectedVolumes, key: .showNumberOfConnectedVolumes)
+            Defaults.Toggle(L10n.showEjectAllVolumesButton, key: .showEjectAllVolumesButton)
+            Defaults.Toggle(L10n.showEjectAllVolumesInDiskButtons, key: .showEjectAllVolumesInDiskButtons)
+            Defaults.Toggle(L10n.showActionMenu, key: .showActionMenu)
+            Defaults.Toggle(L10n.showDetailedInformation, key: .showDetailedInformation)
         }
         .padding(20)
     }
