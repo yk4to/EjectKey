@@ -7,36 +7,8 @@
 
 import Foundation
 
-extension AppDelegate {
-    func eject(index: Int) {
-        let volume = volumes[index]
-        ejectAndAlert(volume)
-    }
-    
-    func ejectAll() {
-        volumes.forEach {
-            ejectAndAlert($0)
-        }
-    }
-    
-    func ejectAllVolumeInDisk(unit: Int) {
-        getVolumesFromUnit(unit).forEach {
-            ejectAndAlert($0.element)
-        }
-    }
-    
-    func getVolumesFromUnit(_ unit: Int) -> [EnumeratedSequence<[Volume]>.Element] {
-        return volumes.enumerated().filter { $0.element.unit == unit }
-    }
-    
-    func getVolumes() {
-        if let mountedVolumeURLs = FileManager.default.mountedVolumeURLs(includingResourceValuesForKeys: nil, options: []) {
-            volumes = mountedVolumeURLs.compactMap({Volume(url: $0)})
-            units = volumes.map({$0.unit}).unique
-        }
-    }
-    
-    private func ejectAndAlert(_ volume: Volume) {
+extension AppModel {
+    func eject(_ volume: Volume) {
         volume.eject(force: false, action: {
             self.alert(
                 title: L10n.volWasSuccessfullyEjected(volume.name),
@@ -52,5 +24,28 @@ extension AppDelegate {
                 identifier: volume.id
             )
         })
+    }
+    
+    func ejectAll() {
+        volumes.forEach {
+            eject($0)
+        }
+    }
+    
+    func ejectAllVolumeInDisk(_ unit: Int) {
+        getVolumesFromUnit(unit).forEach {
+            eject($0)
+        }
+    }
+    
+    func getVolumesFromUnit(_ unit: Int) -> [Volume] {
+        return volumes.filter { $0.unit == unit }
+    }
+    
+    func getVolumes() {
+        if let mountedVolumeURLs = FileManager.default.mountedVolumeURLs(includingResourceValuesForKeys: nil, options: []) {
+            volumes = mountedVolumeURLs.compactMap({Volume(url: $0)})
+            units = volumes.map({$0.unit}).unique
+        }
     }
 }

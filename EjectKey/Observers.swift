@@ -9,7 +9,7 @@ import Cocoa
 import Defaults
 import KeyboardShortcuts
 
-extension AppDelegate {
+extension AppModel {
     func setVolumeObservers() {
         NSWorkspace.shared.notificationCenter.removeObserver(self)
         
@@ -21,12 +21,6 @@ extension AppDelegate {
         for notification in notifications {
             NSWorkspace.shared.notificationCenter.addObserver(self, selector: #selector(reload), name: notification, object: nil)
         }
-    }
-    
-    func setMenuBarObservers() {
-        _ = Defaults.observe(keys: .showEjectAllVolumesButton, .showEjectAllVolumesInDiskButtons) {
-            self.setMenu()
-        }.tieToLifetime(of: self)
     }
     
     func setTouchBarObservers() {

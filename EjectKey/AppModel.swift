@@ -1,30 +1,23 @@
 //
-//  AppDelegate.swift
+//  Appswift
 //  EjectKey
 //
-//  Created by Fus1onDev on 2022/08/07.
+//  Created by Fus1onDev on 2022/11/02.
 //
 
-import Cocoa
 import Defaults
 import UserNotifications
 
-class AppDelegate: NSObject, NSApplicationDelegate {
+final class AppModel: ObservableObject {
     
-    // Stored Properties
-    // (because extensions cannot have them)
-    
-    var statusItem: NSStatusItem!
-    
-    var volumes: [Volume] = []
-    var units: [Int] = []
+    @Published var volumes: [Volume] = []
+    @Published var units: [Int] = []
 
     let userNotificationCenter = UNUserNotificationCenter.current()
     
     var touchBarItem: NSCustomTouchBarItem?
     
-    func applicationDidFinishLaunching(_ notification: Notification) {
-        
+    init() {
         // For debug
         // Defaults[.isFirstLaunch] = true
         
@@ -35,9 +28,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             Defaults[.isFirstLaunch] = false
         }
         
-        createMenu()
         setVolumeObservers()
-        setMenuBarObservers()
         setTouchBarObservers()
         setShortcutObservers()
         reload()
@@ -45,7 +36,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @objc func reload() {
         getVolumes()
-        setMenu()
         setupTouchBar()
     }
 }

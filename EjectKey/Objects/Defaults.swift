@@ -24,6 +24,7 @@ enum ControlStripButtonAction: String, CaseIterable, Defaults.Serializable {
 extension Defaults.Keys {
     static let isFirstLaunch = Key<Bool>("isFirstLaunch", default: true)
     // Menu Bar
+    static let showMenuBarExtra = Key<Bool>("showMenuBarExtra", default: true)
     static let showEjectAllVolumesButton = Key<Bool>("showEjectAllButton", default: true)
     static let showEjectAllVolumesInDiskButtons = Key<Bool>("showEjectAllVolumesInDiskButtons", default: true)
     // Touch Bar
