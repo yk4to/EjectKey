@@ -23,12 +23,6 @@ extension AppModel {
         }
     }
     
-    func setTouchBarObservers() {
-        _ = Defaults.observe(keys: .showControlStripButton, .displayOnlyWhenExternalVolumeIsConnected) {
-            self.setupTouchBar()
-        }.tieToLifetime(of: self)
-    }
-    
     func setShortcutObservers() {
         KeyboardShortcuts.onKeyDown(for: .ejectAllVolumes) {
             self.ejectAll()

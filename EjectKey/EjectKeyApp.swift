@@ -10,16 +10,13 @@ import Defaults
 
 @main
 struct EjectKeyApp: App {
-    // Use of `Defaults` like this causes crashes
-    // @Default(.showMenuBarExtra) var showMenuBarExtra
-    @AppStorage("showMenuBarExtra") private var showMenuBarExtra = true
     @Default(.showNumberOfConnectedVolumes) var showNumberOfConnectedVolumes
     
     @StateObject var model = AppModel()
     
     var body: some Scene {
 
-        MenuBarExtra(isInserted: $showMenuBarExtra) {
+        MenuBarExtra(isInserted: .constant(true)) {
             MenuView(model: model)
         } label: {
             Image(systemSymbol: .ejectFill)
