@@ -26,8 +26,6 @@
 		D6288B17289EC7A200F80FF1 /* Resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6288B16289EC7A200F80FF1 /* Resize.swift */; };
 		D6288B19289EC7B600F80FF1 /* Unique.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6288B18289EC7B600F80FF1 /* Unique.swift */; };
 		D6288B1B289EC7D200F80FF1 /* Defaults+Workaround.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6288B1A289EC7D200F80FF1 /* Defaults+Workaround.swift */; };
-		D6288B3B289F41A800F80FF1 /* DFRFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6288B38289F412000F80FF1 /* DFRFoundation.framework */; };
-		D6288B3C289F41A800F80FF1 /* DFRFoundation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D6288B38289F412000F80FF1 /* DFRFoundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D6288B4128A0CB9800F80FF1 /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = D6288B4028A0CB9800F80FF1 /* KeyboardShortcuts */; };
 		D6288B4328A0CBB500F80FF1 /* Shortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6288B4228A0CBB500F80FF1 /* Shortcuts.swift */; };
 		D6288B4728A0CE2E00F80FF1 /* ShortcutsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6288B4628A0CE2E00F80FF1 /* ShortcutsView.swift */; };
@@ -35,20 +33,6 @@
 		D696B78F2912A19D001DD6FE /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D696B78E2912A19D001DD6FE /* AppModel.swift */; };
 		D696B793291367FD001DD6FE /* Hidden.swift in Sources */ = {isa = PBXBuildFile; fileRef = D696B792291367FD001DD6FE /* Hidden.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		D6288B33289F3A8B00F80FF1 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				D6288B3C289F41A800F80FF1 /* DFRFoundation.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		D6288AD1289EB5DB00F80FF1 /* EjectKeyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EjectKeyApp.swift; sourceTree = "<group>"; };
@@ -69,7 +53,6 @@
 		D6288B16289EC7A200F80FF1 /* Resize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resize.swift; sourceTree = "<group>"; };
 		D6288B18289EC7B600F80FF1 /* Unique.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Unique.swift; sourceTree = "<group>"; };
 		D6288B1A289EC7D200F80FF1 /* Defaults+Workaround.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Defaults+Workaround.swift"; sourceTree = "<group>"; };
-		D6288B38289F412000F80FF1 /* DFRFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DFRFoundation.framework; path = ../../../../System/Library/PrivateFrameworks/DFRFoundation.framework; sourceTree = "<group>"; };
 		D6288B3E289F44D100F80FF1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D6288B4228A0CBB500F80FF1 /* Shortcuts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shortcuts.swift; sourceTree = "<group>"; };
 		D6288B4628A0CE2E00F80FF1 /* ShortcutsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutsView.swift; sourceTree = "<group>"; };
@@ -87,7 +70,6 @@
 				D6288AF4289EC11700F80FF1 /* SFSafeSymbols in Frameworks */,
 				D6288AF1289EC10100F80FF1 /* LaunchAtLogin in Frameworks */,
 				D6288B4128A0CB9800F80FF1 /* KeyboardShortcuts in Frameworks */,
-				D6288B3B289F41A800F80FF1 /* DFRFoundation.framework in Frameworks */,
 				D6288AEE289EC0E200F80FF1 /* Defaults in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -98,7 +80,6 @@
 		D6288AC5289EB5DB00F80FF1 = {
 			isa = PBXGroup;
 			children = (
-				D6288B38289F412000F80FF1 /* DFRFoundation.framework */,
 				D6288AD0289EB5DB00F80FF1 /* EjectKey */,
 				D696B78929126B80001DD6FE /* EjectKey.app */,
 			);
@@ -194,7 +175,6 @@
 				D6288ACA289EB5DB00F80FF1 /* Sources */,
 				D6288ACB289EB5DB00F80FF1 /* Frameworks */,
 				D6288ACC289EB5DB00F80FF1 /* Resources */,
-				D6288B33289F3A8B00F80FF1 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
