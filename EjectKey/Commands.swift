@@ -45,7 +45,7 @@ extension AppModel {
     func getVolumes() {
         if let mountedVolumeURLs = FileManager.default.mountedVolumeURLs(includingResourceValuesForKeys: nil, options: []) {
             volumes = mountedVolumeURLs.compactMap({Volume(url: $0)})
-            units = volumes.map({$0.unit}).unique
+            units = volumes.map({$0.unit}).unique.sorted()
         }
     }
 }

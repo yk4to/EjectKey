@@ -28,7 +28,7 @@ struct MenuView: View {
             ForEach(model.units, id: \.self) { unit in
                 Text(L10n.diskNum(unit))
                 
-                Button(L10n.ejectAllVolumes) {
+                Button(L10n.ejectNumVolumes(model.getVolumesFromUnit(unit).count)) {
                     model.ejectAllVolumeInDisk(unit)
                 }
                 .hidden(!showEjectAllVolumesInDiskButtons || model.getVolumesFromUnit(unit).count <= 1)
@@ -43,7 +43,6 @@ struct MenuView: View {
                 }
             }
         }
-        Divider()
         Divider()
         Button(L10n.settings) {
             showSettingsWindow()
