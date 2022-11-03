@@ -24,7 +24,7 @@ struct EjectKeyApp: App {
                 .hidden(!showNumberOfConnectedVolumes)
         }
         Settings {
-            SettingsView()
+            SettingsView(model: model)
         }
     }
 }

@@ -91,8 +91,8 @@ struct MenuView: View {
     }
     
     private func showAbout() {
-        NSApp.activate(ignoringOtherApps: true)
-        NSApp.orderFrontStandardAboutPanel()
+        model.settingsTabSelection = "about"
+        showSettingsWindow()
     }
     
     private func quitApp() {

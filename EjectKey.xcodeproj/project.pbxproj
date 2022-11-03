@@ -32,6 +32,7 @@
 		D696B78B29126D65001DD6FE /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D696B78A29126D65001DD6FE /* MenuView.swift */; };
 		D696B78F2912A19D001DD6FE /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D696B78E2912A19D001DD6FE /* AppModel.swift */; };
 		D696B793291367FD001DD6FE /* Hidden.swift in Sources */ = {isa = PBXBuildFile; fileRef = D696B792291367FD001DD6FE /* Hidden.swift */; };
+		D696B7962913CD57001DD6FE /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D696B7952913CD57001DD6FE /* AboutView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +61,7 @@
 		D696B78A29126D65001DD6FE /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		D696B78E2912A19D001DD6FE /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
 		D696B792291367FD001DD6FE /* Hidden.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hidden.swift; sourceTree = "<group>"; };
+		D696B7952913CD57001DD6FE /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +150,7 @@
 				D6288B0D289EC6F700F80FF1 /* GeneralView.swift */,
 				D6288B4628A0CE2E00F80FF1 /* ShortcutsView.swift */,
 				D6288B13289EC73F00F80FF1 /* NotificationsView.swift */,
+				D696B7952913CD57001DD6FE /* AboutView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -304,6 +307,7 @@
 				D6288AFF289EC45A00F80FF1 /* Volume.swift in Sources */,
 				D6288B0E289EC6F700F80FF1 /* GeneralView.swift in Sources */,
 				D6288AD2289EB5DB00F80FF1 /* EjectKeyApp.swift in Sources */,
+				D696B7962913CD57001DD6FE /* AboutView.swift in Sources */,
 				D6288B0C289EC69D00F80FF1 /* SettingsView.swift in Sources */,
 				D6288B14289EC73F00F80FF1 /* NotificationsView.swift in Sources */,
 			);

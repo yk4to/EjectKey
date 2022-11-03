@@ -9,20 +9,30 @@ import SwiftUI
 import SFSafeSymbols
 
 struct SettingsView: View {
+    @ObservedObject var model: AppModel
+    
     var body: some View {
-        TabView {
+        TabView(selection: $model.settingsTabSelection) {
             GeneralView()
                 .tabItem {
                     Label(L10n.general, systemSymbol: .sliderHorizontal3)
                 }
+                .tag("general")
             ShortcutsView()
                 .tabItem {
                     Label(L10n.shortcuts, systemSymbol: .command)
                 }
+                .tag("shortcut")
             NotificationsView()
                 .tabItem {
                     Label(L10n.notifications, systemSymbol: .bell)
                 }
+                .tag("notifications")
+            AboutView()
+                .tabItem {
+                    Label(L10n.about, systemSymbol: .infoCircle)
+                }
+                .tag("about")
         }
         .frame(width: 500, height: .none)
     }
@@ -30,6 +40,6 @@ struct SettingsView: View {
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView()
+        SettingsView(model: AppModel())
     }
 }

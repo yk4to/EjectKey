@@ -12,6 +12,9 @@ final class AppModel: ObservableObject {
     
     @Published var volumes: [Volume] = []
     @Published var units: [Int] = []
+    
+    // Workaround for switching tabs of Settings View programmatically
+    @Published var settingsTabSelection = "general"
 
     let userNotificationCenter = UNUserNotificationCenter.current()
     
