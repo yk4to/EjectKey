@@ -51,16 +51,16 @@
 "notifications_are_not_allowed" = "Notifications are not allowed, please change the setting in your Mac preferences.";
 
 
-"open_preferences" = "Open Preferences...";
-
-
-"preferences" = "Preferences...";
+"open_settings" = "Open Settings...";
 
 
 "quit_ejectkey" = "Quit EjectKey";
 
 
 "safely_removed" = "The device can now be safely removed.";
+
+
+"settings" = "Settings...";
 
 
 "shortcuts" = "Shortcuts";
@@ -73,6 +73,9 @@
 
 
 "show_eject_all_volumes_in_disk_buttons" = "Show \"Eject All Volumes in Disk\" Buttons";
+
+
+"show_menu_bar_extra" = "Show Menu Bar Extra";
 
 
 "touch_bar" = "Touch Bar";

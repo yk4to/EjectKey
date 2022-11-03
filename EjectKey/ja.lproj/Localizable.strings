@@ -1,6 +1,6 @@
 
 
-"about_ejectkey" = "Ejectkeyについて";
+"about_ejectkey" = "EjectKeyについて";
 
 
 "act_as_media_eject_key" = "メディアイジェクトキーとして振る舞う";
@@ -51,16 +51,16 @@
 "notifications_are_not_allowed" = "通知が許可されていません。Macの環境設定から設定を変更してください。";
 
 
-"open_preferences" = "環境設定を開く...";
+"open_settings" = "設定を開く...";
 
 
-"preferences" = "環境設定...";
-
-
-"quit_ejectkey" = "Ejectkeyを終了";
+"quit_ejectkey" = "EjectKeyを終了";
 
 
 "safely_removed" = "デバイスは安全に取り外すことができます。";
+
+
+"settings" = "設定...";
 
 
 "shortcuts" = "ショートカット";
@@ -73,6 +73,9 @@
 
 
 "show_eject_all_volumes_in_disk_buttons" = "「ディスク内のすべてのボリュームを取り出す」ボタンを表示";
+
+
+"show_menu_bar_extra" = "メニューバーエクストラを表示";
 
 
 "touch_bar" = "Touch Bar";

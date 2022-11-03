@@ -24,7 +24,7 @@ struct NotificationsView: View {
                     VStack {
                         Text(L10n.notificationsAreNotAllowed)
                             .fixedSize(horizontal: false, vertical: true)
-                        Button(L10n.openPreferences) {
+                        Button(L10n.openSettings) {
                             NSWorkspace.shared.open(URL(fileURLWithPath: "/System/Library/PreferencePanes/Notifications.prefPane"))
                         }
                     }

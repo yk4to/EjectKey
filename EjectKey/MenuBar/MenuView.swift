@@ -45,8 +45,8 @@ struct MenuView: View {
         }
         Divider()
         Divider()
-        Button(L10n.preferences) {
-            openPreferencesWindow()
+        Button(L10n.settings) {
+            showSettingsWindow()
         }
         .keyboardShortcut(",")
         Button(L10n.aboutEjectkey) {
@@ -58,7 +58,7 @@ struct MenuView: View {
         .keyboardShortcut("Q")
     }
     
-    private func openPreferencesWindow() {
+    private func showSettingsWindow() {
         NSApp.sendAction(Selector(("showSettingsWindow:")), to: nil, from: nil)
         NSApp.windows.forEach {
             if $0.canBecomeMain {
