@@ -18,7 +18,13 @@
 "disk_num" = "ディスク%d";
 
 
+"disk_num_protocol" = "ディスク%d（%@）";
+
+
 "display_only_when_external_volumeIs_connected" = "外部ボリュームが接続されている時だけ表示する";
+
+
+"eject" = "取り出す";
 
 
 "eject_all_volumes" = "すべてのボリュームを取り出す";
@@ -66,13 +72,22 @@
 "shortcuts" = "ショートカット";
 
 
+"show_action_menu" = "アクションメニューを表示";
+
+
 "show_control_strip_button" = "Control Stripにボタンを表示";
+
+
+"show_detailed_information" = "詳細な情報を表示";
 
 
 "show_eject_all_volumes_button" = "「すべてのボリュームを取り出す」ボタンを表示";
 
 
 "show_eject_all_volumes_in_disk_buttons" = "「ディスク内のすべてのボリュームを取り出す」ボタンを表示";
+
+
+"show_in_finder" = "Finderで表示";
 
 
 "show_menu_bar_extra" = "メニューバーエクストラを表示";

@@ -14,9 +14,11 @@ import Cocoa
 class Volume {
 
     let disk: DADisk
-    let id: String
+    let bsdName: String
     let name: String
     let url: URL
+    let size: Int
+    let `protocol`: String
     let unit: Int
     let icon: NSImage
     
@@ -34,25 +36,33 @@ class Volume {
             return nil
         }
         
-        guard let diskInfo = DADiskCopyDescription(disk) as? [String: Any] else {
+        guard let diskInfo = DADiskCopyDescription(disk) as? [NSString: Any] else {
             return nil
         }
         
-        guard let name = diskInfo["DAVolumeName"] as? String else {
+        guard let name = diskInfo[kDADiskDescriptionVolumeNameKey] as? String else {
             return nil
         }
-        guard let id = diskInfo["DAMediaBSDName"] as? String else {
+        guard let bsdName = diskInfo[kDADiskDescriptionMediaBSDNameKey] as? String else {
             return nil
         }
-        guard let unit = diskInfo["DAMediaBSDUnit"] as? Int else {
+        guard let size = diskInfo[kDADiskDescriptionMediaSizeKey] as? Int else {
+            return nil
+        }
+        guard let `protocol` = diskInfo[kDADiskDescriptionDeviceProtocolKey] as? String else {
+            return nil
+        }
+        guard let unit = diskInfo[kDADiskDescriptionMediaBSDUnitKey] as? Int else {
             return nil
         }
         let icon = NSWorkspace.shared.icon(forFile: url.path)
         
         self.disk = disk
-        self.id = id
+        self.bsdName = bsdName
         self.name = name
         self.url = url
+        self.size = size
+        self.protocol = `protocol`
         self.unit = unit
         self.icon = icon
     }

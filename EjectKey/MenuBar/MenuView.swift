@@ -13,6 +13,8 @@ struct MenuView: View {
     
     @Default(.showEjectAllVolumesButton) var showEjectAllVolumesButton
     @Default(.showEjectAllVolumesInDiskButtons) var showEjectAllVolumesInDiskButtons
+    @Default(.showActionMenu) var showActionMenu
+    @Default(.showDetailedInformation) var showDetailedInformation
     
     var body: some View {
         if model.units.isEmpty {
@@ -26,19 +28,41 @@ struct MenuView: View {
                 .hidden(!showEjectAllVolumesButton || model.units.count <= 1)
             
             ForEach(model.units, id: \.self) { unit in
-                Text(L10n.diskNum(unit))
+                if showDetailedInformation {
+                    Text(L10n.diskNumProtocol(unit, model.getVolumesFromUnit(unit).first!.protocol))
+                } else {
+                    Text(L10n.diskNum(unit))
+                }
                 
                 Button(L10n.ejectNumVolumes(model.getVolumesFromUnit(unit).count)) {
                     model.ejectAllVolumeInDisk(unit)
                 }
                 .hidden(!showEjectAllVolumesInDiskButtons || model.getVolumesFromUnit(unit).count <= 1)
                 
-                ForEach(model.getVolumesFromUnit(unit), id: \.id) { volume in
-                    Button {
-                        model.eject(volume)
-                    } label: {
-                        Image(nsImage: volume.icon)
-                        Text(volume.name)
+                ForEach(model.getVolumesFromUnit(unit), id: \.bsdName) { volume in
+                    if showActionMenu {
+                        Menu {
+                            Button(L10n.eject) {
+                                model.eject(volume)
+                            }
+                            Button(L10n.showInFinder) {
+                                NSWorkspace.shared.activateFileViewerSelecting([volume.url])
+                            }
+                            if showDetailedInformation {
+                                Text("Size: \(volume.size.formatted(.byteCount(style: .file)))")
+                                Text("ID: \(volume.bsdName)")
+                            }
+                        } label: {
+                            Image(nsImage: volume.icon)
+                            Text(volume.name)
+                        }
+                    } else {
+                        Button {
+                            model.eject(volume)
+                        } label: {
+                            Image(nsImage: volume.icon)
+                            Text(volume.name)
+                        }
                     }
                 }
             }

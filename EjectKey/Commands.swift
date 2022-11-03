@@ -14,14 +14,14 @@ extension AppModel {
                 title: L10n.volWasSuccessfullyEjected(volume.name),
                 body: L10n.safelyRemoved,
                 sound: .default,
-                identifier: volume.id
+                identifier: volume.bsdName
             )
         }, errorAction: { description in
             self.alert(
                 title: L10n.failedToEjectVol(volume.name),
                 body: description,
                 sound: .defaultCritical,
-                identifier: volume.id
+                identifier: volume.bsdName
             )
         })
     }

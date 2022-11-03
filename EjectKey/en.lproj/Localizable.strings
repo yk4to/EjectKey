@@ -18,7 +18,13 @@
 "disk_num" = "Disk %d";
 
 
+"disk_num_protocol" = "Disk %d (%@)";
+
+
 "display_only_when_external_volumeIs_connected" = "Display only when external volume is connected";
+
+
+"eject" = "Eject";
 
 
 "eject_all_volumes" = "Eject All Volumes";
@@ -66,13 +72,22 @@
 "shortcuts" = "Shortcuts";
 
 
+"show_action_menu" = "Show Action Menu";
+
+
 "show_control_strip_button" = "Show Eject Button on Control Strip";
+
+
+"show_detailed_information" = "Show Detailed Information";
 
 
 "show_eject_all_volumes_button" = "Show \"Eject All Volumes\" Button";
 
 
 "show_eject_all_volumes_in_disk_buttons" = "Show \"Eject All Volumes in Disk\" Buttons";
+
+
+"show_in_finder" = "Show in Finder";
 
 
 "show_menu_bar_extra" = "Show Menu Bar Extra";
