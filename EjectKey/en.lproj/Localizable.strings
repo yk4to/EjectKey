@@ -15,9 +15,6 @@
 "disk_num" = "Disk %d";
 
 
-"disk_num_protocol" = "Disk %d (%@)";
-
-
 "eject" = "Eject";
 
 

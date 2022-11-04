@@ -29,7 +29,7 @@ struct MenuView: View {
             
             ForEach(model.units, id: \.self) { unit in
                 if showDetailedInformation {
-                    Text(L10n.diskNumProtocol(unit, model.getVolumesFromUnit(unit).first!.protocol))
+                    Text(getUnitLabel(model.getVolumesFromUnit(unit).first!))
                 } else {
                     Text(L10n.diskNum(unit))
                 }
@@ -49,6 +49,7 @@ struct MenuView: View {
                                 NSWorkspace.shared.activateFileViewerSelecting([volume.url])
                             }
                             if showDetailedInformation {
+                                Text("Format: \(volume.type)")
                                 Text("Size: \(volume.size.formatted(.byteCount(style: .file)))")
                                 Text("ID: \(volume.bsdName)")
                             }
@@ -97,6 +98,13 @@ struct MenuView: View {
     
     private func quitApp() {
         NSApplication.shared.terminate(nil)
+    }
+    
+    private func getUnitLabel(_ volume: Volume) -> String {
+        let model = volume.deviceModel
+        let vendor = volume.deviceVendor
+        let `protocol` = volume.deviceProtocol
+        return "\(vendor) \(model) (\(`protocol`))"
     }
 }
 

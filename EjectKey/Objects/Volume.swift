@@ -18,7 +18,10 @@ class Volume {
     let name: String
     let url: URL
     let size: Int
-    let `protocol`: String
+    let deviceProtocol: String
+    let deviceModel: String
+    let deviceVendor: String
+    let type: String
     let unit: Int
     let id: String
     let icon: NSImage
@@ -52,7 +55,16 @@ class Volume {
         guard let size = diskInfo[kDADiskDescriptionMediaSizeKey] as? Int else {
             return nil
         }
-        guard let `protocol` = diskInfo[kDADiskDescriptionDeviceProtocolKey] as? String else {
+        guard let deviceProtocol = diskInfo[kDADiskDescriptionDeviceProtocolKey] as? String else {
+            return nil
+        }
+        guard let deviceModel = diskInfo[kDADiskDescriptionDeviceModelKey] as? String else {
+            return nil
+        }
+        guard let deviceVendor = diskInfo[kDADiskDescriptionDeviceVendorKey] as? String else {
+            return nil
+        }
+        guard let type = diskInfo[kDADiskDescriptionVolumeTypeKey] as? String ?? diskInfo[kDADiskDescriptionMediaContentKey] as? String else {
             return nil
         }
         guard let unit = diskInfo[kDADiskDescriptionMediaBSDUnitKey] as? Int else {
@@ -72,7 +84,10 @@ class Volume {
         self.name = name
         self.url = url
         self.size = size
-        self.protocol = `protocol`
+        self.deviceProtocol = deviceProtocol
+        self.deviceModel = deviceModel
+        self.deviceVendor = deviceVendor
+        self.type = type
         self.unit = unit
         self.id = id
         self.icon = icon
