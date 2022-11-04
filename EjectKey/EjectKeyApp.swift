@@ -16,7 +16,7 @@ struct EjectKeyApp: App {
     
     var body: some Scene {
 
-        MenuBarExtra(isInserted: .constant(true)) {
+        MenuBarExtra {
             MenuView(model: model)
         } label: {
             Image(systemSymbol: .ejectFill)
