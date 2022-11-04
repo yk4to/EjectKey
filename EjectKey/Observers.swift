@@ -19,8 +19,12 @@ extension AppModel {
         ]
         
         for notification in notifications {
-            NSWorkspace.shared.notificationCenter.addObserver(self, selector: #selector(reload), name: notification, object: nil)
+            NSWorkspace.shared.notificationCenter.addObserver(self, selector: #selector(volumeObserverHandler), name: notification, object: nil)
         }
+    }
+    
+    @objc func volumeObserverHandler() {
+        getVolumes(check: true)
     }
     
     func setShortcutObservers() {

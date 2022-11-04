@@ -6,12 +6,6 @@
 "about_ejectkey" = "EjectKeyについて";
 
 
-"act_as_media_eject_key" = "メディアイジェクトキーとして振る舞う";
-
-
-"action_when_button_is_pressed" = "ボタンを押した時の動作";
-
-
 "check_for_updates" = "アップデートを確認...";
 
 
@@ -22,9 +16,6 @@
 
 
 "disk_num_protocol" = "ディスク%d（%@）";
-
-
-"display_only_when_external_volumeIs_connected" = "外部ボリュームが接続されている時だけ表示する";
 
 
 "eject" = "取り出す";
@@ -91,6 +82,9 @@
 
 
 "show_number_of_connected_volumes" = "接続されたボリュームの数を表示";
+
+
+"vol_has_been_connected" = "\"%@\"が接続されました";
 
 
 "vol_was_successfully_ejected" = "\"%@\"は正常に取り出されました";

@@ -31,10 +31,6 @@ final class AppModel: ObservableObject {
         
         setVolumeObservers()
         setShortcutObservers()
-        reload()
-    }
-    
-    @objc func reload() {
-        getVolumes()
+        getVolumes(check: false)
     }
 }

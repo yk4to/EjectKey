@@ -84,4 +84,7 @@
 "show_number_of_connected_volumes" = "Show Number of Connected Volumes";
 
 
+"vol_has_been_connected" = "\"%@\" has been connected.";
+
+
 "vol_was_successfully_ejected" = "\"%@\" was successfully ejected";

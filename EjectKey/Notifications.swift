@@ -5,7 +5,7 @@
 //  Created by Fus1onDev on 2022/08/07.
 //
 
-import Foundation
+import Cocoa
 import Defaults
 import UserNotifications
 

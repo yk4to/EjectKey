@@ -20,6 +20,7 @@ class Volume {
     let size: Int
     let `protocol`: String
     let unit: Int
+    let id: String
     let icon: NSImage
     
     init?(url: URL) {
@@ -39,6 +40,8 @@ class Volume {
         guard let diskInfo = DADiskCopyDescription(disk) as? [NSString: Any] else {
             return nil
         }
+        // For debug
+        // print("\(diskInfo as AnyObject)")
         
         guard let name = diskInfo[kDADiskDescriptionVolumeNameKey] as? String else {
             return nil
@@ -55,6 +58,13 @@ class Volume {
         guard let unit = diskInfo[kDADiskDescriptionMediaBSDUnitKey] as? Int else {
             return nil
         }
+        let idVal = diskInfo[kDADiskDescriptionVolumeUUIDKey]
+        // swiftlint:disable force_cast
+        let uuid = idVal as! CFUUID
+        guard let cfID = CFUUIDCreateString(kCFAllocatorDefault, uuid) else {
+            return nil
+        }
+        let id = cfID as String
         let icon = NSWorkspace.shared.icon(forFile: url.path)
         
         self.disk = disk
@@ -64,6 +74,7 @@ class Volume {
         self.size = size
         self.protocol = `protocol`
         self.unit = unit
+        self.id = id
         self.icon = icon
     }
     

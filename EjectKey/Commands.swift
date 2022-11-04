@@ -14,14 +14,14 @@ extension AppModel {
                 title: L10n.volWasSuccessfullyEjected(volume.name),
                 body: L10n.safelyRemoved,
                 sound: .default,
-                identifier: volume.bsdName
+                identifier: UUID().uuidString
             )
         }, errorAction: { description in
             self.alert(
                 title: L10n.failedToEjectVol(volume.name),
                 body: description,
                 sound: .defaultCritical,
-                identifier: volume.bsdName
+                identifier: UUID().uuidString
             )
         })
     }
@@ -42,10 +42,29 @@ extension AppModel {
         return volumes.filter { $0.unit == unit }
     }
     
-    func getVolumes() {
+    func getVolumes(check: Bool) {
         if let mountedVolumeURLs = FileManager.default.mountedVolumeURLs(includingResourceValuesForKeys: nil, options: []) {
-            volumes = mountedVolumeURLs.compactMap({Volume(url: $0)})
+            let _volumes = mountedVolumeURLs.compactMap { Volume(url: $0) }
+            if check {
+                checkVolumes(old: volumes, new: _volumes)
+            }
+            
+            volumes = _volumes
             units = volumes.map({$0.unit}).unique.sorted()
+        }
+    }
+    
+    func checkVolumes(old: [Volume], new: [Volume]) {
+        let oldIds = old.map { $0.id }
+        let mountedVolumes = new.filter { !oldIds.contains($0.id) }
+        
+        for volume in mountedVolumes {
+            alert(
+                title: L10n.volHasBeenConnected(volume.name),
+                body: "",
+                sound: .default,
+                identifier: UUID().uuidString
+            )
         }
     }
 }
