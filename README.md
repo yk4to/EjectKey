@@ -1,7 +1,7 @@
 # EjectKey
 
 ![](https://img.shields.io/github/v/release/Fus1onDev/EjectKey)
-![](https://img.shields.io/badge/Made%20with-Swift%20UI-F05138?logo=Swift)
+![](https://img.shields.io/badge/made%20with-Swift%20UI-F05138?logo=Swift)
 ![](https://img.shields.io/github/license/Fus1onDev/EjectKey)
 
 > Powerful macOS app to eject external volumes
