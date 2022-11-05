@@ -24,9 +24,6 @@
 "eject_num_volumes" = "%d個のボリュームを取り出す";
 
 
-"enable_notifications" = "通知を有効化";
-
-
 "failed_to_eject_vol" = "\"%@\"の取り出しに失敗しました";
 
 
@@ -81,7 +78,16 @@
 "show_number_of_connected_volumes" = "接続されたボリュームの数を表示";
 
 
+"sound_when_sending_notifications" = "通知の送信時に音を鳴らす";
+
+
 "vol_has_been_connected" = "\"%@\"が接続されました";
 
 
 "vol_was_successfully_ejected" = "\"%@\"は正常に取り出されました";
+
+
+"when_disk_is_connected" = "ディスクが接続された時";
+
+
+"when_disk_is_ejected" = "ディスクが取り出された時";

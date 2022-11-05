@@ -17,5 +17,7 @@ extension Defaults.Keys {
     static let showActionMenu = Key<Bool>("showActionMenu", default: false)
     static let showDetailedInformation = Key<Bool>("showDetailedInformation", default: false)
     // Notifications
-    static let enableNotifications = Key<Bool>("enableNotifications", default: true)
+    static let sendWhenDiskIsConnected = Key<Bool>("sendWhenDiskIsConnected", default: true)
+    static let sendWhenDiskIsEjected = Key<Bool>("sendWhenDiskIsEjected", default: true)
+    static let soundWhenSendingNotifications = Key<Bool>("soundWhenSendingNotifications", default: false)
 }

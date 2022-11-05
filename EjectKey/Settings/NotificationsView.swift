@@ -10,15 +10,19 @@ import Defaults
 import UserNotifications
 
 struct NotificationsView: View {
-    @Default(.enableNotifications) var enableNotifications
+    @Default(.sendWhenDiskIsConnected) var sendWhenDiskIsConnected
+    @Default(.sendWhenDiskIsEjected) var sendWhenDiskIsEjected
+    @Default(.soundWhenSendingNotifications) var soundWhenSendingNotifications
     @State private var isAuthed = false
     
     var body: some View {
         VStack {
             Form {
-                Toggle(L10n.enableNotifications, isOn: $enableNotifications)
+                Toggle(L10n.whenDiskIsConnected, isOn: $sendWhenDiskIsConnected)
+                Toggle(L10n.whenDiskIsEjected, isOn: $sendWhenDiskIsEjected)
+                Toggle(L10n.soundWhenSendingNotifications, isOn: $soundWhenSendingNotifications)
             }
-            if enableNotifications && !isAuthed {
+            if ( sendWhenDiskIsConnected || sendWhenDiskIsEjected ) && !isAuthed {
                 HStack {
                     Spacer()
                     VStack {

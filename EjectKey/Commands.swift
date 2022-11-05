@@ -6,23 +6,28 @@
 //
 
 import Foundation
+import Defaults
 
 extension AppModel {
     func eject(_ volume: Volume) {
         volume.eject(force: false, action: {
-            self.alert(
-                title: L10n.volWasSuccessfullyEjected(volume.name),
-                body: L10n.safelyRemoved,
-                sound: .default,
-                identifier: UUID().uuidString
-            )
+            if Defaults[.sendWhenDiskIsEjected] {
+                self.alert(
+                    title: L10n.volWasSuccessfullyEjected(volume.name),
+                    body: L10n.safelyRemoved,
+                    sound: .default,
+                    identifier: UUID().uuidString
+                )
+            }
         }, errorAction: { description in
-            self.alert(
-                title: L10n.failedToEjectVol(volume.name),
-                body: description,
-                sound: .defaultCritical,
-                identifier: UUID().uuidString
-            )
+            if Defaults[.sendWhenDiskIsEjected] {
+                self.alert(
+                    title: L10n.failedToEjectVol(volume.name),
+                    body: description,
+                    sound: .defaultCritical,
+                    identifier: UUID().uuidString
+                )
+            }
         })
     }
     
@@ -55,16 +60,18 @@ extension AppModel {
     }
     
     func checkVolumes(old: [Volume], new: [Volume]) {
-        let oldIds = old.map { $0.id }
-        let mountedVolumes = new.filter { !oldIds.contains($0.id) }
-        
-        for volume in mountedVolumes {
-            alert(
-                title: L10n.volHasBeenConnected(volume.name),
-                body: "",
-                sound: .default,
-                identifier: UUID().uuidString
-            )
+        if Defaults[.sendWhenDiskIsConnected] {
+            let oldIds = old.map { $0.id }
+            let mountedVolumes = new.filter { !oldIds.contains($0.id) }
+            
+            for volume in mountedVolumes {
+                alert(
+                    title: L10n.volHasBeenConnected(volume.name),
+                    body: "",
+                    sound: .default,
+                    identifier: UUID().uuidString
+                )
+            }
         }
     }
 }

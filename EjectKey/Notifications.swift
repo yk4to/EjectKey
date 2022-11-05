@@ -20,20 +20,20 @@ extension AppModel {
     }
     
     func alert(title: String, body: String, sound: UNNotificationSound, identifier: String) {
-        if Defaults[.enableNotifications] {
-            userNotificationCenter.getNotificationSettings { settings in
-                guard settings.authorizationStatus == .authorized else {
-                    return
-                }
-
-                let content = UNMutableNotificationContent()
-                content.title = title
-                content.body = body
-                content.sound = sound
-                
-                let request = UNNotificationRequest(identifier: identifier, content: content, trigger: nil)
-                self.userNotificationCenter.add(request)
+        userNotificationCenter.getNotificationSettings { settings in
+            guard settings.authorizationStatus == .authorized else {
+                return
             }
+
+            let content = UNMutableNotificationContent()
+            content.title = title
+            content.body = body
+            if Defaults[.soundWhenSendingNotifications] {
+                content.sound = sound
+            }
+            
+            let request = UNNotificationRequest(identifier: identifier, content: content, trigger: nil)
+            self.userNotificationCenter.add(request)
         }
     }
 }

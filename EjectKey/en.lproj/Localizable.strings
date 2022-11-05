@@ -15,6 +15,9 @@
 "disk_num" = "Disk %d";
 
 
+"disk_num_protocol" = "Disk %d (%@)";
+
+
 "eject" = "Eject";
 
 
@@ -22,9 +25,6 @@
 
 
 "eject_num_volumes" = "Eject %d Volumes";
-
-
-"enable_notifications" = "Enable Notifications";
 
 
 "failed_to_eject_vol" = "Failed to eject \"%@\"";
@@ -81,7 +81,16 @@
 "show_number_of_connected_volumes" = "Show Number of Connected Volumes";
 
 
+"sound_when_sending_notifications" = "Sound When Sending Notifications";
+
+
 "vol_has_been_connected" = "\"%@\" has been connected.";
 
 
 "vol_was_successfully_ejected" = "\"%@\" was successfully ejected";
+
+
+"when_disk_is_connected" = "When disk is connected";
+
+
+"when_disk_is_ejected" = "When disk is ejected";
