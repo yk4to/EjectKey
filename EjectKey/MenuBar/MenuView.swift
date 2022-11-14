@@ -49,7 +49,8 @@ struct MenuView: View {
                                 NSWorkspace.shared.activateFileViewerSelecting([volume.url])
                             }
                             if showDetailedInformation {
-                                Text("Format: \(volume.type)")
+                                Divider()
+                                Text(volume.type)
                                 Text("Size: \(volume.size.formatted(.byteCount(style: .file)))")
                                 Text("ID: \(volume.bsdName)")
                             }

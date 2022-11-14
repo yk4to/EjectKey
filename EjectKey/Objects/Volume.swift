@@ -27,8 +27,11 @@ class Volume {
     let icon: NSImage
     
     init?(url: URL) {
-        let isExternalVolume = url.pathComponents.count > 1 && url.pathComponents[1] == "Volumes"
-        if !isExternalVolume {
+        let resourceValues = try? url.resourceValues(forKeys: [.volumeIsInternalKey, .volumeLocalizedFormatDescriptionKey])
+        
+        // let isExternalVolume = url.pathComponents.count > 1 && url.pathComponents[1] == "Volumes"
+        let isInternalVolume = resourceValues?.volumeIsInternal ?? false
+        if isInternalVolume {
             return nil
         }
         
@@ -64,9 +67,6 @@ class Volume {
         guard let deviceVendor = diskInfo[kDADiskDescriptionDeviceVendorKey] as? String else {
             return nil
         }
-        guard let type = diskInfo[kDADiskDescriptionVolumeTypeKey] as? String ?? diskInfo[kDADiskDescriptionMediaContentKey] as? String else {
-            return nil
-        }
         guard let unit = diskInfo[kDADiskDescriptionMediaBSDUnitKey] as? Int else {
             return nil
         }
@@ -78,6 +78,8 @@ class Volume {
         }
         let id = cfID as String
         let icon = NSWorkspace.shared.icon(forFile: url.path)
+        
+        let type = resourceValues?.volumeLocalizedFormatDescription ?? ""
         
         self.disk = disk
         self.bsdName = bsdName
