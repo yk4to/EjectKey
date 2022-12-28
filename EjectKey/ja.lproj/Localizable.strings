@@ -6,6 +6,9 @@
 "about_ejectkey" = "EjectKeyについて";
 
 
+"applications_using_vol" = "\"%@\"を使用中のアプリケーション";
+
+
 "check_for_updates" = "アップデートを確認...";
 
 
@@ -22,6 +25,9 @@
 
 
 "eject_num_volumes" = "%d個のボリュームを取り出す";
+
+
+"experimental" = "（試験的）";
 
 
 "failed_to_eject_vol" = "\"%@\"の取り出しに失敗しました";
@@ -61,6 +67,9 @@
 
 
 "show_action_menu" = "アクションメニューを表示";
+
+
+"show_apps_when_ejection_fails" = "取り出し失敗時にボリュームを使用中のアプリケーションを表示";
 
 
 "show_detailed_information" = "詳細な情報を表示";

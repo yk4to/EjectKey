@@ -6,6 +6,9 @@
 "about_ejectkey" = "About EjectKey";
 
 
+"applications_using_vol" = "Applications using \"%@\"";
+
+
 "check_for_updates" = "Check for Updates...";
 
 
@@ -15,9 +18,6 @@
 "disk_num" = "Disk %d";
 
 
-"disk_num_protocol" = "Disk %d (%@)";
-
-
 "eject" = "Eject";
 
 
@@ -25,6 +25,9 @@
 
 
 "eject_num_volumes" = "Eject %d Volumes";
+
+
+"experimental" = " (Experimental)";
 
 
 "failed_to_eject_vol" = "Failed to eject \"%@\"";
@@ -64,6 +67,9 @@
 
 
 "show_action_menu" = "Show Action Menu";
+
+
+"show_apps_when_ejection_fails" = "Show applications currently using the volume when ejection fails";
 
 
 "show_detailed_information" = "Show Detailed Information";

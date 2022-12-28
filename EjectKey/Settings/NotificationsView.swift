@@ -13,6 +13,7 @@ struct NotificationsView: View {
     @Default(.sendWhenDiskIsConnected) var sendWhenDiskIsConnected
     @Default(.sendWhenDiskIsEjected) var sendWhenDiskIsEjected
     @Default(.soundWhenSendingNotifications) var soundWhenSendingNotifications
+    @Default(.showAppsWhenEjectionFails) var showAppsWhenEjectionFails
     @State private var isAuthed = false
     
     var body: some View {
@@ -21,6 +22,7 @@ struct NotificationsView: View {
                 Toggle(L10n.whenDiskIsConnected, isOn: $sendWhenDiskIsConnected)
                 Toggle(L10n.whenDiskIsEjected, isOn: $sendWhenDiskIsEjected)
                 Toggle(L10n.soundWhenSendingNotifications, isOn: $soundWhenSendingNotifications)
+                Toggle(L10n.showAppsWhenEjectionFails + L10n.experimental, isOn: $showAppsWhenEjectionFails)
             }
             if ( sendWhenDiskIsConnected || sendWhenDiskIsEjected ) && !isAuthed {
                 HStack {

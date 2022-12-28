@@ -5,7 +5,7 @@
 //  Created by Fus1onDev on 2022/08/07.
 //
 
-import Foundation
+import AppKit
 import Defaults
 
 extension AppModel {
@@ -27,6 +27,22 @@ extension AppModel {
                     sound: .defaultCritical,
                     identifier: UUID().uuidString
                 )
+            }
+            
+            if Defaults[.showAppsWhenEjectionFails] {
+                DispatchQueue.global().async {
+                    let culprits = volume.getCulprits()
+                    if !culprits.isEmpty {
+                        DispatchQueue.main.async {
+                            let alert = NSAlert()
+                            alert.alertStyle = .warning
+                            alert.messageText = L10n.applicationsUsingVol(volume.name)
+                            alert.informativeText = culprits.joined(separator: "\n")
+                            alert.addButton(withTitle: "OK")
+                            alert.runModal()
+                        }
+                    }
+                }
             }
         })
     }

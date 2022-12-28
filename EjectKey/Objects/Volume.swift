@@ -7,6 +7,7 @@
 
 // ref: https://github.com/bradleybernard/EjectBar/blob/master/EjectBar/Classes/Volume.swift
 // ref: https://github.com/nielsmouthaan/ejectify-macos/blob/main/ejectify/Model/ExternalVolume.swift
+// ref: https://github.com/phu54321/Semulov/blob/master/SLListCulprits.m
 
 import Dispatch
 import Cocoa
@@ -105,5 +106,46 @@ class Volume {
                 errorAction?((error as NSError).description)
             }
         }
+        /*let culprits = self.getCulprits()
+        let alert = NSAlert()
+        alert.alertStyle = .warning
+        alert.messageText = "削除しますか？"
+        alert.informativeText = "以下のアプリがこのボリュームを使用中です：\n\(culprits.joined(separator: "\n"))"
+        alert.addButton(withTitle: "OK")
+        alert.runModal()*/
+    }
+    
+    func getCulprits() -> [String] {
+        var culpritNames: [String] = []
+        
+        let applications = NSWorkspace.shared.runningApplications
+        for application in applications {
+            let pid = String(application.processIdentifier)
+            let process = Process()
+            process.executableURL = URL(fileURLWithPath: "/usr/sbin/lsof")
+            process.arguments = ["-Fcnp", "-p", pid]
+            let outputPipe = Pipe()
+            process.standardOutput = outputPipe
+            process.launch()
+            
+            if let data = try? outputPipe.fileHandleForReading.readToEnd(),
+               let output = String(data: data, encoding: .utf8) {
+                
+                let lines = output.components(separatedBy: .newlines)
+                for line in lines {
+                    if line.count == 0 {
+                        continue
+                    }
+                    let c = line.prefix(1)
+                    let v = String(line.dropFirst(1))
+                    if c == "n" && v.hasPrefix("/Volumes/\(url.lastPathComponent)/") {
+                        if let appName = application.localizedName {
+                            culpritNames.append(appName)
+                        }
+                    }
+                }
+            }
+        }
+        return culpritNames.unique
     }
 }

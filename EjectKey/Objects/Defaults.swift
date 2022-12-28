@@ -20,4 +20,5 @@ extension Defaults.Keys {
     static let sendWhenDiskIsConnected = Key<Bool>("sendWhenDiskIsConnected", default: true)
     static let sendWhenDiskIsEjected = Key<Bool>("sendWhenDiskIsEjected", default: true)
     static let soundWhenSendingNotifications = Key<Bool>("soundWhenSendingNotifications", default: false)
+    static let showAppsWhenEjectionFails = Key<Bool>("showAppsWhenEjectionFails", default: false)
 }
