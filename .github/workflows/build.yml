@@ -36,6 +36,8 @@ jobs:
         key: ${{ runner.os }}-mint-${{ hashFiles('**/Mintfile') }}
         restore-keys: |
           ${{ runner.os }}-mint-
+    - name: Create Folder
+      run: mkdir Generated
     - name: Build
       run: xcodebuild -scheme "$XCODE_SCHEME" archive CODE_SIGN_IDENTITY="$CODE_SIGN_IDENTITY" -archivePath "$BUILD_DIR/$XCODE_ARCHIVE"
     - name: Export
