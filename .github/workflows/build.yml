@@ -18,7 +18,7 @@ env:
 
 jobs:
   build:
-    runs-on: macOS-latest
+    runs-on: macos-13
     env:
       MINT_PATH: mint/lib
       MINT_LINK_PATH: mint/bin
