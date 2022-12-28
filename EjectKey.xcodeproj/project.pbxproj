@@ -264,7 +264,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# For M1 Mac, add the path to Homebrew\nif [ $(uname -m) = \"arm64\" ]; then\n  export PATH=\"/opt/homebrew/bin:/opt/homebrew/sbin:${PATH+:$PATH}\";\nfi\n\n\nif which mint >/dev/null; then\n  xcrun --sdk macosx mint run SwiftGen swiftgen\nelse\n  echo \"Warning: Mint is not installed\"\nfi\n";
+			shellScript = "if which swiftgen >/dev/null; then\n    swiftgen\nelse\n    echo \"warning: SwiftGen not installed\"\nfi\n";
 		};
 		D6288AEB289EBF3F00F80FF1 /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -282,7 +282,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# For M1 Mac, add the path to Homebrew\nif [ $(uname -m) = \"arm64\" ]; then\n  export PATH=\"/opt/homebrew/bin:/opt/homebrew/sbin:${PATH+:$PATH}\";\nfi\n\nif which mint >/dev/null; then\n  xcrun --sdk macosx mint run SwiftLint swiftlint\nelse\n  echo \"Warning: Mint is not installed\"\nfi\n";
+			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
