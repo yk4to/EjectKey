@@ -250,19 +250,19 @@
 /* Begin PBXShellScriptBuildPhase section */
 		D6288AE6289EBD3A00F80FF1 /* SwiftGen */ = {
 			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
+				"$(SRCROOT)/SwiftGenInput.xcfilelist",
 			);
 			inputPaths = (
 			);
 			name = SwiftGen;
 			outputFileListPaths = (
+				"$(SRCROOT)/SwiftGenOutput.xcfilelist",
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/EjectKey/Generated/Strings.swift",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
