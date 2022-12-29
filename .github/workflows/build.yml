@@ -15,10 +15,11 @@ env:
   APP_NAME: "EjectKey.app"
   DMG_NAME: "EjectKey"
   DMG_FILE_NAME: "EjectKey.dmg"
+  DEVELOPER_DIR: /Applications/Xcode_14.2.app/Contents/Developer
 
 jobs:
   build:
-    runs-on: macos-13
+    runs-on: macos-latest
     env:
       MINT_PATH: mint/lib
       MINT_LINK_PATH: mint/bin
