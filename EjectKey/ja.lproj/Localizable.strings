@@ -6,7 +6,7 @@
 "about_ejectkey" = "EjectKeyについて";
 
 
-"acknowledgments" = "このプロジェクトはオープンソースであり、MITライセンスの元で進められています。";
+"acknowledgments" = "このプロジェクトはオープンソースであり、MITライセンスの下で開発されています。";
 
 
 "applications_using_vol" = "\"%@\"を使用中のアプリケーション";
