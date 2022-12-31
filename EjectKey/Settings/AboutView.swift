@@ -21,7 +21,7 @@ struct AboutView: View {
                     .font(.largeTitle)
                 Spacer()
                     .frame(height: 0.4)
-                Text("Version \(version ?? "unknown") (\(build ?? "unknown"))")
+                Text("\(L10n.version) \(version ?? "unknown") (\(build ?? "unknown"))")
                     .foregroundColor(Color.secondary)
                     .textSelection(.enabled)
                 Spacer()
@@ -31,7 +31,7 @@ struct AboutView: View {
                     .font(.callout)
                 Spacer()
                     .frame(height: 4)
-                Text("This project is open source, and licensed under the MIT license.")
+                Text(L10n.acknowledgments)
                     .foregroundColor(Color.secondary)
                     .font(.callout)
                     .fixedSize(horizontal: false, vertical: true)
@@ -41,7 +41,7 @@ struct AboutView: View {
                             NSWorkspace.shared.open(url)
                         }
                     }
-                    Button("License") {
+                    Button(L10n.license) {
                         if let url = URL(string: "https://github.com/fus1ondev/EjectKey/blob/main/LICENSE") {
                             NSWorkspace.shared.open(url)
                         }

@@ -6,6 +6,9 @@
 "about_ejectkey" = "About EjectKey";
 
 
+"acknowledgments" = "This project is open source, and licensed under the MIT license.";
+
+
 "applications_using_vol" = "Applications using \"%@\"";
 
 
@@ -37,6 +40,9 @@
 
 
 "launch_at_login" = "Launch at Login";
+
+
+"license" = "License";
 
 
 "menu_bar" = "Menu Bar";
@@ -88,6 +94,9 @@
 
 
 "sound_when_sending_notifications" = "Sound When Sending Notifications";
+
+
+"version" = "Version";
 
 
 "vol_has_been_connected" = "\"%@\" has been connected.";
