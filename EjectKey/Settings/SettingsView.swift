@@ -15,7 +15,7 @@ struct SettingsView: View {
         TabView(selection: $model.settingsTabSelection) {
             GeneralView()
                 .tabItem {
-                    Label(L10n.general, systemSymbol: .sliderHorizontal3)
+                    Label(L10n.general, systemSymbol: .gearshape)
                 }
                 .tag("general")
             ShortcutsView()
