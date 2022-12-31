@@ -2,7 +2,7 @@
 //  AboutView.swift
 //  EjectKey
 //
-//  Created by Fus1onDev on 2022/11/03.
+//  Created by fus1ondev on 2022/11/03.
 //
 
 import SwiftUI
@@ -26,7 +26,7 @@ struct AboutView: View {
                     .textSelection(.enabled)
                 Spacer()
                     .frame(height: 10)
-                Text("© 2022 Fus1onDev. All rights reserved.")
+                Text("© 2022 fus1ondev. All rights reserved.")
                     .foregroundColor(Color.secondary)
                     .font(.callout)
                 Spacer()
@@ -37,12 +37,12 @@ struct AboutView: View {
                     .fixedSize(horizontal: false, vertical: true)
                 HStack {
                     Button("GitHub") {
-                        if let url = URL(string: "https://github.com/Fus1onDev/EjectKey") {
+                        if let url = URL(string: "https://github.com/fus1ondev/EjectKey") {
                             NSWorkspace.shared.open(url)
                         }
                     }
                     Button("License") {
-                        if let url = URL(string: "https://github.com/Fus1onDev/EjectKey/blob/main/LICENSE") {
+                        if let url = URL(string: "https://github.com/fus1ondev/EjectKey/blob/main/LICENSE") {
                             NSWorkspace.shared.open(url)
                         }
                     }

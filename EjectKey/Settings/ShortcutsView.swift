@@ -2,7 +2,7 @@
 //  ShortcutsView.swift
 //  EjectKey
 //
-//  Created by Fus1onDev on 2022/08/08.
+//  Created by fus1ondev on 2022/08/08.
 //
 
 import SwiftUI

@@ -2,7 +2,7 @@
 //  NotificationsView.swift
 //  EjectKey
 //
-//  Created by Fus1onDev on 2022/08/07.
+//  Created by fus1ondev on 2022/08/07.
 //
 
 import SwiftUI

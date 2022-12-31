@@ -2,7 +2,7 @@
 //  Volume.swift
 //  EjectKey
 //
-//  Created by Fus1onDev on 2022/08/07.
+//  Created by fus1ondev on 2022/08/07.
 //
 
 // ref: https://github.com/bradleybernard/EjectBar/blob/master/EjectBar/Classes/Volume.swift

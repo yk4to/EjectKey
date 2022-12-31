@@ -2,7 +2,7 @@
 //  Defaults+Workaround.swift
 //  EjectKey
 //
-//  Created by Fus1onDev on 2022/08/07.
+//  Created by fus1ondev on 2022/08/07.
 //
 
 // Workaround for using Defaults with Xcode 13.3 or later (due to Swift bug)

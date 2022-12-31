@@ -2,7 +2,7 @@
 //  Hidden.swift
 //  EjectKey
 //
-//  Created by Fus1onDev on 2022/11/03.
+//  Created by fus1ondev on 2022/11/03.
 //
 
 import SwiftUI

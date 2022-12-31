@@ -2,7 +2,7 @@
 
 ## Feature requests and bugs
 
-If you find any problems or have an idea for a new feature, please let us know in [Issues](https://github.com/Fus1onDev/EjectKey/issues).
+If you find any problems or have an idea for a new feature, please let us know in [Issues](https://github.com/fus1ondev/EjectKey/issues).
 
 Before posting a new issue, Don't forget to check if the same one already exists.
 
@@ -12,7 +12,7 @@ Any pull requests are also welcome.
 
 Currently, English and Japanese localizations are offered.
 
-If you can help us improve translations or support new languages, please post [an issue](https://github.com/Fus1onDev/EjectKey/issues) or [a pull request](https://github.com/Fus1onDev/EjectKey/pulls).
+If you can help us improve translations or support new languages, please post [an issue](https://github.com/fus1ondev/EjectKey/issues) or [a pull request](https://github.com/fus1ondev/EjectKey/pulls).
 
 [Localization Editor](https://github.com/igorkulman/iOSLocalizationEditor) is recommended for editing `Localizable.strings`.
 
@@ -29,7 +29,7 @@ You can install SwiftLint and SwiftGen from Homebrew.
 ```sh
 brew install swiftgen swiftlint
 
-git clone https://github.com/Fus1onDev/EjectKey.git
+git clone https://github.com/fus1ondev/EjectKey.git
 
 cd EjectKey/
 
