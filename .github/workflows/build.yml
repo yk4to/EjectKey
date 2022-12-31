@@ -33,7 +33,7 @@ jobs:
     - name: Create Folder
       run: mkdir EjectKey/Generated
     - name: Build
-      run: xcodebuild -scheme "$XCODE_SCHEME" archive CODE_SIGN_IDENTITY="$CODE_SIGN_IDENTITY" -archivePath "$BUILD_DIR/$XCODE_ARCHIVE"
+      run: xcodebuild -scheme "$XCODE_SCHEME" archive CODE_SIGN_IDENTITY="$CODE_SIGN_IDENTITY" -archivePath "$BUILD_DIR/$XCODE_ARCHIVE" -skipPackagePluginValidation
     - name: Export
       run: |
         plutil -convert xml1 - -o "$EXPORT_OPTIONS_PLIST" << EOF
