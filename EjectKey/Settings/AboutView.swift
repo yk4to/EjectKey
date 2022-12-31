@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import DependencyList
 
 struct AboutView: View {
     let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
@@ -42,9 +43,10 @@ struct AboutView: View {
                         }
                     }
                     Button(L10n.license) {
-                        if let url = URL(string: "https://github.com/fus1ondev/EjectKey/blob/main/LICENSE") {
-                            NSWorkspace.shared.open(url)
-                        }
+                        let window = DependencyListWindow()
+                        let licensesWindowColtroller = NSWindowController(window: window)
+                        licensesWindowColtroller.showWindow(nil)
+                        window.center()
                     }
                 }
             }

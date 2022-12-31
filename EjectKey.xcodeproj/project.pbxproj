@@ -33,6 +33,7 @@
 		D696B78F2912A19D001DD6FE /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D696B78E2912A19D001DD6FE /* AppModel.swift */; };
 		D696B793291367FD001DD6FE /* Hidden.swift in Sources */ = {isa = PBXBuildFile; fileRef = D696B792291367FD001DD6FE /* Hidden.swift */; };
 		D696B7962913CD57001DD6FE /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D696B7952913CD57001DD6FE /* AboutView.swift */; };
+		D6B238CE29601E690049CF72 /* DependencyList in Frameworks */ = {isa = PBXBuildFile; productRef = D6B238CD29601E690049CF72 /* DependencyList */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,6 +72,7 @@
 			files = (
 				D6288AF4289EC11700F80FF1 /* SFSafeSymbols in Frameworks */,
 				D6288AF1289EC10100F80FF1 /* LaunchAtLogin in Frameworks */,
+				D6B238CE29601E690049CF72 /* DependencyList in Frameworks */,
 				D6288B4128A0CB9800F80FF1 /* KeyboardShortcuts in Frameworks */,
 				D6288AEE289EC0E200F80FF1 /* Defaults in Frameworks */,
 			);
@@ -182,6 +184,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				D6B238D0296020560049CF72 /* PBXTargetDependency */,
 			);
 			name = EjectKey;
 			packageProductDependencies = (
@@ -189,6 +192,7 @@
 				D6288AF0289EC10100F80FF1 /* LaunchAtLogin */,
 				D6288AF3289EC11700F80FF1 /* SFSafeSymbols */,
 				D6288B4028A0CB9800F80FF1 /* KeyboardShortcuts */,
+				D6B238CD29601E690049CF72 /* DependencyList */,
 			);
 			productName = EjectKey;
 			productReference = D696B78929126B80001DD6FE /* EjectKey.app */;
@@ -224,6 +228,7 @@
 				D6288AEF289EC10100F80FF1 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */,
 				D6288AF2289EC11700F80FF1 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */,
 				D6288B3F28A0CB9800F80FF1 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */,
+				D6B238CC29601E690049CF72 /* XCRemoteSwiftPackageReference "DependencyList" */,
 			);
 			productRefGroup = D6288AC5289EB5DB00F80FF1;
 			projectDirPath = "";
@@ -316,6 +321,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D6B238D0296020560049CF72 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = D6B238CF296020560049CF72 /* PrepareDependencyList */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		D6288AE4289EBD1C00F80FF1 /* Localizable.strings */ = {
@@ -569,6 +581,14 @@
 				kind = branch;
 			};
 		};
+		D6B238CC29601E690049CF72 /* XCRemoteSwiftPackageReference "DependencyList" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Kyome22/DependencyList";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -591,6 +611,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D6288B3F28A0CB9800F80FF1 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */;
 			productName = KeyboardShortcuts;
+		};
+		D6B238CD29601E690049CF72 /* DependencyList */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D6B238CC29601E690049CF72 /* XCRemoteSwiftPackageReference "DependencyList" */;
+			productName = DependencyList;
+		};
+		D6B238CF296020560049CF72 /* PrepareDependencyList */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D6B238CC29601E690049CF72 /* XCRemoteSwiftPackageReference "DependencyList" */;
+			productName = "plugin:PrepareDependencyList";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
