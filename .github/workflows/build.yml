@@ -28,12 +28,22 @@ jobs:
       run: xcodebuild -version    
     - name: Checkout
       uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
     - name: Install Dependencies
       run: brew install swiftgen
     - name: Create Folder
       run: mkdir EjectKey/Generated
+    - name: Set Build Number
+      run: xcrun agvtool new-version -all `git rev-list HEAD --count`
+    - name: Cache Swift Packages
+      uses: actions/cache@v1
+      with:
+        path: SourcePackages
+        key: ${{ runner.os }}-spm-${{ hashFiles('*.xcodeproj/project.xcworkspace/ xcshareddata/swiftpm/Package.resolved') }}
+        restore-keys: ${{ runner.os }}-spm-
     - name: Build
-      run: xcodebuild -scheme "$XCODE_SCHEME" archive CODE_SIGN_IDENTITY="$CODE_SIGN_IDENTITY" -archivePath "$BUILD_DIR/$XCODE_ARCHIVE" -skipPackagePluginValidation
+      run: xcodebuild -scheme "$XCODE_SCHEME" archive CODE_SIGN_IDENTITY="$CODE_SIGN_IDENTITY" -archivePath "$BUILD_DIR/$XCODE_ARCHIVE" -skipPackagePluginValidation -clonedSourcePackagesDirPath SourcePackages
     - name: Export
       run: |
         plutil -convert xml1 - -o "$EXPORT_OPTIONS_PLIST" << EOF
