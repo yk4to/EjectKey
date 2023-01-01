@@ -10,41 +10,43 @@ import Defaults
 
 extension AppModel {
     func eject(_ volume: Volume) {
-        volume.eject(force: false, action: {
-            if Defaults[.sendWhenDiskIsEjected] {
-                self.alert(
-                    title: L10n.volWasSuccessfullyEjected(volume.name),
-                    body: L10n.safelyRemoved,
-                    sound: .default,
-                    identifier: UUID().uuidString
-                )
-            }
-        }, errorAction: { description in
-            if Defaults[.sendWhenDiskIsEjected] {
-                self.alert(
-                    title: L10n.failedToEjectVol(volume.name),
-                    body: description,
-                    sound: .defaultCritical,
-                    identifier: UUID().uuidString
-                )
-            }
-            
-            if Defaults[.showAppsWhenEjectionFails] {
-                DispatchQueue.global().async {
-                    let culprits = volume.getCulprits()
-                    if !culprits.isEmpty {
-                        DispatchQueue.main.async {
-                            let alert = NSAlert()
-                            alert.alertStyle = .warning
-                            alert.messageText = L10n.applicationsUsingVol(volume.name)
-                            alert.informativeText = culprits.joined(separator: "\n")
-                            alert.addButton(withTitle: "OK")
-                            alert.runModal()
+        DispatchQueue.global().async {
+            volume.eject(force: false, action: {
+                if Defaults[.sendWhenDiskIsEjected] {
+                    self.alert(
+                        title: L10n.volWasSuccessfullyEjected(volume.name),
+                        body: L10n.safelyRemoved,
+                        sound: .default,
+                        identifier: UUID().uuidString
+                    )
+                }
+            }, errorAction: { description in
+                if Defaults[.sendWhenDiskIsEjected] {
+                    self.alert(
+                        title: L10n.failedToEjectVol(volume.name),
+                        body: description,
+                        sound: .defaultCritical,
+                        identifier: UUID().uuidString
+                    )
+                }
+                
+                if Defaults[.showAppsWhenEjectionFails] {
+                    DispatchQueue.global().async {
+                        let culprits = volume.getCulprits()
+                        if !culprits.isEmpty {
+                            DispatchQueue.main.async {
+                                let alert = NSAlert()
+                                alert.alertStyle = .warning
+                                alert.messageText = L10n.applicationsUsingVol(volume.name)
+                                alert.informativeText = culprits.joined(separator: "\n")
+                                alert.addButton(withTitle: "OK")
+                                alert.runModal()
+                            }
                         }
                     }
                 }
-            }
-        })
+            })
+        }
     }
     
     func ejectAll() {
