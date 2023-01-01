@@ -39,12 +39,12 @@ jobs:
     - name: Cache Swift Packages
       uses: actions/cache@v3
       with:
-        path: .build
+        path: SourcePackages
         key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
         restore-keys: |
           ${{ runner.os }}-spm-
     - name: Build
-      run: xcodebuild -scheme "$XCODE_SCHEME" archive CODE_SIGN_IDENTITY="$CODE_SIGN_IDENTITY" -archivePath "$BUILD_DIR/$XCODE_ARCHIVE" -skipPackagePluginValidation
+      run: xcodebuild -scheme "$XCODE_SCHEME" archive CODE_SIGN_IDENTITY="$CODE_SIGN_IDENTITY" -archivePath "$BUILD_DIR/$XCODE_ARCHIVE" -skipPackagePluginValidation -clonedSourcePackagesDirPath SourcePackages
     - name: Export
       run: |
         plutil -convert xml1 - -o "$EXPORT_OPTIONS_PLIST" << EOF
