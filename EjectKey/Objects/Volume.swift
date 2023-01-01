@@ -68,7 +68,10 @@ class Volume {
         guard let deviceVendor = diskInfo[kDADiskDescriptionDeviceVendorKey] as? String else {
             return nil
         }
-        guard let unit = diskInfo[kDADiskDescriptionMediaBSDUnitKey] as? Int else {
+        /*guard let unit = diskInfo[kDADiskDescriptionMediaBSDUnitKey] as? Int else {
+            return nil
+        }*/
+        guard let unit = diskInfo[kDADiskDescriptionDeviceUnitKey] as? Int else {
             return nil
         }
         let idVal = diskInfo[kDADiskDescriptionVolumeUUIDKey]
