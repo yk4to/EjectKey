@@ -28,6 +28,11 @@ struct SettingsView: View {
                     Label(L10n.notifications, systemSymbol: .bell)
                 }
                 .tag("notifications")
+            ExperimentalView()
+                .tabItem {
+                    Label(L10n.experimental, systemSymbol: .sparkles)
+                }
+                .tag("experimental")
             AboutView()
                 .tabItem {
                     Label(L10n.about, systemSymbol: .infoCircle)

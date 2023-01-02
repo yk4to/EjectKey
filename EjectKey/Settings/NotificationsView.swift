@@ -13,7 +13,6 @@ struct NotificationsView: View {
     @Default(.sendWhenDiskIsConnected) var sendWhenDiskIsConnected
     @Default(.sendWhenDiskIsEjected) var sendWhenDiskIsEjected
     @Default(.soundWhenSendingNotifications) var soundWhenSendingNotifications
-    @Default(.showAppsWhenEjectionFails) var showAppsWhenEjectionFails
     @State private var isAuthed = false
     
     var body: some View {
@@ -35,9 +34,6 @@ struct NotificationsView: View {
                 }
                 Section {
                     Toggle(L10n.soundWhenSendingNotifications, isOn: $soundWhenSendingNotifications)
-                }
-                Section {
-                    Toggle(L10n.showAppsWhenEjectionFails + L10n.experimental, isOn: $showAppsWhenEjectionFails)
                 }
             }
             .formStyle(.grouped)

@@ -30,7 +30,10 @@
 "eject_num_volumes" = "%d個のボリュームを取り出す";
 
 
-"experimental" = "（試験的）";
+"experimental" = "実験的機能";
+
+
+"experimental_note" = "実験的機能には不具合が含まれている可能性があります。";
 
 
 "failed_to_eject_vol" = "\"%@\"の取り出しに失敗しました";

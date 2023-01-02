@@ -30,7 +30,10 @@
 "eject_num_volumes" = "Eject %d Volumes";
 
 
-"experimental" = " (Experimental)";
+"experimental" = "Experimental";
+
+
+"experimental_note" = "Experimental features may contain defects.";
 
 
 "failed_to_eject_vol" = "Failed to eject \"%@\"";
