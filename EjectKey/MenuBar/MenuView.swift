@@ -16,6 +16,8 @@ struct MenuView: View {
     @Default(.showActionMenu) var showActionMenu
     @Default(.showDetailedInformation) var showDetailedInformation
     
+    @EnvironmentObject var updaterViewModel: UpdaterViewModel
+    
     var body: some View {
         if model.units.isEmpty {
             Text(L10n.noExternalVolumeConnected)
@@ -77,6 +79,7 @@ struct MenuView: View {
         Button(L10n.aboutEjectkey) {
             showAbout()
         }
+        CheckForUpdatesView(updaterViewModel: updaterViewModel)
         Button(L10n.quitEjectkey) {
             quitApp()
         }

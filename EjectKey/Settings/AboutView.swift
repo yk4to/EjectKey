@@ -9,6 +9,8 @@ import SwiftUI
 import DependencyList
 
 struct AboutView: View {
+    @EnvironmentObject var updaterViewModel: UpdaterViewModel
+    
     let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
     let build = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String
     
@@ -48,6 +50,7 @@ struct AboutView: View {
                         licensesWindowColtroller.showWindow(nil)
                         window.center()
                     }
+                    CheckForUpdatesView(updaterViewModel: updaterViewModel)
                 }
             }
         }

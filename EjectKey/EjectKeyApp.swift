@@ -14,11 +14,13 @@ struct EjectKeyApp: App {
     @Default(.doNotDisplayNumbersWhenNothingIsConnected) var doNotDisplayNumbersWhenNothingIsConnected
     
     @StateObject var model = AppModel()
+    @StateObject var updaterViewModel = UpdaterViewModel()
     
     var body: some Scene {
 
         MenuBarExtra {
             MenuView(model: model)
+                .environmentObject(updaterViewModel)
         } label: {
             Image(systemSymbol: .ejectFill)
             if !(doNotDisplayNumbersWhenNothingIsConnected && model.allVolumes.isEmpty) {
@@ -28,6 +30,7 @@ struct EjectKeyApp: App {
         }
         Settings {
             SettingsView(model: model)
+                .environmentObject(updaterViewModel)
         }
     }
 }

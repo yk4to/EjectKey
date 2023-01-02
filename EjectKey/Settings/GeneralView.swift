@@ -10,6 +10,8 @@ import LaunchAtLogin
 import Defaults
 
 struct GeneralView: View {
+    @EnvironmentObject var updaterViewModel: UpdaterViewModel
+    @State private var automaticallyChecksForUpdates = true
 
     var body: some View {
         Form {
@@ -17,6 +19,15 @@ struct GeneralView: View {
                 LaunchAtLogin.Toggle {
                     Text(L10n.launchAtLogin)
                 }
+            }
+            Section {
+                Toggle(L10n.checkForUpdatesAutomatically, isOn: $automaticallyChecksForUpdates)
+                    .onChange(of: automaticallyChecksForUpdates) { newValue in
+                        updaterViewModel.automaticallyChecksForUpdates = newValue
+                    }
+                    .onAppear {
+                        automaticallyChecksForUpdates = updaterViewModel.automaticallyChecksForUpdates
+                    }
             }
             Section {
                 Defaults.Toggle(L10n.showNumberOfConnectedVolumes, key: .showNumberOfConnectedVolumes)
