@@ -13,16 +13,23 @@ struct GeneralView: View {
 
     var body: some View {
         Form {
-            LaunchAtLogin.Toggle {
-                Text(L10n.launchAtLogin)
+            Section {
+                LaunchAtLogin.Toggle {
+                    Text(L10n.launchAtLogin)
+                }
             }
-            Defaults.Toggle(L10n.showNumberOfConnectedVolumes, key: .showNumberOfConnectedVolumes)
-            Defaults.Toggle(L10n.showEjectAllVolumesButton, key: .showEjectAllVolumesButton)
-            Defaults.Toggle(L10n.showEjectAllVolumesInDiskButtons, key: .showEjectAllVolumesInDiskButtons)
-            Defaults.Toggle(L10n.showActionMenu, key: .showActionMenu)
-            Defaults.Toggle(L10n.showDetailedInformation, key: .showDetailedInformation)
+            Section {
+                Defaults.Toggle(L10n.showNumberOfConnectedVolumes, key: .showNumberOfConnectedVolumes)
+            }
+            Section {
+                Defaults.Toggle(L10n.showEjectAllVolumesButton, key: .showEjectAllVolumesButton)
+                Defaults.Toggle(L10n.showEjectAllVolumesInDiskButtons, key: .showEjectAllVolumesInDiskButtons)
+                Defaults.Toggle(L10n.showActionMenu, key: .showActionMenu)
+                Defaults.Toggle(L10n.showDetailedInformation, key: .showDetailedInformation)
+            }
         }
-        .padding(20)
+        .formStyle(.grouped)
+        .fixedSize(horizontal: false, vertical: true)
     }
 }
 

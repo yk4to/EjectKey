@@ -19,29 +19,30 @@ struct NotificationsView: View {
     var body: some View {
         VStack {
             Form {
-                Toggle(L10n.whenDiskIsConnected, isOn: $sendWhenDiskIsConnected)
-                Toggle(L10n.whenDiskIsEjected, isOn: $sendWhenDiskIsEjected)
-                Toggle(L10n.soundWhenSendingNotifications, isOn: $soundWhenSendingNotifications)
-                Toggle(L10n.showAppsWhenEjectionFails + L10n.experimental, isOn: $showAppsWhenEjectionFails)
-            }
-            if ( sendWhenDiskIsConnected || sendWhenDiskIsEjected ) && !isAuthed {
-                HStack {
-                    Spacer()
-                    VStack {
-                        Text(L10n.notificationsAreNotAllowed)
-                            .fixedSize(horizontal: false, vertical: true)
-                        Button(L10n.openSettings) {
-                            NSWorkspace.shared.open(URL(fileURLWithPath: "/System/Library/PreferencePanes/Notifications.prefPane"))
+                if ( sendWhenDiskIsConnected || sendWhenDiskIsEjected ) && !isAuthed {
+                    Section {
+                        HStack {
+                            Label(L10n.notificationsAreNotAllowed, systemSymbol: .exclamationmarkTriangle)
+                            Button(L10n.openSettings) {
+                                NSWorkspace.shared.open(URL(fileURLWithPath: "/System/Library/PreferencePanes/Notifications.prefPane"))
+                            }
                         }
                     }
-                    .padding(14)
-                    .background(Color(NSColor.separatorColor))
-                    .cornerRadius(4)
-                    Spacer()
+                }
+                Section {
+                    Toggle(L10n.whenDiskIsConnected, isOn: $sendWhenDiskIsConnected)
+                    Toggle(L10n.whenDiskIsEjected, isOn: $sendWhenDiskIsEjected)
+                }
+                Section {
+                    Toggle(L10n.soundWhenSendingNotifications, isOn: $soundWhenSendingNotifications)
+                }
+                Section {
+                    Toggle(L10n.showAppsWhenEjectionFails + L10n.experimental, isOn: $showAppsWhenEjectionFails)
                 }
             }
+            .formStyle(.grouped)
+            .fixedSize(horizontal: false, vertical: true)
         }
-        .padding(20)
         .onAppear {
             checkAuthStatus()
         }
