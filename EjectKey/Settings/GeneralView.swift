@@ -20,6 +20,7 @@ struct GeneralView: View {
             }
             Section {
                 Defaults.Toggle(L10n.showNumberOfConnectedVolumes, key: .showNumberOfConnectedVolumes)
+                Defaults.Toggle(L10n.doNotDisplayNumbersWhenNothingIsConnected, key: .doNotDisplayNumbersWhenNothingIsConnected)
             }
             Section {
                 Defaults.Toggle(L10n.showEjectAllVolumesButton, key: .showEjectAllVolumesButton)

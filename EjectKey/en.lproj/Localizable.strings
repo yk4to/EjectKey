@@ -21,6 +21,9 @@
 "disk_num" = "Disk %@";
 
 
+"do_not_display_numbers_when_nothing_is_connected" = "Do not display numbers when nothing is connected";
+
+
 "eject" = "Eject";
 
 

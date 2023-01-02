@@ -11,6 +11,7 @@ import Defaults
 @main
 struct EjectKeyApp: App {
     @Default(.showNumberOfConnectedVolumes) var showNumberOfConnectedVolumes
+    @Default(.doNotDisplayNumbersWhenNothingIsConnected) var doNotDisplayNumbersWhenNothingIsConnected
     
     @StateObject var model = AppModel()
     
@@ -20,8 +21,10 @@ struct EjectKeyApp: App {
             MenuView(model: model)
         } label: {
             Image(systemSymbol: .ejectFill)
-            Text(String(model.allVolumes.count))
-                .hidden(!showNumberOfConnectedVolumes)
+            if !(doNotDisplayNumbersWhenNothingIsConnected && model.allVolumes.isEmpty) {
+                Text(String(model.allVolumes.count))
+                    .hidden(!showNumberOfConnectedVolumes)
+            }
         }
         Settings {
             SettingsView(model: model)
