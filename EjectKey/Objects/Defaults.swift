@@ -23,4 +23,5 @@ extension Defaults.Keys {
     static let soundWhenSendingNotifications = Key<Bool>("soundWhenSendingNotifications", default: false)
     // Experimental
     static let showAppsWhenEjectionFails = Key<Bool>("showAppsWhenEjectionFails", default: false)
+    static let showMoveToTrashDialog = Key<Bool>("showMoveToTrashDialog", default: false)
 }

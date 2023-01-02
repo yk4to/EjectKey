@@ -10,6 +10,7 @@ import Defaults
 
 struct ExperimentalView: View {
     @Default(.showAppsWhenEjectionFails) var showAppsWhenEjectionFails
+    @Default(.showMoveToTrashDialog) var showMoveToTrashDialog
 
     var body: some View {
         Form {
@@ -19,6 +20,9 @@ struct ExperimentalView: View {
             }
             Section {
                 Toggle(L10n.showAppsWhenEjectionFails, isOn: $showAppsWhenEjectionFails)
+            }
+            Section {
+                Toggle(L10n.showMoveToTrashDialog, isOn: $showMoveToTrashDialog)
             }
         }
         .formStyle(.grouped)

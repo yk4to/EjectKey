@@ -12,6 +12,9 @@
 "applications_using_vol" = "\"%@\"を使用中のアプリケーション";
 
 
+"cancel" = "キャンセル";
+
+
 "check_for_updates" = "アップデートを確認...";
 
 
@@ -42,6 +45,9 @@
 "failed_to_eject_vol" = "\"%@\"の取り出しに失敗しました";
 
 
+"found_the_following_dmg_files" = "Found the following .dmg files";
+
+
 "general" = "一般";
 
 
@@ -52,6 +58,9 @@
 
 
 "menu_bar" = "メニューバー";
+
+
+"move_to_trash" = "ゴミ箱に入れる";
 
 
 "no_external_volume_connected" = "接続された外部ボリュームはありません";
@@ -94,6 +103,9 @@
 
 
 "show_in_finder" = "Finderで表示";
+
+
+"show_move_to_trash_dialog" = "ディスクイメージの取り出し時にダウンロードフォルダ内に関連する.dmgファイルが存在した場合、「ゴミ箱に入れる」ダイアログを表示";
 
 
 "show_number_of_connected_volumes" = "接続されたボリュームの数を表示";

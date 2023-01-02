@@ -9,7 +9,10 @@
 "acknowledgments" = "This project is open source and developed under the MIT license.";
 
 
-"applications_using_vol" = "Applications using \"%@\"";
+"applications_using_vol" = "Application(s) using \"%@\"";
+
+
+"cancel" = "Cancel";
 
 
 "check_for_updates" = "Check for Updates...";
@@ -21,7 +24,7 @@
 "disk_num" = "Disk %@";
 
 
-"do_not_display_numbers_when_nothing_is_connected" = "Do not display numbers when nothing is connected";
+"do_not_display_numbers_when_nothing_is_connected" = "Do not display the number when nothing is connected";
 
 
 "eject" = "Eject";
@@ -42,6 +45,9 @@
 "failed_to_eject_vol" = "Failed to eject \"%@\"";
 
 
+"found_the_following_dmg_files" = "Found the following .dmg file(s)";
+
+
 "general" = "General";
 
 
@@ -52,6 +58,9 @@
 
 
 "menu_bar" = "Menu Bar";
+
+
+"move_to_trash" = "Move to Trash";
 
 
 "no_external_volume_connected" = "No external volume connected";
@@ -94,6 +103,9 @@
 
 
 "show_in_finder" = "Show in Finder";
+
+
+"show_move_to_trash_dialog" = "Show \"Move to Trash\" dialog when ejecting a virtual disk image if associated .dmg files exist in the Downloads folder";
 
 
 "show_number_of_connected_volumes" = "Show Number of Connected Volumes";

@@ -39,7 +39,7 @@ struct MenuView: View {
                 }
                 .hidden(!showEjectAllVolumesInDiskButtons || unit.volumes.count <= 1)
                 
-                ForEach(unit.volumes.sorted(by: {$0.bsdName < $1.bsdName}), id: \.bsdName) { volume in
+                ForEach(unit.volumes.sorted(by: {$0.bsdName < $1.bsdName}), id: \.id) { volume in
                     if showActionMenu {
                         Menu {
                             Button(L10n.eject) {

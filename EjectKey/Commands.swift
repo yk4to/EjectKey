@@ -12,14 +12,14 @@ extension AppModel {
     func eject(_ volume: Volume) {
         DispatchQueue.global().async {
             volume.eject(force: false, action: {
-                if Defaults[.sendWhenDiskIsEjected] {
+                /*if Defaults[.sendWhenDiskIsEjected] {
                     self.alert(
                         title: L10n.volWasSuccessfullyEjected(volume.name),
                         body: L10n.safelyRemoved,
                         sound: .default,
                         identifier: UUID().uuidString
                     )
-                }
+                }*/
             }, errorAction: { description in
                 if Defaults[.sendWhenDiskIsEjected] {
                     self.alert(
@@ -75,17 +75,78 @@ extension AppModel {
     }
     
     func checkVolumes(old: [Volume], new: [Volume]) {
-        if Defaults[.sendWhenDiskIsConnected] {
-            let oldIds = old.map { $0.id }
-            let mountedVolumes = new.filter { !oldIds.contains($0.id) }
+        DispatchQueue.global().async {
+            if Defaults[.sendWhenDiskIsConnected] {
+                let oldIds = old.map { $0.id }
+                let mountedVolumes = new.filter { !oldIds.contains($0.id) }
+                
+                for volume in mountedVolumes {
+                    DispatchQueue.main.async {
+                        self.alert(
+                            title: L10n.volHasBeenConnected(volume.name),
+                            body: "",
+                            sound: .default,
+                            identifier: UUID().uuidString
+                        )
+                    }
+                }
+            }
             
-            for volume in mountedVolumes {
-                alert(
-                    title: L10n.volHasBeenConnected(volume.name),
-                    body: "",
-                    sound: .default,
-                    identifier: UUID().uuidString
-                )
+            if Defaults[.sendWhenDiskIsEjected] || Defaults[.showMoveToTrashDialog] {
+                let newIds = new.map { $0.id }
+                let ejectedVolumes = old.filter { !newIds.contains($0.id) }
+                
+                if Defaults[.sendWhenDiskIsEjected] {
+                    for volume in ejectedVolumes {
+                        DispatchQueue.main.async {
+                            self.alert(
+                                title: L10n.volWasSuccessfullyEjected(volume.name),
+                                body: L10n.safelyRemoved,
+                                sound: .default,
+                                identifier: UUID().uuidString
+                            )
+                        }
+                    }
+                }
+                
+                if Defaults[.showMoveToTrashDialog] && !ejectedVolumes.isEmpty {
+                    let fileManager = FileManager.default
+                    guard let downloadsDir = fileManager.urls(for: .downloadsDirectory, in: .userDomainMask).first else {
+                        return
+                    }
+                    guard let files = try? fileManager.contentsOfDirectory(atPath: downloadsDir.path()) else {
+                        return
+                    }
+                    for volume in ejectedVolumes {
+                        if volume.deviceProtocol != "Virtual Interface" {
+                            return
+                        }
+                        let fixedVolumeName = volume.name.lowercased().replacingOccurrences(of: " ", with: "[ -_]*")
+                        guard let regex = try? Regex("\(fixedVolumeName).*\\.dmg") else {
+                            return
+                        }
+                        let dmgFileNames = files.filter({$0.lowercased().firstMatch(of: regex)?.0 != nil})
+                        DispatchQueue.main.async {
+                            let alert = NSAlert()
+                            alert.messageText = L10n.foundTheFollowingDmgFiles
+                            alert.informativeText = dmgFileNames.joined(separator: "\n")
+                            alert.addButton(withTitle: L10n.moveToTrash)
+                            alert.addButton(withTitle: L10n.cancel)
+                            alert.buttons.first?.hasDestructiveAction = true
+                            
+                            let response = alert.runModal()
+                            switch response {
+                            case .alertFirstButtonReturn:
+                                for dmgFileName in dmgFileNames {
+                                    let dmgFileUrl = downloadsDir.appending(path: dmgFileName)
+                                    try? fileManager.trashItem(at: dmgFileUrl, resultingItemURL: nil)
+                                }
+                            default:
+                                break
+                            }
+                        }
+                    }
+                }
             }
         }
     }
