@@ -10,8 +10,8 @@ import UserNotifications
 
 final class AppModel: ObservableObject {
     
-    @Published var volumes: [Volume] = []
-    @Published var units: [Int] = []
+    @Published var allVolumes: [Volume] = []
+    @Published var units: [Unit] = []
     
     // Workaround for switching tabs of Settings View programmatically
     @Published var settingsTabSelection = "general"
@@ -31,6 +31,6 @@ final class AppModel: ObservableObject {
         
         setVolumeObservers()
         setShortcutObservers()
-        getVolumes(check: false)
+        getUnits(check: false)
     }
 }

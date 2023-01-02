@@ -18,7 +18,7 @@
 "check_for_updates_automatically" = "アップデートを自動的に確認";
 
 
-"disk_num" = "ディスク%d";
+"disk_num" = "ディスク%@";
 
 
 "eject" = "取り出す";

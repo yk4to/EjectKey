@@ -50,30 +50,27 @@ extension AppModel {
     }
     
     func ejectAll() {
-        volumes.forEach {
+        allVolumes.forEach {
             eject($0)
         }
     }
     
-    func ejectAllVolumeInDisk(_ unit: Int) {
-        getVolumesFromUnit(unit).forEach {
+    func ejectAllVolumeInDisk(_ unit: Unit) {
+        unit.volumes.forEach {
             eject($0)
         }
     }
     
-    func getVolumesFromUnit(_ unit: Int) -> [Volume] {
-        return volumes.filter { $0.unit == unit }
-    }
-    
-    func getVolumes(check: Bool) {
+    func getUnits(check: Bool) {
         if let mountedVolumeURLs = FileManager.default.mountedVolumeURLs(includingResourceValuesForKeys: nil, options: []) {
             let _volumes = mountedVolumeURLs.compactMap { Volume(url: $0) }
             if check {
-                checkVolumes(old: volumes, new: _volumes)
+                checkVolumes(old: allVolumes, new: _volumes)
             }
             
-            volumes = _volumes
-            units = volumes.map({$0.unit}).unique.sorted()
+            allVolumes = _volumes
+            let devicePaths = allVolumes.map({$0.devicePath}).unique
+            units = devicePaths.map({ Unit(devicePath: $0, allVolumes: allVolumes) })
         }
     }
     

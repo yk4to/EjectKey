@@ -20,7 +20,7 @@ struct EjectKeyApp: App {
             MenuView(model: model)
         } label: {
             Image(systemSymbol: .ejectFill)
-            Text(String(model.volumes.count))
+            Text(String(model.allVolumes.count))
                 .hidden(!showNumberOfConnectedVolumes)
         }
         Settings {

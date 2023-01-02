@@ -24,7 +24,7 @@ extension AppModel {
     }
     
     @objc func volumeObserverHandler() {
-        getVolumes(check: true)
+        getUnits(check: true)
     }
     
     func setShortcutObservers() {

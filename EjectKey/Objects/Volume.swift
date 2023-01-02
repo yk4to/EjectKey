@@ -22,8 +22,9 @@ class Volume {
     let deviceProtocol: String
     let deviceModel: String
     let deviceVendor: String
+    let devicePath: String
     let type: String
-    let unit: Int
+    let unitNumber: Int
     let id: String
     let icon: NSImage
     
@@ -68,10 +69,10 @@ class Volume {
         guard let deviceVendor = diskInfo[kDADiskDescriptionDeviceVendorKey] as? String else {
             return nil
         }
-        /*guard let unit = diskInfo[kDADiskDescriptionMediaBSDUnitKey] as? Int else {
+        guard let devicePath = diskInfo[kDADiskDescriptionDevicePathKey] as? String else {
             return nil
-        }*/
-        guard let unit = diskInfo[kDADiskDescriptionDeviceUnitKey] as? Int else {
+        }
+        guard let unitNumber = diskInfo[kDADiskDescriptionMediaBSDUnitKey] as? Int else {
             return nil
         }
         let idVal = diskInfo[kDADiskDescriptionVolumeUUIDKey]
@@ -93,8 +94,9 @@ class Volume {
         self.deviceProtocol = deviceProtocol
         self.deviceModel = deviceModel
         self.deviceVendor = deviceVendor
+        self.devicePath = devicePath
         self.type = type
-        self.unit = unit
+        self.unitNumber = unitNumber
         self.id = id
         self.icon = icon
     }
@@ -109,13 +111,6 @@ class Volume {
                 errorAction?((error as NSError).description)
             }
         }
-        /*let culprits = self.getCulprits()
-        let alert = NSAlert()
-        alert.alertStyle = .warning
-        alert.messageText = "削除しますか？"
-        alert.informativeText = "以下のアプリがこのボリュームを使用中です：\n\(culprits.joined(separator: "\n"))"
-        alert.addButton(withTitle: "OK")
-        alert.runModal()*/
     }
     
     func getCulprits() -> [String] {

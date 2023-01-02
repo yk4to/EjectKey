@@ -18,7 +18,7 @@
 "check_for_updates_automatically" = "Check for updates automatically";
 
 
-"disk_num" = "Disk %d";
+"disk_num" = "Disk %@";
 
 
 "eject" = "Eject";

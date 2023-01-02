@@ -27,19 +27,19 @@ struct MenuView: View {
             Divider()
                 .hidden(!showEjectAllVolumesButton || model.units.count <= 1)
             
-            ForEach(model.units, id: \.self) { unit in
+            ForEach(model.units, id: \.devicePath) { unit in
                 if showDetailedInformation {
-                    Text(getUnitLabel(model.getVolumesFromUnit(unit).first!))
+                    Text("\(unit.deviceVendor) \(unit.deviceModel) (\(unit.deviceProtocol))")
                 } else {
-                    Text(L10n.diskNum(unit))
+                    Text(L10n.diskNum(unit.numbers.map(String.init).joined(separator: ", ")))
                 }
                 
-                Button(L10n.ejectNumVolumes(model.getVolumesFromUnit(unit).count)) {
+                Button(L10n.ejectNumVolumes(unit.volumes.count)) {
                     model.ejectAllVolumeInDisk(unit)
                 }
-                .hidden(!showEjectAllVolumesInDiskButtons || model.getVolumesFromUnit(unit).count <= 1)
+                .hidden(!showEjectAllVolumesInDiskButtons || unit.volumes.count <= 1)
                 
-                ForEach(model.getVolumesFromUnit(unit).sorted(by: {$0.bsdName < $1.bsdName}), id: \.bsdName) { volume in
+                ForEach(unit.volumes.sorted(by: {$0.bsdName < $1.bsdName}), id: \.bsdName) { volume in
                     if showActionMenu {
                         Menu {
                             Button(L10n.eject) {
@@ -99,13 +99,6 @@ struct MenuView: View {
     
     private func quitApp() {
         NSApplication.shared.terminate(nil)
-    }
-    
-    private func getUnitLabel(_ volume: Volume) -> String {
-        let model = volume.deviceModel
-        let vendor = volume.deviceVendor
-        let `protocol` = volume.deviceProtocol
-        return "\(vendor) \(model) (\(`protocol`))"
     }
 }
 
