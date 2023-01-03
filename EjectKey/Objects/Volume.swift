@@ -27,6 +27,8 @@ class Volume {
     let unitNumber: Int
     let id: String
     let icon: NSImage
+    let isVirtual: Bool
+    let isDiskImage: Bool
     
     init?(url: URL) {
         let resourceValues = try? url.resourceValues(forKeys: [.volumeIsInternalKey, .volumeLocalizedFormatDescriptionKey])
@@ -99,6 +101,8 @@ class Volume {
         self.unitNumber = unitNumber
         self.id = id
         self.icon = icon
+        self.isVirtual = deviceProtocol == "Virtual Interface"
+        self.isDiskImage = self.isVirtual && ( deviceModel == "Disk Image" )
     }
     
     func eject(force: Bool, action: (() -> Void)?, errorAction: ((String) -> Void)?) {

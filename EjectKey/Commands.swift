@@ -13,16 +13,16 @@ extension AppModel {
     func eject(_ volume: Volume) {
         DispatchQueue.global().async {
             volume.eject(force: false, action: {
-                /*if Defaults[.sendWhenDiskIsEjected] {
+                if Defaults[.sendWhenVolumeIsEjected] {
                     self.alert(
                         title: L10n.volWasSuccessfullyEjected(volume.name),
-                        body: L10n.safelyRemoved,
+                        body: volume.isVirtual ? L10n.thisVolumeIsAVirtualInterface : L10n.safelyRemoved,
                         sound: .default,
                         identifier: UUID().uuidString
                     )
-                }*/
+                }
             }, errorAction: { description in
-                if Defaults[.sendWhenDiskIsEjected] {
+                if Defaults[.sendWhenVolumeIsEjected] {
                     self.alert(
                         title: L10n.failedToEjectVol(volume.name),
                         body: description,
@@ -77,15 +77,15 @@ extension AppModel {
     
     func checkVolumes(old: [Volume], new: [Volume]) {
         DispatchQueue.global().async {
-            if Defaults[.sendWhenDiskIsConnected] {
+            if Defaults[.sendWhenVolumeIsConnected] {
                 let oldIds = old.map { $0.id }
                 let mountedVolumes = new.filter { !oldIds.contains($0.id) }
                 
                 for volume in mountedVolumes {
                     DispatchQueue.main.async {
                         self.alert(
-                            title: L10n.volHasBeenConnected(volume.name),
-                            body: "",
+                            title: L10n.volumeConnected,
+                            body: volume.isVirtual ? L10n.volIsAVirtualInterface(volume.name) : L10n.volIsAPhysicalDevice(volume.name),
                             sound: .default,
                             identifier: UUID().uuidString
                         )
@@ -93,24 +93,11 @@ extension AppModel {
                 }
             }
             
-            if Defaults[.sendWhenDiskIsEjected] || Defaults[.showMoveToTrashDialog] {
+            if Defaults[.showMoveToTrashDialog] {
                 let newIds = new.map { $0.id }
                 let ejectedVolumes = old.filter { !newIds.contains($0.id) }
                 
-                if Defaults[.sendWhenDiskIsEjected] {
-                    for volume in ejectedVolumes {
-                        DispatchQueue.main.async {
-                            self.alert(
-                                title: L10n.volWasSuccessfullyEjected(volume.name),
-                                body: L10n.safelyRemoved,
-                                sound: .default,
-                                identifier: UUID().uuidString
-                            )
-                        }
-                    }
-                }
-                
-                if Defaults[.showMoveToTrashDialog] && !ejectedVolumes.isEmpty {
+                if !ejectedVolumes.isEmpty {
                     let fileManager = FileManager.default
                     guard let downloadsDir = fileManager.urls(for: .downloadsDirectory, in: .userDomainMask).first else {
                         return
@@ -119,7 +106,7 @@ extension AppModel {
                         return
                     }
                     for volume in ejectedVolumes {
-                        if volume.deviceProtocol != "Virtual Interface" {
+                        if !volume.isDiskImage {
                             return
                         }
                         let fixedVolumeName = volume.name.lowercased().replacingOccurrences(of: " ", with: "[ -_]*")

@@ -45,7 +45,7 @@
 "failed_to_eject_vol" = "\"%@\"の取り出しに失敗しました";
 
 
-"found_the_following_dmg_files" = "Found the following .dmg files";
+"found_the_following_dmg_files" = "以下の.dmgファイルが見つかりました";
 
 
 "general" = "一般";
@@ -114,16 +114,25 @@
 "sound_when_sending_notifications" = "通知の送信時に音を鳴らす";
 
 
+"this_volume_is_a_virtual_interface" = "このボリュームは仮想インターフェースです。";
+
+
 "version" = "バージョン";
 
 
-"vol_has_been_connected" = "\"%@\"が接続されました";
+"vol_is_a_physical_device" = "\"%@\"は物理デバイスです。";
+
+
+"vol_is_a_virtual_interface" = "\"%@\"は仮想インターフェースです。";
 
 
 "vol_was_successfully_ejected" = "\"%@\"は正常に取り出されました";
 
 
-"when_disk_is_connected" = "ディスクが接続された時";
+"volume_connected" = "ボリュームが接続されました";
 
 
-"when_disk_is_ejected" = "ディスクが取り出された時";
+"when_volume_is_connected" = "ボリュームが接続された時";
+
+
+"when_volume_is_ejected" = "ボリュームが取り出された時";

@@ -114,16 +114,25 @@
 "sound_when_sending_notifications" = "Sound When Sending Notifications";
 
 
+"this_volume_is_a_virtual_interface" = "This volume is a virtual interface.";
+
+
 "version" = "Version";
 
 
-"vol_has_been_connected" = "\"%@\" has been connected.";
+"vol_is_a_physical_device" = "\"%@\" is a physical device.";
+
+
+"vol_is_a_virtual_interface" = "\"%@\" is a virtual interface.";
 
 
 "vol_was_successfully_ejected" = "\"%@\" was successfully ejected";
 
 
-"when_disk_is_connected" = "When disk is connected";
+"volume_connected" = "Volume Connected";
 
 
-"when_disk_is_ejected" = "When disk is ejected";
+"when_volume_is_connected" = "When volume is connected";
+
+
+"when_volume_is_ejected" = "When volume is ejected";

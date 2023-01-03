@@ -10,15 +10,15 @@ import Defaults
 import UserNotifications
 
 struct NotificationsView: View {
-    @Default(.sendWhenDiskIsConnected) var sendWhenDiskIsConnected
-    @Default(.sendWhenDiskIsEjected) var sendWhenDiskIsEjected
+    @Default(.sendWhenVolumeIsConnected) var sendWhenVolumeIsConnected
+    @Default(.sendWhenVolumeIsEjected) var sendWhenVolumeIsEjected
     @Default(.soundWhenSendingNotifications) var soundWhenSendingNotifications
     @State private var isAuthed = false
     
     var body: some View {
         VStack {
             Form {
-                if ( sendWhenDiskIsConnected || sendWhenDiskIsEjected ) && !isAuthed {
+                if ( sendWhenVolumeIsConnected || sendWhenVolumeIsEjected ) && !isAuthed {
                     Section {
                         HStack {
                             Label(L10n.notificationsAreNotAllowed, systemSymbol: .exclamationmarkTriangle)
@@ -29,8 +29,8 @@ struct NotificationsView: View {
                     }
                 }
                 Section {
-                    Toggle(L10n.whenDiskIsConnected, isOn: $sendWhenDiskIsConnected)
-                    Toggle(L10n.whenDiskIsEjected, isOn: $sendWhenDiskIsEjected)
+                    Toggle(L10n.whenVolumeIsConnected, isOn: $sendWhenVolumeIsConnected)
+                    Toggle(L10n.whenVolumeIsEjected, isOn: $sendWhenVolumeIsEjected)
                 }
                 Section {
                     Toggle(L10n.soundWhenSendingNotifications, isOn: $soundWhenSendingNotifications)
