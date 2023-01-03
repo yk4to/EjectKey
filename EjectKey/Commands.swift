@@ -7,6 +7,7 @@
 
 import AppKit
 import Defaults
+import AudioToolbox
 
 extension AppModel {
     func eject(_ volume: Volume) {
@@ -141,6 +142,8 @@ extension AppModel {
                                     let dmgFileUrl = downloadsDir.appending(path: dmgFileName)
                                     try? fileManager.trashItem(at: dmgFileUrl, resultingItemURL: nil)
                                 }
+                                // Play the "Move to Trash" Sound
+                                AudioServicesPlaySystemSound(0x10)
                             default:
                                 break
                             }
