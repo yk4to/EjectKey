@@ -19,7 +19,7 @@ extension AppModel {
         }
     }
     
-    func alert(title: String, body: String, sound: UNNotificationSound, identifier: String) {
+    func sendNotification(title: String, body: String, sound: UNNotificationSound, identifier: String) {
         userNotificationCenter.getNotificationSettings { settings in
             guard settings.authorizationStatus == .authorized else {
                 return
@@ -34,6 +34,25 @@ extension AppModel {
             
             let request = UNNotificationRequest(identifier: identifier, content: content, trigger: nil)
             self.userNotificationCenter.add(request)
+        }
+    }
+    
+    func alert(alertStyle: NSAlert.Style, messageText: String, informativeText: String, buttonTitle: String, showCancelButton: Bool, hasDestructiveAction: Bool, completionHandler: (() -> Void)?) {
+        let alert = NSAlert()
+        alert.alertStyle = alertStyle
+        alert.messageText = messageText
+        alert.informativeText = informativeText
+        alert.addButton(withTitle: buttonTitle)
+        if showCancelButton {
+            alert.addButton(withTitle: L10n.cancel)
+        }
+        alert.buttons.first?.hasDestructiveAction = hasDestructiveAction
+        let response = alert.runModal()
+        switch response {
+        case .alertFirstButtonReturn:
+            completionHandler?()
+        default:
+            break
         }
     }
 }

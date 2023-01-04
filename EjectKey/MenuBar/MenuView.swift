@@ -29,11 +29,20 @@ struct MenuView: View {
             Divider()
                 .hidden(!showEjectAllVolumesButton || model.units.count <= 1)
             
-            ForEach(model.units, id: \.devicePath) { unit in
+            ForEach(model.units.sorted(by: { $0.minNumber < $1.minNumber }), id: \.devicePath) { unit in
                 if showDetailedInformation {
-                    Text("\(unit.deviceVendor) \(unit.deviceModel) (\(unit.deviceProtocol))")
+                    if unit.isDiskImage {
+                        Text(L10n.diskImage)
+                    } else {
+                        Text("\(unit.deviceVendor) \(unit.deviceModel) (\(unit.deviceProtocol))")
+                    }
                 } else {
-                    Text(L10n.diskNum(unit.numbers.map(String.init).joined(separator: ", ")))
+                    let numbersStr = unit.numbers.map(String.init).joined(separator: ", ")
+                    if unit.isDiskImage {
+                        Text(L10n.diskImageNum(numbersStr))
+                    } else {
+                        Text(L10n.diskNum(numbersStr))
+                    }
                 }
                 
                 Button(L10n.ejectNumVolumes(unit.volumes.count)) {
@@ -53,7 +62,7 @@ struct MenuView: View {
                             if showDetailedInformation {
                                 Divider()
                                 Text(volume.type)
-                                Text("Size: \(volume.size.formatted(.byteCount(style: .file)))")
+                                Text("\(L10n.size): \(volume.size.formatted(.byteCount(style: .file)))")
                                 Text("ID: \(volume.bsdName)")
                             }
                         } label: {
@@ -79,7 +88,7 @@ struct MenuView: View {
         Button(L10n.aboutEjectkey) {
             showAbout()
         }
-        CheckForUpdatesView(updaterViewModel: updaterViewModel)
+        Button(L10n.checkForUpdates, action: updaterViewModel.checkForUpdates)
         Button(L10n.quitEjectkey) {
             quitApp()
         }

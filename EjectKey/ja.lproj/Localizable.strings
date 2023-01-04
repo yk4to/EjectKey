@@ -9,9 +9,6 @@
 "acknowledgments" = "このプロジェクトはオープンソースであり、MITライセンスの下で開発されています。";
 
 
-"applications_using_vol" = "\"%@\"を使用中のアプリケーション";
-
-
 "cancel" = "キャンセル";
 
 
@@ -19,6 +16,12 @@
 
 
 "check_for_updates_automatically" = "アップデートを自動的に確認";
+
+
+"disk_image" = "ディスクイメージ";
+
+
+"disk_image_num" = "ディスクイメージ%@";
 
 
 "disk_num" = "ディスク%@";
@@ -43,6 +46,9 @@
 
 
 "failed_to_eject_vol" = "\"%@\"の取り出しに失敗しました";
+
+
+"force_quit" = "強制終了";
 
 
 "found_the_following_dmg_files" = "以下の.dmgファイルが見つかりました";
@@ -75,6 +81,9 @@
 "open_settings" = "設定を開く...";
 
 
+"quit" = "終了";
+
+
 "quit_ejectkey" = "EjectKeyを終了";
 
 
@@ -90,7 +99,7 @@
 "show_action_menu" = "アクションメニューを表示";
 
 
-"show_apps_when_ejection_fails" = "取り出し失敗時にボリュームを使用中のアプリケーションを表示";
+"show_quit_dialog_when_ejection_fails" = "取り出し失敗時にボリュームを使用中のアプリケーションを終了するダイアログを表示";
 
 
 "show_detailed_information" = "詳細な情報を表示";
@@ -111,7 +120,13 @@
 "show_number_of_connected_volumes" = "接続されたボリュームの数を表示";
 
 
+"size" = "容量";
+
+
 "sound_when_sending_notifications" = "通知の送信時に音を鳴らす";
+
+
+"the_following_applications_are_using_vol" = "以下のアプリケーションで\"%@\"を使用中です";
 
 
 "this_volume_is_a_virtual_interface" = "このボリュームは仮想インターフェースです。";

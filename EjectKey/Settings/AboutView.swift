@@ -50,7 +50,8 @@ struct AboutView: View {
                         licensesWindowColtroller.showWindow(nil)
                         window.center()
                     }
-                    CheckForUpdatesView(updaterViewModel: updaterViewModel)
+                    Button(L10n.checkForUpdates, action: updaterViewModel.checkForUpdates)
+                        .disabled(!updaterViewModel.canCheckForUpdates)
                 }
             }
         }

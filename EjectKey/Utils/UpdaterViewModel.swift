@@ -36,6 +36,8 @@ final class UpdaterViewModel: ObservableObject {
     }
     
     func checkForUpdates() {
-        updaterController.checkForUpdates(nil)
+        if canCheckForUpdates {
+            updaterController.checkForUpdates(nil)
+        }
     }
 }

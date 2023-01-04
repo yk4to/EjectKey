@@ -9,7 +9,7 @@ import SwiftUI
 import Defaults
 
 struct ExperimentalView: View {
-    @Default(.showAppsWhenEjectionFails) var showAppsWhenEjectionFails
+    @Default(.showQuitDialogWhenEjectionFails) var showQuitDialogWhenEjectionFails
     @Default(.showMoveToTrashDialog) var showMoveToTrashDialog
 
     var body: some View {
@@ -19,7 +19,7 @@ struct ExperimentalView: View {
                     .foregroundColor(.secondary)
             }
             Section {
-                Toggle(L10n.showAppsWhenEjectionFails, isOn: $showAppsWhenEjectionFails)
+                Toggle(L10n.showQuitDialogWhenEjectionFails, isOn: $showQuitDialogWhenEjectionFails)
             }
             Section {
                 Toggle(L10n.showMoveToTrashDialog, isOn: $showMoveToTrashDialog)

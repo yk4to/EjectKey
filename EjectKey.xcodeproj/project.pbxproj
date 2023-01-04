@@ -38,7 +38,6 @@
 		D6EEFE192962C335002B64AA /* Unit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EEFE182962C335002B64AA /* Unit.swift */; };
 		D6EF55A92962F714002E36EC /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = D6EF55A82962F714002E36EC /* Sparkle */; };
 		D6EF55AC2962F76C002E36EC /* UpdaterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EF55AB2962F76C002E36EC /* UpdaterViewModel.swift */; };
-		D6EF55AE2962F7CD002E36EC /* CheckForUpdatesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EF55AD2962F7CD002E36EC /* CheckForUpdatesView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,7 +70,6 @@
 		D6EEFE152962BBA2002B64AA /* ExperimentalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperimentalView.swift; sourceTree = "<group>"; };
 		D6EEFE182962C335002B64AA /* Unit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Unit.swift; sourceTree = "<group>"; };
 		D6EF55AB2962F76C002E36EC /* UpdaterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdaterViewModel.swift; sourceTree = "<group>"; };
-		D6EF55AD2962F7CD002E36EC /* CheckForUpdatesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckForUpdatesView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,7 +175,6 @@
 				D6288B18289EC7B600F80FF1 /* Unique.swift */,
 				D6288B1A289EC7D200F80FF1 /* Defaults+Workaround.swift */,
 				D6EF55AB2962F76C002E36EC /* UpdaterViewModel.swift */,
-				D6EF55AD2962F7CD002E36EC /* CheckForUpdatesView.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -336,7 +333,6 @@
 				D696B7962913CD57001DD6FE /* AboutView.swift in Sources */,
 				D6288B0C289EC69D00F80FF1 /* SettingsView.swift in Sources */,
 				D6288B14289EC73F00F80FF1 /* NotificationsView.swift in Sources */,
-				D6EF55AE2962F7CD002E36EC /* CheckForUpdatesView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

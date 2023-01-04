@@ -9,9 +9,6 @@
 "acknowledgments" = "This project is open source and developed under the MIT license.";
 
 
-"applications_using_vol" = "Application(s) using \"%@\"";
-
-
 "cancel" = "Cancel";
 
 
@@ -19,6 +16,12 @@
 
 
 "check_for_updates_automatically" = "Check for updates automatically";
+
+
+"disk_image" = "Disk Image";
+
+
+"disk_image_num" = "Disk Image %@";
 
 
 "disk_num" = "Disk %@";
@@ -45,10 +48,16 @@
 "failed_to_eject_vol" = "Failed to eject \"%@\"";
 
 
+"force_quit" = "Force Quit";
+
+
 "found_the_following_dmg_files" = "Found the following .dmg file(s)";
 
 
 "general" = "General";
+
+
+"id_val" = "ID:";
 
 
 "launch_at_login" = "Launch at Login";
@@ -75,6 +84,9 @@
 "open_settings" = "Open Settings...";
 
 
+"quit" = "Quit";
+
+
 "quit_ejectkey" = "Quit EjectKey";
 
 
@@ -90,7 +102,7 @@
 "show_action_menu" = "Show Action Menu";
 
 
-"show_apps_when_ejection_fails" = "Show applications currently using the volume when ejection fails";
+"show_quit_dialog_when_ejection_fails" = "Show a dialog to quit applications using the volume when ejection fails";
 
 
 "show_detailed_information" = "Show Detailed Information";
@@ -111,7 +123,13 @@
 "show_number_of_connected_volumes" = "Show Number of Connected Volumes";
 
 
+"size" = "Size";
+
+
 "sound_when_sending_notifications" = "Sound When Sending Notifications";
+
+
+"the_following_applications_are_using_vol" = "The following application(s) are using \"%@\"";
 
 
 "this_volume_is_a_virtual_interface" = "This volume is a virtual interface.";

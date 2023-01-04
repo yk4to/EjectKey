@@ -107,7 +107,7 @@ class Volume {
         self.id = id
         self.icon = icon
         self.isVirtual = deviceProtocol == "Virtual Interface"
-        self.isDiskImage = self.isVirtual && ( deviceModel == "Disk Image" )
+        self.isDiskImage = self.isVirtual && deviceVendor == "Apple" && deviceModel == "Disk Image"
     }
     
     func unmount(unmountAndEject: Bool, withoutUI: Bool, completionHandler: @escaping (Error?) -> Void) {

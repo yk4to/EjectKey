@@ -19,7 +19,7 @@ extension AppModel {
             volume.unmount(unmountAndEject: isLastVolume, withoutUI: false) { error in
                 if error != nil {
                     if Defaults[.sendWhenVolumeIsEjected] {
-                        self.alert(
+                        self.sendNotification(
                             title: L10n.failedToEjectVol(volume.name),
                             body: error!.localizedDescription,
                             sound: .defaultCritical,
@@ -27,26 +27,22 @@ extension AppModel {
                         )
                     }
                     
-                    if Defaults[.showAppsWhenEjectionFails] {
+                    if Defaults[.showQuitDialogWhenEjectionFails] {
                         DispatchQueue.global().async {
                             let culprits = volume.getCulprits()
                             if !culprits.isEmpty {
                                 DispatchQueue.main.async {
-                                    let alert = NSAlert()
-                                    alert.alertStyle = .warning
-                                    alert.messageText = L10n.applicationsUsingVol(volume.name)
-                                    alert.informativeText = culprits.map(\.name).joined(separator: "\n")
-                                    alert.addButton(withTitle: "Terminate")
-                                    alert.addButton(withTitle: L10n.cancel)
-                                    alert.buttons.first?.hasDestructiveAction = true
-                                    let response = alert.runModal()
-                                    switch response {
-                                    case .alertFirstButtonReturn:
-                                        for application in culprits.map(\.application) {
-                                            application.terminate()
+                                    self.alert(
+                                        alertStyle: .warning,
+                                        messageText: L10n.theFollowingApplicationsAreUsingVol(volume.name),
+                                        informativeText: culprits.map(\.name).joined(separator: "\n"),
+                                        buttonTitle: L10n.quit,
+                                        showCancelButton: true,
+                                        hasDestructiveAction: true
+                                    ) {
+                                        for culprit in culprits {
+                                            culprit.application.terminate()
                                         }
-                                    default:
-                                        break
                                     }
                                 }
                             }
@@ -54,7 +50,7 @@ extension AppModel {
                     }
                 } else {
                     if Defaults[.sendWhenVolumeIsEjected] {
-                        self.alert(
+                        self.sendNotification(
                             title: L10n.volWasSuccessfullyEjected(volume.name),
                             body: volume.isVirtual ? L10n.thisVolumeIsAVirtualInterface : L10n.safelyRemoved,
                             sound: .default,
@@ -97,7 +93,7 @@ extension AppModel {
             
             for volume in mountedVolumes {
                 DispatchQueue.main.async {
-                    self.alert(
+                    self.sendNotification(
                         title: L10n.volumeConnected,
                         body: volume.isVirtual ? L10n.volIsAVirtualInterface(volume.name) : L10n.volIsAPhysicalDevice(volume.name),
                         sound: .default,
@@ -142,24 +138,20 @@ extension AppModel {
                     return
                 }
                 DispatchQueue.main.async {
-                    let alert = NSAlert()
-                    alert.messageText = L10n.foundTheFollowingDmgFiles
-                    alert.informativeText = dmgFileNames.joined(separator: "\n")
-                    alert.addButton(withTitle: L10n.moveToTrash)
-                    alert.addButton(withTitle: L10n.cancel)
-                    alert.buttons.first?.hasDestructiveAction = true
-                    
-                    let response = alert.runModal()
-                    switch response {
-                    case .alertFirstButtonReturn:
+                    self.alert(
+                        alertStyle: .informational,
+                        messageText: L10n.foundTheFollowingDmgFiles,
+                        informativeText: dmgFileNames.joined(separator: "\n"),
+                        buttonTitle: L10n.moveToTrash,
+                        showCancelButton: true,
+                        hasDestructiveAction: true
+                    ) {
                         for dmgFileName in dmgFileNames {
                             let dmgFileUrl = downloadsDir.appending(path: dmgFileName)
                             try? fileManager.trashItem(at: dmgFileUrl, resultingItemURL: nil)
                         }
                         // Play the "Move to Trash" Sound
                         AudioServicesPlaySystemSound(0x10)
-                    default:
-                        break
                     }
                 }
             }

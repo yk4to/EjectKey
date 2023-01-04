@@ -12,6 +12,8 @@ import Defaults
 struct GeneralView: View {
     @EnvironmentObject var updaterViewModel: UpdaterViewModel
     @State private var automaticallyChecksForUpdates = true
+    
+    @Default(.showNumberOfConnectedVolumes) var showNumberOfConnectedVolumes
 
     var body: some View {
         Form {
@@ -32,6 +34,8 @@ struct GeneralView: View {
             Section {
                 Defaults.Toggle(L10n.showNumberOfConnectedVolumes, key: .showNumberOfConnectedVolumes)
                 Defaults.Toggle(L10n.doNotDisplayNumbersWhenNothingIsConnected, key: .doNotDisplayNumbersWhenNothingIsConnected)
+                    .disabled(!showNumberOfConnectedVolumes)
+                    .foregroundColor(showNumberOfConnectedVolumes ? .primary : .secondary)
             }
             Section {
                 Defaults.Toggle(L10n.showEjectAllVolumesButton, key: .showEjectAllVolumesButton)
