@@ -12,6 +12,11 @@
 import Dispatch
 import Cocoa
 
+struct Culprit: Equatable {
+    let name: String
+    let application: NSRunningApplication
+}
+
 class Volume {
 
     let disk: DADisk
@@ -105,20 +110,20 @@ class Volume {
         self.isDiskImage = self.isVirtual && ( deviceModel == "Disk Image" )
     }
     
-    func eject(force: Bool, action: (() -> Void)?, errorAction: ((String) -> Void)?) {
-        let queue = DispatchQueue.global(qos: .userInitiated)
-        queue.async {
-            do {
-                try NSWorkspace.shared.unmountAndEjectDevice(at: self.url)
-                action?()
-            } catch {
-                errorAction?((error as NSError).description)
-            }
+    func unmount(unmountAndEject: Bool, withoutUI: Bool, completionHandler: @escaping (Error?) -> Void) {
+        DispatchQueue.global(qos: .userInitiated).async {
+            let fileManager = FileManager()
+            let options: FileManager.UnmountOptions = [
+                unmountAndEject ? .allPartitionsAndEjectDisk : [],
+                withoutUI ? .withoutUI: []
+            ]
+            
+            fileManager.unmountVolume(at: self.url, options: options, completionHandler: completionHandler)
         }
     }
     
-    func getCulprits() -> [String] {
-        var culpritNames: [String] = []
+    func getCulprits() -> [Culprit] {
+        var culprits: [Culprit] = []
         
         let applications = NSWorkspace.shared.runningApplications
         for application in applications {
@@ -142,12 +147,12 @@ class Volume {
                     let v = String(line.dropFirst(1))
                     if c == "n" && v.hasPrefix("/Volumes/\(url.lastPathComponent)/") {
                         if let appName = application.localizedName {
-                            culpritNames.append(appName)
+                            culprits.append(Culprit(name: appName, application: application))
                         }
                     }
                 }
             }
         }
-        return culpritNames.unique
+        return culprits.unique
     }
 }

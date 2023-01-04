@@ -12,41 +12,57 @@ import AudioToolbox
 extension AppModel {
     func eject(_ volume: Volume) {
         DispatchQueue.global().async {
-            volume.eject(force: false, action: {
-                if Defaults[.sendWhenVolumeIsEjected] {
-                    self.alert(
-                        title: L10n.volWasSuccessfullyEjected(volume.name),
-                        body: volume.isVirtual ? L10n.thisVolumeIsAVirtualInterface : L10n.safelyRemoved,
-                        sound: .default,
-                        identifier: UUID().uuidString
-                    )
-                }
-            }, errorAction: { description in
-                if Defaults[.sendWhenVolumeIsEjected] {
-                    self.alert(
-                        title: L10n.failedToEjectVol(volume.name),
-                        body: description,
-                        sound: .defaultCritical,
-                        identifier: UUID().uuidString
-                    )
-                }
-                
-                if Defaults[.showAppsWhenEjectionFails] {
-                    DispatchQueue.global().async {
-                        let culprits = volume.getCulprits()
-                        if !culprits.isEmpty {
-                            DispatchQueue.main.async {
-                                let alert = NSAlert()
-                                alert.alertStyle = .warning
-                                alert.messageText = L10n.applicationsUsingVol(volume.name)
-                                alert.informativeText = culprits.joined(separator: "\n")
-                                alert.addButton(withTitle: "OK")
-                                alert.runModal()
+            guard let unit = self.units.filter({ $0.devicePath == volume.devicePath }).first else {
+                return
+            }
+            let isLastVolume = unit.volumes.count == 1
+            volume.unmount(unmountAndEject: isLastVolume, withoutUI: false) { error in
+                if error != nil {
+                    if Defaults[.sendWhenVolumeIsEjected] {
+                        self.alert(
+                            title: L10n.failedToEjectVol(volume.name),
+                            body: error!.localizedDescription,
+                            sound: .defaultCritical,
+                            identifier: UUID().uuidString
+                        )
+                    }
+                    
+                    if Defaults[.showAppsWhenEjectionFails] {
+                        DispatchQueue.global().async {
+                            let culprits = volume.getCulprits()
+                            if !culprits.isEmpty {
+                                DispatchQueue.main.async {
+                                    let alert = NSAlert()
+                                    alert.alertStyle = .warning
+                                    alert.messageText = L10n.applicationsUsingVol(volume.name)
+                                    alert.informativeText = culprits.map({ $0.name }).joined(separator: "\n")
+                                    alert.addButton(withTitle: "Terminate")
+                                    alert.addButton(withTitle: L10n.cancel)
+                                    alert.buttons.first?.hasDestructiveAction = true
+                                    let response = alert.runModal()
+                                    switch response {
+                                    case .alertFirstButtonReturn:
+                                        for application in culprits.map({ $0.application }) {
+                                            application.terminate()
+                                        }
+                                    default:
+                                        break
+                                    }
+                                }
                             }
                         }
                     }
+                } else {
+                    if Defaults[.sendWhenVolumeIsEjected] {
+                        self.alert(
+                            title: L10n.volWasSuccessfullyEjected(volume.name),
+                            body: volume.isVirtual ? L10n.thisVolumeIsAVirtualInterface : L10n.safelyRemoved,
+                            sound: .default,
+                            identifier: UUID().uuidString
+                        )
+                    }
                 }
-            })
+            }
         }
     }
     
