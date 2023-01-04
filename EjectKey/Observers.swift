@@ -11,20 +11,27 @@ import KeyboardShortcuts
 
 extension AppModel {
     func setVolumeObservers() {
-        NSWorkspace.shared.notificationCenter.removeObserver(self)
+        let notificationCenter = NSWorkspace.shared.notificationCenter
         
-        let notifications: [NSNotification.Name] = [
-            NSWorkspace.didMountNotification,
-            NSWorkspace.didUnmountNotification
-        ]
+        notificationCenter.removeObserver(self)
         
-        for notification in notifications {
-            NSWorkspace.shared.notificationCenter.addObserver(self, selector: #selector(volumeObserverHandler), name: notification, object: nil)
-        }
+        notificationCenter.addObserver(self, selector: #selector(didMountHandler), name: NSWorkspace.didMountNotification, object: nil)
+        
+        notificationCenter.addObserver(self, selector: #selector(didUnmountHandler), name: NSWorkspace.didUnmountNotification, object: nil)
     }
     
-    @objc func volumeObserverHandler() {
-        getUnits(check: true)
+    @objc private func didMountHandler() {
+        let oldVolumes = allVolumes
+        setUnitsAndVolumes()
+        let newVolumes = allVolumes
+        checkMountedVolumes(old: oldVolumes, new: newVolumes)
+    }
+    
+    @objc private func didUnmountHandler() {
+        let oldVolumes = allVolumes
+        setUnitsAndVolumes()
+        let newVolumes = allVolumes
+        checkEjectedVolumes(old: oldVolumes, new: newVolumes)
     }
     
     func setShortcutObservers() {

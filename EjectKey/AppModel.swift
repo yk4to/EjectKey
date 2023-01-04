@@ -31,6 +31,6 @@ final class AppModel: ObservableObject {
         
         setVolumeObservers()
         setShortcutObservers()
-        getUnits(check: false)
+        setUnitsAndVolumes()
     }
 }

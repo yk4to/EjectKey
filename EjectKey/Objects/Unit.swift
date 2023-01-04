@@ -25,6 +25,6 @@ struct Unit {
         self.deviceVendor = firstVolume.deviceVendor
         self.deviceProtocol = firstVolume.deviceProtocol
         
-        self.numbers = self.volumes.map({ $0.unitNumber }).unique.sorted()
+        self.numbers = self.volumes.map(\.unitNumber).unique.sorted()
     }
 }

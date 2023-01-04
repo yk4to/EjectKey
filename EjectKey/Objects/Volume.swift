@@ -112,7 +112,7 @@ class Volume {
     
     func unmount(unmountAndEject: Bool, withoutUI: Bool, completionHandler: @escaping (Error?) -> Void) {
         DispatchQueue.global(qos: .userInitiated).async {
-            let fileManager = FileManager()
+            let fileManager = FileManager.default
             let options: FileManager.UnmountOptions = [
                 unmountAndEject ? .allPartitionsAndEjectDisk : [],
                 withoutUI ? .withoutUI: []
