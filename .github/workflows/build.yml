@@ -19,10 +19,7 @@ env:
 
 jobs:
   build:
-    runs-on: macos-latest
-    env:
-      MINT_PATH: mint/lib
-      MINT_LINK_PATH: mint/bin
+    runs-on: macOS-12
     steps:
     - name: Show Xcode version
       run: xcodebuild -version    
