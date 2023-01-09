@@ -126,9 +126,6 @@
 "show_in_finder" = "Finderで表示";
 
 
-"show_menu_bar_extra" = "メニューバーエクストラを表示";
-
-
 "show_move_to_trash_dialog" = "ディスクイメージの取り出し時にダウンロードフォルダ内に関連する.dmgファイルが存在した場合、「ゴミ箱に入れる」ダイアログを表示";
 
 

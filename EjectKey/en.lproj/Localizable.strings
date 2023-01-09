@@ -129,9 +129,6 @@
 "show_in_finder" = "Show in Finder";
 
 
-"show_menu_bar_extra" = "Show Menu Bar Extra";
-
-
 "show_move_to_trash_dialog" = "Show \"Move to Trash\" dialog when ejecting a virtual disk image if associated .dmg files exist in the Downloads folder";
 
 

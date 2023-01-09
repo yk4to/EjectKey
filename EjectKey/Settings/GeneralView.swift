@@ -32,6 +32,7 @@ struct GeneralView: View {
                     }
             }
             Section {
+                Defaults.Toggle(L10n.showMenuBarExtra, key: .showMenuBarExtra)
                 Defaults.Toggle(L10n.showNumberOfConnectedVolumes, key: .showNumberOfConnectedVolumes)
                 Defaults.Toggle(L10n.doNotDisplayNumbersWhenNothingIsConnected, key: .doNotDisplayNumbersWhenNothingIsConnected)
                     .disabled(!showNumberOfConnectedVolumes)
