@@ -25,6 +25,10 @@ extension AppModel {
         setUnitsAndVolumes()
         let newVolumes = allVolumes
         checkMountedVolumes(old: oldVolumes, new: newVolumes)
+        
+        if Defaults[.displayOnlyWhenExternalVolumeIsConnected] {
+            setupTouchBar()
+        }
     }
     
     @objc private func didUnmountHandler() {
@@ -32,6 +36,16 @@ extension AppModel {
         setUnitsAndVolumes()
         let newVolumes = allVolumes
         checkEjectedVolumes(old: oldVolumes, new: newVolumes)
+        
+        if Defaults[.displayOnlyWhenExternalVolumeIsConnected] {
+            setupTouchBar()
+        }
+    }
+    
+    func setTouchBarObservers() {
+        _ = Defaults.observe(keys: .showControlStripButton, .displayOnlyWhenExternalVolumeIsConnected) {
+            self.setupTouchBar()
+        }.tieToLifetime(of: self)
     }
     
     func setShortcutObservers() {

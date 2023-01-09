@@ -8,16 +8,34 @@
 import Cocoa
 import Defaults
 
+enum ControlStripButtonAction: String, CaseIterable, Defaults.Serializable {
+    case ejectAll, actAsMediaEjectKey
+    
+    var localized: String {
+        switch self {
+        case .ejectAll:
+            return L10n.ejectAllVolumes
+        case .actAsMediaEjectKey:
+            return L10n.actAsMediaEjectKey
+        }
+    }
+}
+
 extension Defaults.Keys {
     static let isFirstLaunch = Key<Bool>("isFirstLaunch", default: true)
     static let automaticallyChecksForUpdates = Key<Bool>("automaticallyChecksForUpdates", default: true)
     // Menu Bar
+    static let showMenuBarExtra = Key<Bool>("showMenuBarExtra", default: true)
     static let showNumberOfConnectedVolumes = Key<Bool>("showNumberOfConnectedVolumes", default: false)
     static let doNotDisplayNumbersWhenNothingIsConnected = Key<Bool>("doNotDisplayNumbersWhenNothingIsConnected", default: false)
     static let showEjectAllVolumesButton = Key<Bool>("showEjectAllButton", default: true)
     static let showEjectAllVolumesInDiskButtons = Key<Bool>("showEjectAllVolumesInDiskButtons", default: true)
     static let showActionMenu = Key<Bool>("showActionMenu", default: false)
     static let showDetailedInformation = Key<Bool>("showDetailedInformation", default: false)
+    // Touch Bar
+    static let showControlStripButton = Key<Bool>("showControlStripButton", default: false)
+    static let displayOnlyWhenExternalVolumeIsConnected = Key<Bool>("displayOnlyWhenExternalVolumeIsConnected", default: false)
+    static let controlStripButtonAction = Key<ControlStripButtonAction>("controlStripButtonAction", default: .ejectAll)
     // Notifications
     static let sendWhenVolumeIsConnected = Key<Bool>("sendWhenVolumeIsConnected", default: true)
     static let sendWhenVolumeIsEjected = Key<Bool>("sendWhenVolumeIsEjected", default: true)

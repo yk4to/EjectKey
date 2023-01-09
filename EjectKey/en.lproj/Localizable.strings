@@ -9,6 +9,12 @@
 "acknowledgments" = "This project is open source and developed under the MIT license.";
 
 
+"act_as_media_eject_key" = "Act as Media Eject Key";
+
+
+"action_when_button_is_pressed" = "Action when button is pressed";
+
+
 "cancel" = "Cancel";
 
 
@@ -28,6 +34,9 @@
 
 
 "do_not_display_numbers_when_nothing_is_connected" = "Do not display the number when nothing is connected";
+
+
+"display_only_when_external_volume_is_connected" = "Display only when external volume is connected";
 
 
 "eject" = "Eject";
@@ -102,6 +111,9 @@
 "show_action_menu" = "Show Action Menu";
 
 
+"show_control_strip_button" = "Show Eject Button on Control Strip";
+
+
 "show_quit_dialog_when_ejection_fails" = "Show a dialog to quit applications using the volume when ejection fails";
 
 
@@ -115,6 +127,9 @@
 
 
 "show_in_finder" = "Show in Finder";
+
+
+"show_menu_bar_extra" = "Show Menu Bar Extra";
 
 
 "show_move_to_trash_dialog" = "Show \"Move to Trash\" dialog when ejecting a virtual disk image if associated .dmg files exist in the Downloads folder";
@@ -133,6 +148,9 @@
 
 
 "this_volume_is_a_virtual_interface" = "This volume is a virtual interface.";
+
+
+"touch_bar" = "Touch Bar";
 
 
 "version" = "Version";

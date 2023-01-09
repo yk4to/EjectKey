@@ -28,6 +28,11 @@ struct SettingsView: View {
                     Label(L10n.notifications, systemSymbol: .bell)
                 }
                 .tag("notifications")
+            TouchBarView()
+                .tabItem {
+                    Label(L10n.touchBar, systemSymbol: .rectangleAndHandPointUpLeft)
+                }
+                .tag("touchbar")
             ExperimentalView()
                 .tabItem {
                     Label(L10n.experimental, systemSymbol: .sparkles)

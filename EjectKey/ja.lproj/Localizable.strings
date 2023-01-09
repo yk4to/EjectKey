@@ -9,6 +9,12 @@
 "acknowledgments" = "このプロジェクトはオープンソースであり、MITライセンスの下で開発されています。";
 
 
+"act_as_media_eject_key" = "メディアイジェクトキーとして振る舞う";
+
+
+"action_when_button_is_pressed" = "ボタンを押した時の動作";
+
+
 "cancel" = "キャンセル";
 
 
@@ -25,6 +31,9 @@
 
 
 "disk_num" = "ディスク%@";
+
+
+"display_only_when_external_volume_is_connected" = "外部ボリュームが接続されている時だけ表示する";
 
 
 "do_not_display_numbers_when_nothing_is_connected" = "何も接続されていない時は数を表示しない";
@@ -99,6 +108,9 @@
 "show_action_menu" = "アクションメニューを表示";
 
 
+"show_control_strip_button" = "Control Stripにボタンを表示";
+
+
 "show_quit_dialog_when_ejection_fails" = "取り出し失敗時にボリュームを使用中のアプリケーションを終了するダイアログを表示";
 
 
@@ -112,6 +124,9 @@
 
 
 "show_in_finder" = "Finderで表示";
+
+
+"show_menu_bar_extra" = "メニューバーエクストラを表示";
 
 
 "show_move_to_trash_dialog" = "ディスクイメージの取り出し時にダウンロードフォルダ内に関連する.dmgファイルが存在した場合、「ゴミ箱に入れる」ダイアログを表示";
@@ -130,6 +145,9 @@
 
 
 "this_volume_is_a_virtual_interface" = "このボリュームは仮想インターフェースです。";
+
+
+"touch_bar" = "Touch Bar";
 
 
 "version" = "バージョン";
