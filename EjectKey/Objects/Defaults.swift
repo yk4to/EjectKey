@@ -25,7 +25,6 @@ extension Defaults.Keys {
     static let isFirstLaunch = Key<Bool>("isFirstLaunch", default: true)
     static let automaticallyChecksForUpdates = Key<Bool>("automaticallyChecksForUpdates", default: true)
     // Menu Bar
-    static let showMenuBarExtra = Key<Bool>("showMenuBarExtra", default: true)
     static let showNumberOfConnectedVolumes = Key<Bool>("showNumberOfConnectedVolumes", default: false)
     static let doNotDisplayNumbersWhenNothingIsConnected = Key<Bool>("doNotDisplayNumbersWhenNothingIsConnected", default: false)
     static let showEjectAllVolumesButton = Key<Bool>("showEjectAllButton", default: true)
