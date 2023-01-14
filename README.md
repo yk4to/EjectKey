@@ -1,16 +1,18 @@
-# EjectKey
-
-![](https://img.shields.io/github/v/release/fus1ondev/EjectKey)
-![](https://img.shields.io/badge/made%20with-Swift%20UI-F05138?logo=Swift)
-![](https://img.shields.io/github/license/fus1ondev/EjectKey)
-
-> Powerful macOS app to eject external volumes
-
 <div align="center">
-<img width="120" height="120" src="https://user-images.githubusercontent.com/64204135/183348062-85958996-9c84-4795-87ca-665e4bef53a5.png">
+  <img width="180" height="180" src="https://user-images.githubusercontent.com/64204135/183348062-85958996-9c84-4795-87ca-665e4bef53a5.png">
+  <h1>EjectKey</h1>
+  <img src="https://img.shields.io/github/v/release/fus1ondev/EjectKey">
+  <img src="https://img.shields.io/badge/made%20with-Swift%20UI-F05138?logo=Swift">
+  <img src="https://img.shields.io/github/license/fus1ondev/EjectKey">
+  <br>
+  <br>
+  <br>
+  <img width="800" src="https://user-images.githubusercontent.com/64204135/199971374-9e3f5fa1-5657-4b08-b055-b0e7da7ff496.png">
+  <br>
+  <br>
 </div>
 
-![](https://user-images.githubusercontent.com/64204135/199971374-9e3f5fa1-5657-4b08-b055-b0e7da7ff496.png)
+> Powerful macOS app to eject external volumes
 
 ## Installation
 
