@@ -5,6 +5,12 @@ name: Build
 on:
   workflow_dispatch:
   push:
+    branches:
+      - '!gh-pages'
+    paths-ignore:
+      - 'AppCast/**'
+      - '**.md'
+      - '.github/workflows/appcast.yml'
   pull_request:
 
 env:
