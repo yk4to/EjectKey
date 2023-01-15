@@ -10,6 +10,7 @@ on:
     paths-ignore:
       - 'AppCast/**'
       - '*.md'
+      - '*.txt'
       - '.github/workflows/appcast.yml'
   pull_request:
 
