@@ -58,14 +58,17 @@ jobs:
       run: create-dmg "$BUILD_DIR/$APP_NAME"
       continue-on-error: true
     - name: Rename DMG
-      run: mv *.dmg "$ZIP_FILE_NAME"
+      run: mv *.dmg "$DMG_FILE_NAME"
     - name: Upload DMG
       uses: actions/upload-artifact@v3
       with:
         name: DMG
         path: ${{ env.DMG_FILE_NAME }}
     - name: Compress ZIP
-      run: zip -r -X "$ZIP_FILE_NAME" "$BUILD_DIR/$APP_NAME"
+      run: zip -ry "$ZIP_FILE_NAME" "$APP_NAME"
+      working-directory: ${{ env.BUILD_DIR }}
+    - name: Move ZIP
+      run: mv "$BUILD_DIR/$ZIP_FILE_NAME" "$ZIP_FILE_NAME"
     - name: Upload ZIP
       uses: actions/upload-artifact@v3
       with:
