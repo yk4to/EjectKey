@@ -58,7 +58,7 @@ jobs:
       run: create-dmg "$BUILD_DIR/$APP_NAME"
       continue-on-error: true
     - name: Rename DMG
-      run: mv "$BUILD_DIR/DMG_NAME*.dmg" "DMG_FILE_NAME"
+      run: mv "$BUILD_DIR/DMG_NAME*.dmg" "$DMG_FILE_NAME"
     - name: Upload DMG
       uses: actions/upload-artifact@v3
       with:
