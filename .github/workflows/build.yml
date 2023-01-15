@@ -108,9 +108,9 @@ jobs:
       - name: Generate Signature
         run: echo "SIGNATURE=$(AppCast/sign_update -p $ZIP_FILE_NAME -f sparkle_private_key)" >> "$GITHUB_ENV"
       - name: Get Version Number
-      run: |
-        echo "VERSION=$(cat version.txt)" >> "$GITHUB_ENV"
-        echo "BUILD=$(git rev-list HEAD --count)" >> "$GITHUB_ENV"
+        run: |
+          echo "VERSION=$(cat version.txt)" >> "$GITHUB_ENV"
+          echo "BUILD=$(git rev-list HEAD --count)" >> "$GITHUB_ENV"
       - name: Rename DMG
         run: mv *.dmg "$DMG_NAME-$VERSION.dmg"
       - name: Rename ZIP
