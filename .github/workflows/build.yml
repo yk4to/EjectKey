@@ -75,3 +75,29 @@ jobs:
         name: ZIP
         path: ${{ env.ZIP_FILE_NAME }}
 
+  update_release_draft:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    needs: build
+    steps:
+      - name: Download DMG
+        uses: actions/download-artifact@v3
+        with:
+          name: DMG
+          path: ${{ env.DMG_FILE_NAME }}
+      - name: Download ZIP
+        uses: actions/download-artifact@v3
+        with:
+          name: ZIP
+          path: ${{ env.ZIP_FILE_NAME }}
+      - name: Create Release Draft
+        id: create-draft
+        uses: release-drafter/release-drafter@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload Release Asset
+        run: gh release upload --clobber ${{ env.VERSION }} ${{ env.FILES }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ steps.create-draft.outputs.tag_name }}
+          FILES: ${{ env.DMG_FILE_NAME }} ${{ env.ZIP_FILE_NAME }}
