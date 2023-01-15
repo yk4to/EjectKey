@@ -24,6 +24,9 @@
 "check_for_updates_automatically" = "Check for updates automatically";
 
 
+"check_prerelease_versions" = "Check prerelease versions";
+
+
 "disk_image" = "Disk Image";
 
 
@@ -64,9 +67,6 @@
 
 
 "general" = "General";
-
-
-"id_val" = "ID:";
 
 
 "launch_at_login" = "Launch at Login";

@@ -24,6 +24,9 @@
 "check_for_updates_automatically" = "アップデートを自動的に確認";
 
 
+"check_prerelease_versions" = "プレリリースされたバージョンも確認する";
+
+
 "disk_image" = "ディスクイメージ";
 
 
@@ -111,9 +114,6 @@
 "show_control_strip_button" = "Control Stripにボタンを表示";
 
 
-"show_quit_dialog_when_ejection_fails" = "取り出し失敗時にボリュームを使用中のアプリケーションを終了するダイアログを表示";
-
-
 "show_detailed_information" = "詳細な情報を表示";
 
 
@@ -130,6 +130,9 @@
 
 
 "show_number_of_connected_volumes" = "接続されたボリュームの数を表示";
+
+
+"show_quit_dialog_when_ejection_fails" = "取り出し失敗時にボリュームを使用中のアプリケーションを終了するダイアログを表示";
 
 
 "size" = "容量";

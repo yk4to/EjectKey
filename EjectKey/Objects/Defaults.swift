@@ -24,6 +24,7 @@ enum ControlStripButtonAction: String, CaseIterable, Defaults.Serializable {
 extension Defaults.Keys {
     static let isFirstLaunch = Key<Bool>("isFirstLaunch", default: true)
     static let automaticallyChecksForUpdates = Key<Bool>("automaticallyChecksForUpdates", default: true)
+    static let checkPrereleaseVersions = Key<Bool>("checkPrereleaseVersions", default: false)
     // Menu Bar
     static let showNumberOfConnectedVolumes = Key<Bool>("showNumberOfConnectedVolumes", default: false)
     static let doNotDisplayNumbersWhenNothingIsConnected = Key<Bool>("doNotDisplayNumbersWhenNothingIsConnected", default: false)
