@@ -30,13 +30,19 @@ jobs:
       with:
         fetch-depth: 0
     - name: Install Dependencies
-      run: brew install swiftgen && npm install --global create-dmg
+      run: |
+        brew install swiftgen
+        npm install --global create-dmg
     - name: Create Folder
       run: mkdir EjectKey/Generated
+    - name: Get Version Number
+      run: |
+        echo "VERSION=$(cat version.txt)" >> "$GITHUB_ENV"
+        echo "BUILD=$(git rev-list HEAD --count)" >> "$GITHUB_ENV"
     - name: Set Version Number
-      run: xcrun agvtool new-marketing-version `cat version.txt`
-    - name: Set Build Number
-      run: xcrun agvtool new-version -all `git rev-list HEAD --count`
+      run: |
+        xcrun agvtool new-marketing-version $VERSION
+        xcrun agvtool new-version -all $BUILD
     - name: Cache Swift Packages
       uses: actions/cache@v3
       with:
@@ -85,6 +91,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - name: Download DMG
         uses: actions/download-artifact@v3
         with:
@@ -100,7 +108,9 @@ jobs:
       - name: Generate Signature
         run: echo "SIGNATURE=$(AppCast/sign_update -p $ZIP_FILE_NAME -f sparkle_private_key)" >> "$GITHUB_ENV"
       - name: Get Version Number
-        run: echo "VERSION=$(cat version.txt)" >> "$GITHUB_ENV"
+      run: |
+        echo "VERSION=$(cat version.txt)" >> "$GITHUB_ENV"
+        echo "BUILD=$(git rev-list HEAD --count)" >> "$GITHUB_ENV"
       - name: Rename DMG
         run: mv *.dmg "$DMG_NAME-$VERSION.dmg"
       - name: Rename ZIP
@@ -111,6 +121,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
+          name: v${{ env.VERSION }}
+          tag: v${{ env.VERSION }}b${{ env.BUILD }}
           footer: "<!-- sparkle:edSignature=${{ env.SIGNATURE }} -->"
       - name: Upload ZIP # Upload the zip first, because the first item in the asset list is referenced when generating appcast.xml
         uses: shogo82148/actions-upload-release-asset@v1
