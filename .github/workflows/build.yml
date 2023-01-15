@@ -80,6 +80,8 @@ jobs:
     if: github.ref == 'refs/heads/main'
     needs: build
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
       - name: Download DMG
         uses: actions/download-artifact@v3
         with:
