@@ -87,12 +87,10 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: DMG
-          path: ${{ env.DMG_FILE_NAME }}
       - name: Download ZIP
         uses: actions/download-artifact@v3
         with:
           name: ZIP
-          path: ${{ env.ZIP_FILE_NAME }}
       - name: Create Release Draft
         id: create-draft
         uses: release-drafter/release-drafter@v5
