@@ -6,6 +6,35 @@
         <language>en</language>
         
             
+                
+                    <item>
+                        <title>v0.1.0</title>
+                        <description><![CDATA[<p>This is the first release.</p>
+
+<p>It is also a test to see if automatic updates work.</p>
+
+<!-- sparkle:edSignature=gSEPmaHr8dmU9Ui+SBjqKtIMiSMWCFsCK0K8pPdZ2OIADZZPCYj9qBowjMiOkClEIdBFGY8H21AETuPhZ4dGAA== -->
+]]></description>
+                        <pubDate>Sun, 15 Jan 2023 11:54:33 +0000</pubDate>
+                        
+                        
+
+                        
+                        
+                            
+                            
+
+                            <enclosure
+                                url="https://github.com/fus1ondev/EjectKey/releases/download/v0.1.0b107/EjectKey-0.1.0.zip"
+                                sparkle:version="107"
+                                sparkle:shortVersionString="0.1.0"
+                                sparkle:edSignature="gSEPmaHr8dmU9Ui+SBjqKtIMiSMWCFsCK0K8pPdZ2OIADZZPCYj9qBowjMiOkClEIdBFGY8H21AETuPhZ4dGAA=="
+                                length="6144685"
+                                type="application/octet-stream" />
+                        
+                    </item>
+                
+            
         
     </channel>
 </rss>
