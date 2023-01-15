@@ -92,9 +92,9 @@ jobs:
         with:
           name: ZIP
       - name: Generate Private Key File
-        run: echo -n "$PRIVATE_SPARKLE_KEY" > sparkle_private_key
+        run: echo -n "$SPARKLE_PRIVATE_KEY" > sparkle_private_key
         env:
-          PRIVATE_SPARKLE_KEY: ${{ secrets.PRIVATE_SPARKLE_KEY }}
+          SPARKLE_PRIVATE_KEY: ${{ secrets.SPARKLE_PRIVATE_KEY }}
       - name: Generate Signature
         run: echo "SIGNATURE=$(AppCast/sign_update -p $ZIP_FILE_NAME -f sparkle_private_key)" >> "$GITHUB_ENV"
       - name: Create Release Draft
