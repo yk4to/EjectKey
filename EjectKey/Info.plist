@@ -5,7 +5,7 @@
 	<key>LSUIElement</key>
 	<true/>
 	<key>SUFeedURL</key>
-	<string>https://raw.githubusercontent.com/fus1ondev/EjectKey/main/appcast.xml</string>
+	<string>https://https://fus1ondev.github.io/EjectKey/appcast.xml</string>
 	<key>SUPublicEDKey</key>
 	<string>77HH7Ef4P3s7Jkyf9gc8ZSDQKCPuX5NO6CXnIlcJ7+c=</string>
 </dict>

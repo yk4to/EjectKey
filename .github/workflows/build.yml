@@ -15,6 +15,7 @@ env:
   APP_NAME: "EjectKey.app"
   DMG_NAME: "EjectKey"
   DMG_FILE_NAME: "EjectKey.dmg"
+  ZIP_FILE_NAME: "EjectKey.zip"
   DEVELOPER_DIR: /Applications/Xcode_14.2.app/Contents/Developer
 
 jobs:
@@ -28,7 +29,7 @@ jobs:
       with:
         fetch-depth: 0
     - name: Install Dependencies
-      run: brew install swiftgen
+      run: brew install swiftgen && npm install --global create-dmg
     - name: Create Folder
       run: mkdir EjectKey/Generated
     - name: Set Build Number
@@ -53,12 +54,20 @@ jobs:
         xcodebuild -exportArchive -archivePath "$BUILD_DIR/$XCODE_ARCHIVE" -exportPath "$BUILD_DIR" -exportOptionsPlist "$EXPORT_OPTIONS_PLIST"
     - name: Resign App
       run: codesign --force --deep -s "$CODE_SIGN_IDENTITY" "$BUILD_DIR/$APP_NAME"
-    - name: Make DMG
-      run: hdiutil create -srcdir "$BUILD_DIR" -volname "$DMG_NAME" "$DMG_FILE_NAME"
-    - name: Upload
+    - name: Create DMG
+      run: create-dmg "$BUILD_DIR/$APP_NAME"
+    - name: Rename DMG
+      run: mv "$BUILD_DIR/DMG_NAME*.dmg" "DMG_FILE_NAME"
+    - name: Upload DMG
       uses: actions/upload-artifact@v3
       with:
-        name: Build
+        name: DMG
         path: ${{ env.DMG_FILE_NAME }}
-
+    - name: Compress ZIP
+      run: zip -r -X "ZIP_FILE_NAME" "$BUILD_DIR/$APP_NAME"
+    - name: Upload ZIP
+      uses: actions/upload-artifact@v3
+      with:
+        name: ZIP
+        path: ${{ env.ZIP_FILE_NAME }}
 
