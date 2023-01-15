@@ -91,18 +91,26 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: ZIP
+      - name: Generate Private Key File
+        run: echo -n "$PRIVATE_SPARKLE_KEY" > sparkle_private_key
+        env:
+          PRIVATE_SPARKLE_KEY: ${{ secrets.PRIVATE_SPARKLE_KEY }}
+      - name: Generate Signature
+        run: echo "SIGNATURE=$(AppCast/sign_update -p $ZIP_FILE_NAME -f sparkle_private_key)" >> "$GITHUB_ENV"
       - name: Create Release Draft
         id: create-draft
         uses: release-drafter/release-drafter@v5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          footer: "<!-- sparkle:edSignature=$SIGNATURE -->"
+      - name: Upload ZIP # Upload the zip first, because the first item in the asset list is referenced when generating appcast.xml
+        uses: shogo82148/actions-upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create-draft.outputs.upload_url }}
+          asset_path: ${{ env.ZIP_FILE_NAME }}
       - name: Upload DMG
         uses: shogo82148/actions-upload-release-asset@v1
         with:
           upload_url: ${{ steps.create-draft.outputs.upload_url }}
           asset_path: ${{ env.DMG_FILE_NAME }}
-      - name: Upload ZIP
-        uses: shogo82148/actions-upload-release-asset@v1
-        with:
-          upload_url: ${{ steps.create-draft.outputs.upload_url }}
-          asset_path: ${{ env.ZIP_FILE_NAME }}
