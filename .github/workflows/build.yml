@@ -56,6 +56,7 @@ jobs:
       run: codesign --force --deep -s "$CODE_SIGN_IDENTITY" "$BUILD_DIR/$APP_NAME"
     - name: Create DMG
       run: create-dmg "$BUILD_DIR/$APP_NAME"
+      continue-on-error: true
     - name: Rename DMG
       run: mv "$BUILD_DIR/DMG_NAME*.dmg" "DMG_FILE_NAME"
     - name: Upload DMG
