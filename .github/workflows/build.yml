@@ -41,7 +41,7 @@ jobs:
         echo "BUILD=$(git rev-list HEAD --count)" >> "$GITHUB_ENV"
     - name: Set Version Number
       run: |
-        xcrun agvtool new-marketing-version $VERSION
+        sed -i '' -e "s/MARKETING_VERSION = .*;/MARKETING_VERSION = $VERSION;/" "$XCODE_SCHEME.xcodeproj/project.pbxproj"    
         xcrun agvtool new-version -all $BUILD
     - name: Cache Swift Packages
       uses: actions/cache@v3
