@@ -35,5 +35,5 @@ jobs:
         run: gh release upload --clobber ${{ env.VERSION }} ${{ env.FILES }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          VERSION: ${{ steps.draft_release.outputs.tag_name }}
+          VERSION: ${{ steps.create-draft.outputs.tag_name }}
           FILES: ${{ env.DMG_FILE_NAME }} ${{ env.ZIP_FILE_NAME }}
