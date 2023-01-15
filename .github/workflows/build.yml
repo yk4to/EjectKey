@@ -98,9 +98,13 @@ jobs:
         uses: release-drafter/release-drafter@v5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Upload Release Asset
-        run: gh release upload --clobber ${{ env.VERSION }} ${{ env.FILES }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          VERSION: ${{ steps.create-draft.outputs.tag_name }}
-          FILES: ${{ env.DMG_FILE_NAME }} ${{ env.ZIP_FILE_NAME }}
+      - name: Upload DMG
+        uses: shogo82148/actions-upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create-draft.outputs.upload_url }}
+          asset_path: ${{ env.DMG_FILE_NAME }}
+      - name: Upload ZIP
+        uses: shogo82148/actions-upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create-draft.outputs.upload_url }}
+          asset_path: ${{ env.ZIP_FILE_NAME }}
