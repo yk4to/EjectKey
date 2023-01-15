@@ -13,7 +13,6 @@
 		D6288AE2289EBD1C00F80FF1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D6288AE4289EBD1C00F80FF1 /* Localizable.strings */; };
 		D6288AE9289EBE5600F80FF1 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6288AE8289EBE5600F80FF1 /* Strings.swift */; };
 		D6288AEE289EC0E200F80FF1 /* Defaults in Frameworks */ = {isa = PBXBuildFile; productRef = D6288AED289EC0E200F80FF1 /* Defaults */; };
-		D6288AF1289EC10100F80FF1 /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = D6288AF0289EC10100F80FF1 /* LaunchAtLogin */; };
 		D6288AF4289EC11700F80FF1 /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = D6288AF3289EC11700F80FF1 /* SFSafeSymbols */; };
 		D6288AF8289EC3F200F80FF1 /* Commands.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6288AF7289EC3F200F80FF1 /* Commands.swift */; };
 		D6288AFA289EC41900F80FF1 /* Observers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6288AF9289EC41900F80FF1 /* Observers.swift */; };
@@ -31,6 +30,7 @@
 		D6288B4128A0CB9800F80FF1 /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = D6288B4028A0CB9800F80FF1 /* KeyboardShortcuts */; };
 		D6288B4328A0CBB500F80FF1 /* Shortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6288B4228A0CBB500F80FF1 /* Shortcuts.swift */; };
 		D6288B4728A0CE2E00F80FF1 /* ShortcutsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6288B4628A0CE2E00F80FF1 /* ShortcutsView.swift */; };
+		D637A85F2974374C00C6DD7D /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = D637A85E2974374C00C6DD7D /* LaunchAtLogin */; };
 		D696B78B29126D65001DD6FE /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D696B78A29126D65001DD6FE /* MenuView.swift */; };
 		D696B78F2912A19D001DD6FE /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D696B78E2912A19D001DD6FE /* AppModel.swift */; };
 		D696B793291367FD001DD6FE /* Hidden.swift in Sources */ = {isa = PBXBuildFile; fileRef = D696B792291367FD001DD6FE /* Hidden.swift */; };
@@ -102,7 +102,7 @@
 			files = (
 				D6EF55C2296BB34E002E36EC /* DFRFoundation.framework in Frameworks */,
 				D6288AF4289EC11700F80FF1 /* SFSafeSymbols in Frameworks */,
-				D6288AF1289EC10100F80FF1 /* LaunchAtLogin in Frameworks */,
+				D637A85F2974374C00C6DD7D /* LaunchAtLogin in Frameworks */,
 				D6B238CE29601E690049CF72 /* DependencyList in Frameworks */,
 				D6EF55A92962F714002E36EC /* Sparkle in Frameworks */,
 				D6288B4128A0CB9800F80FF1 /* KeyboardShortcuts in Frameworks */,
@@ -246,11 +246,11 @@
 			name = EjectKey;
 			packageProductDependencies = (
 				D6288AED289EC0E200F80FF1 /* Defaults */,
-				D6288AF0289EC10100F80FF1 /* LaunchAtLogin */,
 				D6288AF3289EC11700F80FF1 /* SFSafeSymbols */,
 				D6288B4028A0CB9800F80FF1 /* KeyboardShortcuts */,
 				D6B238CD29601E690049CF72 /* DependencyList */,
 				D6EF55A82962F714002E36EC /* Sparkle */,
+				D637A85E2974374C00C6DD7D /* LaunchAtLogin */,
 			);
 			productName = EjectKey;
 			productReference = D696B78929126B80001DD6FE /* EjectKey.app */;
@@ -283,11 +283,11 @@
 			mainGroup = D6288AC5289EB5DB00F80FF1;
 			packageReferences = (
 				D6288AEC289EC0E200F80FF1 /* XCRemoteSwiftPackageReference "Defaults" */,
-				D6288AEF289EC10100F80FF1 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */,
 				D6288AF2289EC11700F80FF1 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */,
 				D6288B3F28A0CB9800F80FF1 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */,
 				D6B238CC29601E690049CF72 /* XCRemoteSwiftPackageReference "DependencyList" */,
 				D6EF55A72962F714002E36EC /* XCRemoteSwiftPackageReference "Sparkle" */,
+				D637A85D2974374C00C6DD7D /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */,
 			);
 			productRefGroup = D6288AC5289EB5DB00F80FF1;
 			projectDirPath = "";
@@ -623,14 +623,6 @@
 				kind = branch;
 			};
 		};
-		D6288AEF289EC10100F80FF1 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/sindresorhus/LaunchAtLogin";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
 		D6288AF2289EC11700F80FF1 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SFSafeSymbols/SFSafeSymbols";
@@ -642,6 +634,14 @@
 		D6288B3F28A0CB9800F80FF1 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/sindresorhus/KeyboardShortcuts";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		D637A85D2974374C00C6DD7D /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/LaunchAtLogin-Modern";
 			requirement = {
 				branch = main;
 				kind = branch;
@@ -671,11 +671,6 @@
 			package = D6288AEC289EC0E200F80FF1 /* XCRemoteSwiftPackageReference "Defaults" */;
 			productName = Defaults;
 		};
-		D6288AF0289EC10100F80FF1 /* LaunchAtLogin */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D6288AEF289EC10100F80FF1 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */;
-			productName = LaunchAtLogin;
-		};
 		D6288AF3289EC11700F80FF1 /* SFSafeSymbols */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D6288AF2289EC11700F80FF1 /* XCRemoteSwiftPackageReference "SFSafeSymbols" */;
@@ -685,6 +680,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D6288B3F28A0CB9800F80FF1 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */;
 			productName = KeyboardShortcuts;
+		};
+		D637A85E2974374C00C6DD7D /* LaunchAtLogin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D637A85D2974374C00C6DD7D /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */;
+			productName = LaunchAtLogin;
 		};
 		D6B238CD29601E690049CF72 /* DependencyList */ = {
 			isa = XCSwiftPackageProductDependency;
