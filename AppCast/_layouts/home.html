@@ -12,7 +12,7 @@
     <p id="app-caption">{{ site.github.project_tagline }}</p>
     <img src="assets/images/ss1.png" class="screen-shot" />
     <div class="buttons">
-      {% assign releases = site.github.releases | where: "prerelease", true %}
+      {% assign releases = site.github.releases | where: "prerelease", false %}
       {% assign release = releases[0] %}
       {% assign asset = release.assets[0] %}
       {% assign version = release.tag_name | split: 'b' | first %}
