@@ -1,0 +1,70 @@
+---
+---
+
+#app-icon {
+  width: 140px;
+  height: 140px;
+  display: block;
+}
+
+#app-title {
+  font-size: 40px;
+  font-weight: 800;
+  margin: 0;
+  margin-top: 4px;
+}
+
+#app-caption {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0;
+  margin-top: 14px;
+  color: #666;
+  text-align: center;
+}
+
+.screen-shot {
+  width: 100%;
+  margin-top: 30px;
+  max-width: 600px;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  gap: 20px;
+
+  .button {
+    display: inline-block;
+    max-width: 600px;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: 500;
+    border: none;
+    text-decoration: none;
+    cursor: pointer;
+  
+    &.blue {
+      background-color: #007aff;
+      color: #fff;
+    }
+  
+    &.black {
+      background-color: #000;
+      color: #fff;
+    }
+  }
+}
+
+.caption {
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0;
+  margin-top: 14px;
+  color: #666;
+  text-align: center;
+}
