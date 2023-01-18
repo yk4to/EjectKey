@@ -23,8 +23,8 @@ jobs:
     - name: Cache 📦
       uses: actions/cache@v3.2.2
       with:
-        path: ./vendor/bundle
-        key: ${{ runner.os }}-gems-v1.0-${{ hashFiles('./Gemfile') }}
+        path: vendor/bundle
+        key: ${{ runner.os }}-gems-v1.0-${{ hashFiles('Gemfile') }}
         restore-keys: |
           ${{ runner.os }}-gems-
           
@@ -51,4 +51,4 @@ jobs:
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         BRANCH: gh-pages
-        FOLDER: ./_site
+        FOLDER: _site
