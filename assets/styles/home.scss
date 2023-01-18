@@ -74,3 +74,68 @@
   color: #666;
   text-align: center;
 }
+
+.features {
+  width: 100%;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+
+  @media (max-width: 600px) {
+    gap: 0;
+  }
+
+  h2 {
+    font-size: 34px;
+    font-weight: 800;
+  }
+
+  .feature {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    &.reverse {
+      flex-direction: row-reverse;
+    }
+
+    @media (max-width: 600px) {
+      flex-direction: column !important;
+    }
+    
+    .screen-shot {
+      width: 54%;
+      height: auto;
+      margin: 0;
+
+      @media (max-width: 600px) {
+        width: 100%;
+      }
+    }
+
+    .content {
+      width: 46%;
+      padding: 30px;
+      box-sizing: border-box;
+      font-size: 18px;
+
+      @media (max-width: 600px) {
+        width: 100%;
+        padding: 30px 20px;
+      }
+
+      h3 {
+        margin: 0;
+        font-size: 24px;
+        color: #007aff;
+      }
+
+      .experimental {
+        font-size: 14px;
+        font-weight: 500;
+        color: #666;
+      }
+    }
+  }
+}
