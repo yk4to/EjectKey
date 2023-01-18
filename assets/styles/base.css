@@ -10,11 +10,18 @@ body {
   width: 100%;
   max-width: 800px;
   display: flex;
-  align-items: center;
   flex-direction: column;
   margin: 20px auto 40px auto;
   padding: 0 20px;
   box-sizing: border-box;
+}
+.container.center {
+  align-items: center;
+}
+
+a {
+  color: #007aff;
+  text-decoration: none;
 }
 
 /*# sourceMappingURL=base.css.map */
