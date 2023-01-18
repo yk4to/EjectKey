@@ -6,15 +6,15 @@
   <title>{{ site.github.project_title }}</title>
 </head>
 <body>
-  <div class="container">
+  <div class="container center">
     <img src="assets/images/icon.png" id="app-icon" />
     <h1 id="app-title">{{ site.github.project_title }}</h1>
     <p id="app-caption">{{ site.github.project_tagline }}</p>
     <img src="assets/images/ss1.png" class="screen-shot" />
     <div class="buttons">
-      {% assign releases = site.github.releases | where: "prerelease", false %}
-      {% assign release = releases[0] %}
-      {% assign asset = release.assets[0] %}
+      {% assign releases = site.github.releases | where: "prerelease", false | where: "draft", false | sort: "created_at" | reverse %}
+      {% assign release = releases.first %}
+      {% assign asset = release.assets.first %}
       {% assign version = release.tag_name | split: 'b' | first %}
       <a href="{{ asset.browser_download_url }}" class="button blue">
         <i class="fa-solid fa-download"></i>
