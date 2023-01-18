@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% include head.html %}
+  <link rel="stylesheet" href="{{ '/assets/styles/changelog.css' | relative_url }}" />
+  <title>Changelog</title>
+</head>
+<body>
+  <div class="container">
+    <h1>Changelog</h1>
+    {% assign releases = site.github.releases | where: "draft", false | sort: "created_at" | reverse %}
+    {% for release in releases %}
+      <div class="release">
+        <h2>
+          {{ release.name }}
+          {% if release.prerelease %}
+            <span class="badge">Pre-release</span>
+          {% endif %}
+          {% if release.id == releases.first.id %}
+            <span class="badge">Latest</span>
+          {% endif %}
+        </h2>
+        <p class="info">
+          Released on {{ release.created_at | date_to_string: "ordinal", "US" }}
+          <a class="download" href="{{ release.assets[0].browser_download_url }}">
+            <i class="fa-solid fa-download"></i>
+            Download
+          </a>
+        </p>
+        {{ release.body | markdownify }}
+      </div>
+    {% endfor %}
+  </div>
+</body>
+</html>

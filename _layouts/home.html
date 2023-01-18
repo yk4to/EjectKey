@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% include head.html %}
+  <link rel="stylesheet" href="{{ '/assets/styles/home.css' | relative_url }}" />
+  <title>{{ site.github.project_title }}</title>
+</head>
+<body>
+  <div class="container center">
+    <img src="assets/images/icon.png" id="app-icon" />
+    <h1 id="app-title">{{ site.github.project_title }}</h1>
+    <p id="app-caption">{{ site.github.project_tagline }}</p>
+    <img src="assets/images/ss1.png" class="screen-shot" />
+    <div class="buttons">
+      {% assign releases = site.github.releases | where: "prerelease", false | where: "draft", false | sort: "created_at" | reverse %}
+      {% assign release = releases.first %}
+      {% assign asset = release.assets.first %}
+      {% assign version = release.tag_name | split: 'b' | first %}
+      <a href="{{ asset.browser_download_url }}" class="button blue">
+        <i class="fa-solid fa-download"></i>
+        Download {{ version }}
+      </a>
+      <a href="{{ site.github.repository_url }}" class="button black">
+        <i class="fa-brands fa-github"></i>
+        GitHub
+      </a>
+    </div>
+    <p class="caption">
+      Requires macOS 13.0 Ventura or later.
+    </p>
+      
+  </div>
+</body>
+</html>
