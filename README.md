@@ -1,8 +1,10 @@
-# AppCast
+# EjectKey Website
 
-This is a simple system to create `appcast.xml` files for Sparkle with Jekyll.
+![](https://github.com/fus1ondev/EjectKey/actions/workflows/jekyll.yml/badge.svg)
 
-`sign_update` is a binary copied from [Sparkle](https://github.com/sparkle-project/Sparkle).
+This branch is a EjectKey website made with Jekyll and GitHub Pages.
+
+It also provides the `appcast.xml` used by the Sparkle framework for automatic updates.
 
 ## References
 
