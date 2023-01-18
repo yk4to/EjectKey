@@ -1,10 +1,13 @@
 # ref: https://github.com/RobotsAndPencils/XcodesApp/blob/main/.github/workflows/appcast.yml
 
-name: Build and publish a new appcast file
+name: Build and publish a website
 
 on:
   workflow_dispatch:
   release:
+  push:
+    branches:
+      - website
 
 jobs:
   jekyll:
@@ -19,8 +22,8 @@ jobs:
     - name: Cache 📦
       uses: actions/cache@v3.2.2
       with:
-        path: AppCast/vendor/bundle
-        key: ${{ runner.os }}-gems-v1.0-${{ hashFiles('AppCast/Gemfile') }}
+        path: ./vendor/bundle
+        key: ${{ runner.os }}-gems-v1.0-${{ hashFiles('./Gemfile') }}
         restore-keys: |
           ${{ runner.os }}-gems-
           
@@ -30,7 +33,6 @@ jobs:
         ruby-version: '2.7'
 
     - name: Bundler 💎
-      working-directory: AppCast
       env:
         BUNDLE_PATH: vendor/bundle
       run: |
@@ -38,7 +40,6 @@ jobs:
         bundle install
 
     - name: Build 🛠
-      working-directory: AppCast
       env:
         BUNDLE_PATH: vendor/bundle
         JEKYLL_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -49,4 +50,4 @@ jobs:
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         BRANCH: gh-pages
-        FOLDER: AppCast/_site
+        FOLDER: ./_site
