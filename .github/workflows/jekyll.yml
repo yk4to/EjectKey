@@ -8,6 +8,8 @@ on:
   push:
     branches:
       - website
+    paths-ignore:
+      - README.md
 
 jobs:
   jekyll:
