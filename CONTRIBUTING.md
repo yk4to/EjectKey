@@ -22,12 +22,7 @@ Please match the existing coding style as much as possible.
 
 ## Build Locally
 
-You must have Xcode, SwiftLint and SwiftGen installed in your Mac.
-
-You can install SwiftLint and SwiftGen from Homebrew.
-
 ```sh
-brew install swiftgen swiftlint
 
 git clone https://github.com/fus1ondev/EjectKey.git
 

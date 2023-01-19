@@ -231,8 +231,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D6288ADD289EB5DC00F80FF1 /* Build configuration list for PBXNativeTarget "EjectKey" */;
 			buildPhases = (
-				D6288AE6289EBD3A00F80FF1 /* SwiftGen */,
-				D6288AEB289EBF3F00F80FF1 /* SwiftLint */,
 				D6288ACA289EB5DB00F80FF1 /* Sources */,
 				D6288ACB289EB5DB00F80FF1 /* Frameworks */,
 				D6288ACC289EB5DB00F80FF1 /* Resources */,
@@ -241,6 +239,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				D68DAFB22979946F009062CB /* PBXTargetDependency */,
 				D6B238D0296020560049CF72 /* PBXTargetDependency */,
 			);
 			name = EjectKey;
@@ -288,6 +287,8 @@
 				D6B238CC29601E690049CF72 /* XCRemoteSwiftPackageReference "DependencyList" */,
 				D6EF55A72962F714002E36EC /* XCRemoteSwiftPackageReference "Sparkle" */,
 				D637A85D2974374C00C6DD7D /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */,
+				D68DAFA929798FA7009062CB /* XCRemoteSwiftPackageReference "SwiftGenPlugin" */,
+				D68DAFAC297993D4009062CB /* XCRemoteSwiftPackageReference "SwiftLintPlugin" */,
 			);
 			productRefGroup = D6288AC5289EB5DB00F80FF1;
 			projectDirPath = "";
@@ -310,47 +311,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		D6288AE6289EBD3A00F80FF1 /* SwiftGen */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"$(SRCROOT)/SwiftGenInput.xcfilelist",
-			);
-			inputPaths = (
-			);
-			name = SwiftGen;
-			outputFileListPaths = (
-				"$(SRCROOT)/SwiftGenOutput.xcfilelist",
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if which swiftgen >/dev/null; then\n    swiftgen\nelse\n    echo \"warning: SwiftGen not installed\"\nfi\n";
-		};
-		D6288AEB289EBF3F00F80FF1 /* SwiftLint */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = SwiftLint;
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if [ \"${CONFIGURATION}\" = \"Debug\" ]; then\n    if which swiftlint >/dev/null; then\n        swiftlint\n    else\n        echo \"warning: SwiftLint not installed\"\n    fi\nfi\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D6288ACA289EB5DB00F80FF1 /* Sources */ = {
@@ -387,6 +347,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		D68DAFB22979946F009062CB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = D68DAFB12979946F009062CB /* SwiftLint */;
+		};
 		D6B238D0296020560049CF72 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			productRef = D6B238CF296020560049CF72 /* PrepareDependencyList */;
@@ -647,6 +611,22 @@
 				kind = branch;
 			};
 		};
+		D68DAFA929798FA7009062CB /* XCRemoteSwiftPackageReference "SwiftGenPlugin" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftGen/SwiftGenPlugin";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
+		D68DAFAC297993D4009062CB /* XCRemoteSwiftPackageReference "SwiftLintPlugin" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/lukepistrol/SwiftLintPlugin";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.2.2;
+			};
+		};
 		D6B238CC29601E690049CF72 /* XCRemoteSwiftPackageReference "DependencyList" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Kyome22/DependencyList";
@@ -685,6 +665,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D637A85D2974374C00C6DD7D /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */;
 			productName = LaunchAtLogin;
+		};
+		D68DAFB12979946F009062CB /* SwiftLint */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D68DAFAC297993D4009062CB /* XCRemoteSwiftPackageReference "SwiftLintPlugin" */;
+			productName = "plugin:SwiftLint";
 		};
 		D6B238CD29601E690049CF72 /* DependencyList */ = {
 			isa = XCSwiftPackageProductDependency;
