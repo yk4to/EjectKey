@@ -13,6 +13,8 @@ categories:
       - 'chore'
       - 'documentation'
       - 'dependencies'
+exclude-labels:
+  - 'skip-changelog'
 template: |
   ## Changes
   $CHANGES
