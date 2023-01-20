@@ -36,10 +36,6 @@ jobs:
       uses: actions/checkout@v3
       with:
         fetch-depth: 0
-    - name: Install Dependencies
-      run: |
-        brew install swiftgen
-        npm install --global create-dmg
     - name: Create Folder
       run: mkdir EjectKey/Generated
     - name: Get Version Number
@@ -70,6 +66,8 @@ jobs:
         xcodebuild -exportArchive -archivePath "$BUILD_DIR/$XCODE_ARCHIVE" -exportPath "$BUILD_DIR" -exportOptionsPlist "$EXPORT_OPTIONS_PLIST"
     - name: Resign App
       run: codesign --force --deep -s "$CODE_SIGN_IDENTITY" "$BUILD_DIR/$APP_NAME"
+    - name: Install Dependency
+      run: npm install --global create-dmg
     - name: Create DMG
       run: create-dmg "$BUILD_DIR/$APP_NAME"
       continue-on-error: true

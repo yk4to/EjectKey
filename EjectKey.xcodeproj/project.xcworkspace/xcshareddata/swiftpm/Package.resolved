@@ -62,6 +62,24 @@
         "revision" : "fddd1c00396eed152c45a46bea9f47b98e59301d",
         "version" : "1.2.0"
       }
+    },
+    {
+      "identity" : "swiftgenplugin",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/BookBeat/SwiftGenPlugin",
+      "state" : {
+        "branch" : "xcodeproject-support",
+        "revision" : "1228d5a43ca791db0719d42f641c34a00b9c32f3"
+      }
+    },
+    {
+      "identity" : "swiftlintplugin",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/lukepistrol/SwiftLintPlugin",
+      "state" : {
+        "revision" : "f69b412a765396d44dc9f4788a5b79919c1ca9e3",
+        "version" : "0.2.2"
+      }
     }
   ],
   "version" : 2
