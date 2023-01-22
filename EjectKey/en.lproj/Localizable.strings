@@ -69,7 +69,7 @@
 "general" = "General";
 
 
-"launch_at_login" = "Launch at Login";
+"launch_at_login" = "Launch at login";
 
 
 "license" = "License";
@@ -108,22 +108,22 @@
 "shortcuts" = "Shortcuts";
 
 
-"show_action_menu" = "Show Action Menu";
+"show_action_menu" = "Show action menu";
 
 
-"show_control_strip_button" = "Show Eject Button on Control Strip";
+"show_control_strip_button" = "Show eject button on Control Strip";
 
 
 "show_quit_dialog_when_ejection_fails" = "Show a dialog to quit applications using the volume when ejection fails";
 
 
-"show_detailed_information" = "Show Detailed Information";
+"show_detailed_information" = "Show detailed information";
 
 
-"show_eject_all_volumes_button" = "Show \"Eject All Volumes\" Button";
+"show_eject_all_volumes_button" = "Show \"Eject All Volumes\" button";
 
 
-"show_eject_all_volumes_in_disk_buttons" = "Show \"Eject All Volumes in Disk\" Buttons";
+"show_eject_all_volumes_in_disk_buttons" = "Show \"Eject All Volumes in Disk\" buttons";
 
 
 "show_in_finder" = "Show in Finder";
@@ -132,13 +132,13 @@
 "show_move_to_trash_dialog" = "Show \"Move to Trash\" dialog when ejecting a virtual disk image if associated .dmg files exist in the Downloads folder";
 
 
-"show_number_of_connected_volumes" = "Show Number of Connected Volumes";
+"show_number_of_connected_volumes" = "Show number of connected volumes";
 
 
 "size" = "Size";
 
 
-"sound_when_sending_notifications" = "Sound When Sending Notifications";
+"sound_when_sending_notifications" = "Sound when sending notifications";
 
 
 "the_following_applications_are_using_vol" = "The following application(s) are using \"%@\"";
