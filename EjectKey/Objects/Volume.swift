@@ -11,6 +11,7 @@
 
 import Dispatch
 import Cocoa
+import SwiftShell
 
 struct Culprit: Equatable {
     let name: String
@@ -128,17 +129,10 @@ class Volume {
         let applications = NSWorkspace.shared.runningApplications
         for application in applications {
             let pid = String(application.processIdentifier)
-            let process = Process()
-            process.executableURL = URL(fileURLWithPath: "/usr/sbin/lsof")
-            process.arguments = ["-Fcnp", "-p", pid]
-            let outputPipe = Pipe()
-            process.standardOutput = outputPipe
-            process.launch()
+            let result = run("/usr/sbin/lsof", "-Fcnp", "-p", pid)
             
-            if let data = try? outputPipe.fileHandleForReading.readToEnd(),
-               let output = String(data: data, encoding: .utf8) {
-                
-                let lines = output.components(separatedBy: .newlines)
+            if result.succeeded {
+                let lines = result.stdout.components(separatedBy: .newlines)
                 for line in lines {
                     if line.count == 0 {
                         continue
