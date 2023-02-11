@@ -111,7 +111,8 @@ jobs:
         env:
           SPARKLE_PRIVATE_KEY: ${{ secrets.SPARKLE_PRIVATE_KEY }}
       - name: Generate Signature
-        run: echo "SIGNATURE=$(Tools/sign_update -p $ZIP_FILE_NAME -f sparkle_private_key)" >> "$GITHUB_ENV"
+        run: |
+          echo "SIGNATURE=$(SourcePackages/artifacts/sparkle/bin/sign_update -p $ZIP_FILE_NAME -f sparkle_private_key)" >> "$GITHUB_ENV"
       - name: Get Version Number
         run: |
           echo "VERSION=$(cat version.txt)" >> "$GITHUB_ENV"
