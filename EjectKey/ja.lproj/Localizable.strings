@@ -147,6 +147,12 @@
 "this_volume_is_a_virtual_interface" = "このボリュームは仮想インターフェースです。";
 
 
+"this_volume_is_used_as_time_machine" = "このボリュームはTime Machineとして使用されています。";
+
+
+"time_machine_on_your_network" = "ネットワーク上のTime Machine";
+
+
 "touch_bar" = "Touch Bar";
 
 

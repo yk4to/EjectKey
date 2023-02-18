@@ -13,6 +13,9 @@ final class AppModel: ObservableObject {
     @Published var allVolumes: [Volume] = []
     @Published var units: [Unit] = []
     
+    var timeMachineMountPoints: [String] = []
+    var remoteTimeMachineMountPoints: [String] = []
+    
     // Workaround for switching tabs of Settings View programmatically
     @Published var settingsTabSelection = "general"
 

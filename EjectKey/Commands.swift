@@ -8,6 +8,7 @@
 import AppKit
 import Defaults
 import AudioToolbox
+import SwiftShell
 
 extension AppModel {
     func eject(_ volume: Volume) {
@@ -156,5 +157,44 @@ extension AppModel {
                 }
             }
         }
+    }
+    
+    func setTimeMachines() {
+        let result = run("/usr/bin/tmutil", "destinationinfo", "-X")
+        if !result.succeeded {
+            return
+        }
+        guard let data = result.stdout.data(using: .utf8) else {
+            return
+        }
+        guard let plist = try? PropertyListSerialization.propertyList(from: data, format: nil) as? NSMutableDictionary else {
+            return
+        }
+        guard let destinations = plist["Destinations"] as? [NSMutableDictionary] else {
+            return
+        }
+        
+        var _timeMachineMountPoints: [String] = []
+        
+        for destination in destinations {
+            guard let mountPoint = destination["MountPoint"] as? String else {
+                return
+            }
+            guard let encoded = mountPoint.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) else {
+                return
+            }
+            _timeMachineMountPoints.append(encoded + "/")
+        }
+        
+        timeMachineMountPoints = _timeMachineMountPoints
+    }
+    
+    func isTimeMachine(_ unit: Unit) -> Bool {
+        let firstVolume = unit.volumes.first!
+        return isTimeMachine(firstVolume)
+    }
+    
+    func isTimeMachine(_ volume: Volume) -> Bool {
+        return timeMachineMountPoints.contains(volume.url.path())
     }
 }
