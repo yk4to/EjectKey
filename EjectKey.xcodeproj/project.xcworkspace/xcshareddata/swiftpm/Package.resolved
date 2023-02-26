@@ -14,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Kyome22/DependencyList",
       "state" : {
-        "revision" : "1a162d8d6ec173ff6f7510a08256eb8fdcd4c2ef",
-        "version" : "0.0.1"
+        "revision" : "b9dbb0f20d6f60aae01f795e852918119917c304",
+        "version" : "0.0.2"
       }
     },
     {
