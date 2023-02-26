@@ -31,7 +31,9 @@ struct MenuView: View {
             
             ForEach(model.units.sorted(by: { $0.minNumber < $1.minNumber }), id: \.devicePath) { unit in
                 if showDetailedInformation {
-                    if unit.isDiskImage {
+                    if model.isTimeMachine(unit) {
+                        Text(unit.isLocal ? "Time Machine" : L10n.timeMachineOnYourNetwork)
+                    } else if unit.isDiskImage {
                         Text(L10n.diskImage)
                     } else {
                         Text("\(unit.deviceVendor) \(unit.deviceModel) (\(unit.deviceProtocol))")
@@ -64,6 +66,10 @@ struct MenuView: View {
                                 Text(volume.type)
                                 Text("\(L10n.size): \(volume.size.formatted(.byteCount(style: .file)))")
                                 Text("ID: \(volume.bsdName)")
+                                if model.isTimeMachine(volume) {
+                                    Divider()
+                                    Text(L10n.thisVolumeIsUsedAsTimeMachine)
+                                }
                             }
                         } label: {
                             Image(nsImage: volume.icon)
@@ -93,6 +99,9 @@ struct MenuView: View {
             quitApp()
         }
         .keyboardShortcut("Q")
+        .onAppear {
+            model.setTimeMachines()
+        }
     }
     
     private func showSettingsWindow() {

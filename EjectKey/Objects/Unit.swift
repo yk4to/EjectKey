@@ -13,6 +13,7 @@ struct Unit {
     let deviceProtocol: String
     let devicePath: String
     let isDiskImage: Bool
+    let isLocal: Bool
     let volumes: [Volume]
     let numbers: [Int]
     let minNumber: Int
@@ -27,6 +28,7 @@ struct Unit {
         self.deviceVendor = firstVolume.deviceVendor
         self.deviceProtocol = firstVolume.deviceProtocol
         self.isDiskImage = firstVolume.isDiskImage
+        self.isLocal = firstVolume.isLocal
         
         self.numbers = volumes.map(\.unitNumber).unique.sorted()
         self.minNumber = numbers.min() ?? 0

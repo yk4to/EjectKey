@@ -18,6 +18,11 @@ struct Culprit: Equatable {
     let application: NSRunningApplication
 }
 
+struct TimeMachine {
+    let id: String
+    let mountPoint: String?
+}
+
 class Volume {
 
     let disk: DADisk
@@ -35,9 +40,14 @@ class Volume {
     let icon: NSImage
     let isVirtual: Bool
     let isDiskImage: Bool
+    let isLocal: Bool
     
     init?(url: URL) {
-        let resourceValues = try? url.resourceValues(forKeys: [.volumeIsInternalKey, .volumeLocalizedFormatDescriptionKey])
+        let resourceValues = try? url.resourceValues(forKeys: [
+            .volumeIsInternalKey,
+            .volumeIsLocalKey,
+            .volumeLocalizedFormatDescriptionKey
+        ])
         
         // let isExternalVolume = url.pathComponents.count > 1 && url.pathComponents[1] == "Volumes"
         let isInternalVolume = resourceValues?.volumeIsInternal ?? false
@@ -94,6 +104,8 @@ class Volume {
         
         let type = resourceValues?.volumeLocalizedFormatDescription ?? ""
         
+        let isLocal = resourceValues?.volumeIsLocal ?? true
+        
         self.disk = disk
         self.bsdName = bsdName
         self.name = name
@@ -109,6 +121,7 @@ class Volume {
         self.icon = icon
         self.isVirtual = deviceProtocol == "Virtual Interface"
         self.isDiskImage = self.isVirtual && deviceVendor == "Apple" && deviceModel == "Disk Image"
+        self.isLocal = isLocal
     }
     
     func unmount(unmountAndEject: Bool, withoutUI: Bool, completionHandler: @escaping (Error?) -> Void) {
