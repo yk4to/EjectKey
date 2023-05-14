@@ -6,7 +6,7 @@
       "location" : "https://github.com/sindresorhus/Defaults",
       "state" : {
         "branch" : "main",
-        "revision" : "d71bfd8ffbf944ef08eacbca5fb96d6f69bf7696"
+        "revision" : "488ff7dd719cf18a347dcab00078483f28ee52f8"
       }
     },
     {
@@ -24,7 +24,7 @@
       "location" : "https://github.com/sindresorhus/KeyboardShortcuts",
       "state" : {
         "branch" : "main",
-        "revision" : "d7b349f6822e24228141e560aa48a32dca23b22c"
+        "revision" : "018e445b340dac78dfc2a4c97c45d9571507c3b5"
       }
     },
     {
@@ -50,8 +50,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/sparkle-project/Sparkle",
       "state" : {
-        "revision" : "9d85a02fe7916caa7531847452c4933d331503a5",
-        "version" : "2.3.1"
+        "revision" : "7907f058bcef1132c9b4af6c049cac598330a5f9",
+        "version" : "2.4.1"
       }
     },
     {
@@ -77,8 +77,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/lukepistrol/SwiftLintPlugin",
       "state" : {
-        "revision" : "f69b412a765396d44dc9f4788a5b79919c1ca9e3",
-        "version" : "0.2.2"
+        "revision" : "d3ec7fb242ebe1d8e23bf17e58a1e27d43125994",
+        "version" : "0.2.6"
       }
     },
     {
