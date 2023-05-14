@@ -24,11 +24,11 @@ env:
   DMG_NAME: "EjectKey"
   DMG_FILE_NAME: "EjectKey.dmg"
   ZIP_FILE_NAME: "EjectKey.zip"
-  DEVELOPER_DIR: /Applications/Xcode_14.2.app/Contents/Developer
+  DEVELOPER_DIR: /Applications/Xcode_14.3.app/Contents/Developer
 
 jobs:
   build:
-    runs-on: macOS-12
+    runs-on: macos-13
     steps:
     - name: Show Xcode version
       run: xcodebuild -version    
