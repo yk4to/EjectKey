@@ -15,7 +15,7 @@ struct NotificationsView: View {
     @Default(.doNotSendNotificationsAboutVirtualVolumes) var doNotSendNotificationsAboutVirtualVolumes
     @Default(.soundWhenSendingNotifications) var soundWhenSendingNotifications
     
-    @State private var isAuthed = false
+    @State private var isAuthed = true
     
     var body: some View {
         VStack {
