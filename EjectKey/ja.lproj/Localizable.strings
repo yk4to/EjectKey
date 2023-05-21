@@ -42,6 +42,9 @@
 "do_not_display_numbers_when_nothing_is_connected" = "何も接続されていない時は数を表示しない";
 
 
+"do_not_send_notifications_about_virtual_volumes" = "仮想ボリュームに関する通知を送らない";
+
+
 "eject" = "取り出す";
 
 

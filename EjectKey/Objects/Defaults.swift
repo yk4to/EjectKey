@@ -39,6 +39,7 @@ extension Defaults.Keys {
     // Notifications
     static let sendWhenVolumeIsConnected = Key<Bool>("sendWhenVolumeIsConnected", default: true)
     static let sendWhenVolumeIsEjected = Key<Bool>("sendWhenVolumeIsEjected", default: true)
+    static let doNotSendNotificationsAboutVirtualVolumes = Key<Bool>("doNotSendNotificationsAboutVirtualVolumes", default: true)
     static let soundWhenSendingNotifications = Key<Bool>("soundWhenSendingNotifications", default: false)
     // Experimental
     static let showQuitDialogWhenEjectionFails = Key<Bool>("showQuitDialogWhenEjectionFails", default: false)

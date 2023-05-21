@@ -36,10 +36,13 @@
 "disk_num" = "Disk %@";
 
 
+"display_only_when_external_volume_is_connected" = "Display only when external volume is connected";
+
+
 "do_not_display_numbers_when_nothing_is_connected" = "Do not display the number when nothing is connected";
 
 
-"display_only_when_external_volume_is_connected" = "Display only when external volume is connected";
+"do_not_send_notifications_about_virtual_volumes" = "Do not send notifications about virtual volumes";
 
 
 "eject" = "Eject";
@@ -114,9 +117,6 @@
 "show_control_strip_button" = "Show eject button on Control Strip";
 
 
-"show_quit_dialog_when_ejection_fails" = "Show a dialog to quit applications using the volume when ejection fails";
-
-
 "show_detailed_information" = "Show detailed information";
 
 
@@ -133,6 +133,9 @@
 
 
 "show_number_of_connected_volumes" = "Show number of connected volumes";
+
+
+"show_quit_dialog_when_ejection_fails" = "Show a dialog to quit applications using the volume when ejection fails";
 
 
 "size" = "Size";

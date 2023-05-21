@@ -12,7 +12,9 @@ import UserNotifications
 struct NotificationsView: View {
     @Default(.sendWhenVolumeIsConnected) var sendWhenVolumeIsConnected
     @Default(.sendWhenVolumeIsEjected) var sendWhenVolumeIsEjected
+    @Default(.doNotSendNotificationsAboutVirtualVolumes) var doNotSendNotificationsAboutVirtualVolumes
     @Default(.soundWhenSendingNotifications) var soundWhenSendingNotifications
+    
     @State private var isAuthed = false
     
     var body: some View {
@@ -33,6 +35,7 @@ struct NotificationsView: View {
                     Toggle(L10n.whenVolumeIsEjected, isOn: $sendWhenVolumeIsEjected)
                 }
                 Section {
+                    Toggle(L10n.doNotSendNotificationsAboutVirtualVolumes, isOn: $doNotSendNotificationsAboutVirtualVolumes)
                     Toggle(L10n.soundWhenSendingNotifications, isOn: $soundWhenSendingNotifications)
                 }
             }

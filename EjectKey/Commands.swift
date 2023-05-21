@@ -92,6 +92,10 @@ extension AppModel {
             let mountedVolumes = new.filter({ !oldIds.contains($0.id) })
             
             for volume in mountedVolumes {
+                if Defaults[.doNotSendNotificationsAboutVirtualVolumes] && volume.isVirtual {
+                    return
+                }
+                
                 DispatchQueue.main.async {
                     self.sendNotification(
                         title: L10n.volumeConnected,
@@ -126,9 +130,10 @@ extension AppModel {
             }
             
             for volume in ejectedVolumes {
-                if !volume.isDiskImage {
+                if Defaults[.doNotSendNotificationsAboutVirtualVolumes] && volume.isVirtual {
                     return
                 }
+                
                 let fixedVolumeName = volume.name.lowercased().replacingOccurrences(of: " ", with: "[ -_]*")
                 guard let regex = try? Regex("\(fixedVolumeName).*\\.dmg$") else {
                     return
