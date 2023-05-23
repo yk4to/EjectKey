@@ -10,15 +10,9 @@ import KeyboardShortcuts
 
 struct ShortcutsView: View {
     var body: some View {
-        Form {
-            HStack {
-                Text(L10n.ejectAllVolumes)
-                Spacer()
-                KeyboardShortcuts.Recorder("", name: .ejectAllVolumes)
-            }
+        SettingsForm {
+            KeyboardShortcuts.Recorder(L10n.ejectAllVolumes, name: .ejectAllVolumes)
         }
-        .formStyle(.grouped)
-        .fixedSize(horizontal: false, vertical: true)
     }
 }
 

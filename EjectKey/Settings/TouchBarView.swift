@@ -12,7 +12,7 @@ struct TouchBarView: View {
     @Default(.controlStripButtonAction) var controlStripButtonAction
     
     var body: some View {
-        Form {
+        SettingsForm {
             Defaults.Toggle(L10n.showControlStripButton, key: .showControlStripButton)
             Defaults.Toggle(L10n.displayOnlyWhenExternalVolumeIsConnected, key: .displayOnlyWhenExternalVolumeIsConnected)
             Picker(L10n.actionWhenButtonIsPressed, selection: $controlStripButtonAction) {
@@ -21,8 +21,6 @@ struct TouchBarView: View {
                 }
             }
         }
-        .formStyle(.grouped)
-        .fixedSize(horizontal: false, vertical: true)
     }
 }
 

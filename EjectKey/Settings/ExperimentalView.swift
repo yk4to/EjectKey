@@ -13,7 +13,7 @@ struct ExperimentalView: View {
     @Default(.showMoveToTrashDialog) var showMoveToTrashDialog
 
     var body: some View {
-        Form {
+        SettingsForm {
             Section {
                 Label(L10n.experimentalNote, systemSymbol: .exclamationmarkCircle)
                     .foregroundColor(.secondary)
@@ -25,8 +25,6 @@ struct ExperimentalView: View {
                 Toggle(L10n.showMoveToTrashDialog, isOn: $showMoveToTrashDialog)
             }
         }
-        .formStyle(.grouped)
-        .fixedSize(horizontal: false, vertical: true)
     }
 }
 

@@ -18,6 +18,8 @@ struct MenuView: View {
     
     @EnvironmentObject var updaterViewModel: UpdaterViewModel
     
+    @Environment(\.openWindow) var openWindow
+    
     var body: some View {
         if model.units.isEmpty {
             Text(L10n.noExternalVolumeConnected)
@@ -97,15 +99,17 @@ struct MenuView: View {
     
     private func showSettingsWindow() {
         NSApp.sendAction(Selector(("showSettingsWindow:")), to: nil, from: nil)
-        NSApp.windows.forEach {
-            if $0.canBecomeMain {
-                $0.orderFrontRegardless()
+        if let window = NSApp.windows.first(where: { $0.identifier?.rawValue == "com_apple_SwiftUI_Settings_window" }) {
+            window.toolbarStyle = .unified
+            window.titlebarAppearsTransparent = true
+            if window.canBecomeMain {
+                window.orderFrontRegardless()
             }
         }
     }
     
     private func showAbout() {
-        model.settingsTabSelection = "about"
+        model.settingsTabSelection = .about
         showSettingsWindow()
     }
     

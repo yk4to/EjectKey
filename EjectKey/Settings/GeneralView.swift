@@ -16,7 +16,7 @@ struct GeneralView: View {
     @Default(.showNumberOfConnectedVolumes) var showNumberOfConnectedVolumes
 
     var body: some View {
-        Form {
+        SettingsForm {
             Section {
                 LaunchAtLogin.Toggle {
                     Text(L10n.launchAtLogin)
@@ -45,8 +45,6 @@ struct GeneralView: View {
                 Defaults.Toggle(L10n.showDetailedInformation, key: .showDetailedInformation)
             }
         }
-        .formStyle(.grouped)
-        .fixedSize(horizontal: false, vertical: true)
     }
 }
 

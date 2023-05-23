@@ -18,29 +18,25 @@ struct NotificationsView: View {
     @State private var isAuthed = true
     
     var body: some View {
-        VStack {
-            Form {
-                if ( sendWhenVolumeIsConnected || sendWhenVolumeIsEjected ) && !isAuthed {
-                    Section {
-                        HStack {
-                            Label(L10n.notificationsAreNotAllowed, systemSymbol: .exclamationmarkTriangle)
-                            Button(L10n.openSettings) {
-                                NSWorkspace.shared.open(URL(fileURLWithPath: "/System/Library/PreferencePanes/Notifications.prefPane"))
-                            }
+        SettingsForm {
+            if ( sendWhenVolumeIsConnected || sendWhenVolumeIsEjected ) && !isAuthed {
+                Section {
+                    HStack {
+                        Label(L10n.notificationsAreNotAllowed, systemSymbol: .exclamationmarkTriangle)
+                        Button(L10n.openSettings) {
+                            NSWorkspace.shared.open(URL(fileURLWithPath: "/System/Library/PreferencePanes/Notifications.prefPane"))
                         }
                     }
                 }
-                Section {
-                    Toggle(L10n.whenVolumeIsConnected, isOn: $sendWhenVolumeIsConnected)
-                    Toggle(L10n.whenVolumeIsEjected, isOn: $sendWhenVolumeIsEjected)
-                }
-                Section {
-                    Toggle(L10n.doNotSendNotificationsAboutVirtualVolumes, isOn: $doNotSendNotificationsAboutVirtualVolumes)
-                    Toggle(L10n.soundWhenSendingNotifications, isOn: $soundWhenSendingNotifications)
-                }
             }
-            .formStyle(.grouped)
-            .fixedSize(horizontal: false, vertical: true)
+            Section {
+                Toggle(L10n.whenVolumeIsConnected, isOn: $sendWhenVolumeIsConnected)
+                Toggle(L10n.whenVolumeIsEjected, isOn: $sendWhenVolumeIsEjected)
+            }
+            Section {
+                Toggle(L10n.doNotSendNotificationsAboutVirtualVolumes, isOn: $doNotSendNotificationsAboutVirtualVolumes)
+                Toggle(L10n.soundWhenSendingNotifications, isOn: $soundWhenSendingNotifications)
+            }
         }
         .onAppear {
             checkAuthStatus()

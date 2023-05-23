@@ -14,7 +14,7 @@ final class AppModel: ObservableObject {
     @Published var units: [Unit] = []
     
     // Workaround for switching tabs of Settings View programmatically
-    @Published var settingsTabSelection = "general"
+    @Published var settingsTabSelection: SettingsPage.Name = .general
 
     let userNotificationCenter = UNUserNotificationCenter.current()
     
