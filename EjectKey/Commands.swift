@@ -17,7 +17,18 @@ extension AppModel {
             }
             let isLastVolume = unit.volumes.count == 1
             volume.unmount(unmountAndEject: isLastVolume, withoutUI: false) { error in
-                if error != nil {
+                if error.isNil {
+                    // Succeeded
+                    if Defaults[.sendWhenVolumeIsEjected] {
+                        self.sendNotification(
+                            title: L10n.volWasSuccessfullyEjected(volume.name),
+                            body: volume.isVirtual ? L10n.thisVolumeIsAVirtualInterface : L10n.safelyRemoved,
+                            sound: .default,
+                            identifier: UUID().uuidString
+                        )
+                    }
+                } else {
+                    // Failed
                     if Defaults[.sendWhenVolumeIsEjected] {
                         self.sendNotification(
                             title: L10n.failedToEjectVol(volume.name),
@@ -30,32 +41,24 @@ extension AppModel {
                     if Defaults[.showQuitDialogWhenEjectionFails] {
                         DispatchQueue.global().async {
                             let culprits = volume.getCulprits()
-                            if !culprits.isEmpty {
-                                DispatchQueue.main.async {
-                                    self.alert(
-                                        alertStyle: .warning,
-                                        messageText: L10n.theFollowingApplicationsAreUsingVol(volume.name),
-                                        informativeText: culprits.map(\.name).joined(separator: "\n"),
-                                        buttonTitle: L10n.quit,
-                                        showCancelButton: true,
-                                        hasDestructiveAction: true
-                                    ) {
-                                        for culprit in culprits {
-                                            culprit.application.terminate()
-                                        }
-                                    }
+                            
+                            if culprits.isEmpty {
+                                return
+                            }
+                            
+                            DispatchQueue.main.async {
+                                self.alert(
+                                    alertStyle: .warning,
+                                    messageText: L10n.theFollowingApplicationsAreUsingVol(volume.name),
+                                    informativeText: culprits.map(\.name).joined(separator: "\n"),
+                                    buttonTitle: L10n.quit,
+                                    showCancelButton: true,
+                                    hasDestructiveAction: true
+                                ) {
+                                    culprits.forEach({ $0.application.terminate() })
                                 }
                             }
                         }
-                    }
-                } else {
-                    if Defaults[.sendWhenVolumeIsEjected] {
-                        self.sendNotification(
-                            title: L10n.volWasSuccessfullyEjected(volume.name),
-                            body: volume.isVirtual ? L10n.thisVolumeIsAVirtualInterface : L10n.safelyRemoved,
-                            sound: .default,
-                            identifier: UUID().uuidString
-                        )
                     }
                 }
             }
@@ -130,7 +133,7 @@ extension AppModel {
             }
             
             for volume in ejectedVolumes {
-                if Defaults[.doNotSendNotificationsAboutVirtualVolumes] && volume.isVirtual {
+                if !volume.isDiskImage {
                     return
                 }
                 
