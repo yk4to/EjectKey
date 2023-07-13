@@ -32,7 +32,6 @@
 		D6347FC6297E8AE60084CF7E /* SwiftShell in Frameworks */ = {isa = PBXBuildFile; productRef = D6347FC5297E8AE60084CF7E /* SwiftShell */; };
 		D637A85F2974374C00C6DD7D /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = D637A85E2974374C00C6DD7D /* LaunchAtLogin */; };
 		D65DE2852A19F40D0051AAE3 /* SettingsForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65DE2842A19F40D0051AAE3 /* SettingsForm.swift */; };
-		D65DE28A2A19F4750051AAE3 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = D65DE2892A19F4750051AAE3 /* Introspect */; };
 		D65DE28C2A19F4F40051AAE3 /* EffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65DE28B2A19F4F40051AAE3 /* EffectView.swift */; };
 		D65DE28E2A1A0A810051AAE3 /* HideSidebarToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65DE28D2A1A0A810051AAE3 /* HideSidebarToggle.swift */; };
 		D696B78B29126D65001DD6FE /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D696B78A29126D65001DD6FE /* MenuView.swift */; };
@@ -40,6 +39,7 @@
 		D696B793291367FD001DD6FE /* Hidden.swift in Sources */ = {isa = PBXBuildFile; fileRef = D696B792291367FD001DD6FE /* Hidden.swift */; };
 		D696B7962913CD57001DD6FE /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D696B7952913CD57001DD6FE /* AboutView.swift */; };
 		D6B238CE29601E690049CF72 /* DependencyList in Frameworks */ = {isa = PBXBuildFile; productRef = D6B238CD29601E690049CF72 /* DependencyList */; };
+		D6EDD7F62A5FD752005FFF3F /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = D6EDD7F52A5FD752005FFF3F /* Introspect */; };
 		D6EEFE162962BBA2002B64AA /* ExperimentalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EEFE152962BBA2002B64AA /* ExperimentalView.swift */; };
 		D6EEFE192962C335002B64AA /* Unit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EEFE182962C335002B64AA /* Unit.swift */; };
 		D6EF55A92962F714002E36EC /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = D6EF55A82962F714002E36EC /* Sparkle */; };
@@ -107,7 +107,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D6EF55C2296BB34E002E36EC /* DFRFoundation.framework in Frameworks */,
-				D65DE28A2A19F4750051AAE3 /* Introspect in Frameworks */,
+				D6EDD7F62A5FD752005FFF3F /* Introspect in Frameworks */,
 				D6288AF4289EC11700F80FF1 /* SFSafeSymbols in Frameworks */,
 				D637A85F2974374C00C6DD7D /* LaunchAtLogin in Frameworks */,
 				D6B238CE29601E690049CF72 /* DependencyList in Frameworks */,
@@ -262,7 +262,7 @@
 				D6EF55A82962F714002E36EC /* Sparkle */,
 				D637A85E2974374C00C6DD7D /* LaunchAtLogin */,
 				D6347FC5297E8AE60084CF7E /* SwiftShell */,
-				D65DE2892A19F4750051AAE3 /* Introspect */,
+				D6EDD7F52A5FD752005FFF3F /* Introspect */,
 			);
 			productName = EjectKey;
 			productReference = D696B78929126B80001DD6FE /* EjectKey.app */;
@@ -303,7 +303,7 @@
 				D68DAFAC297993D4009062CB /* XCRemoteSwiftPackageReference "SwiftLintPlugin" */,
 				D68DAFB829799C76009062CB /* XCRemoteSwiftPackageReference "SwiftGenPlugin" */,
 				D6347FC4297E8AE60084CF7E /* XCRemoteSwiftPackageReference "SwiftShell" */,
-				D65DE2882A19F4750051AAE3 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
+				D6EDD7F42A5FD752005FFF3F /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 			);
 			productRefGroup = D6288AC5289EB5DB00F80FF1;
 			projectDirPath = "";
@@ -640,14 +640,6 @@
 				kind = branch;
 			};
 		};
-		D65DE2882A19F4750051AAE3 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/siteline/SwiftUI-Introspect.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.3.1;
-			};
-		};
 		D68DAFAC297993D4009062CB /* XCRemoteSwiftPackageReference "SwiftLintPlugin" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/lukepistrol/SwiftLintPlugin";
@@ -670,6 +662,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 0.0.1;
+			};
+		};
+		D6EDD7F42A5FD752005FFF3F /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/siteline/SwiftUI-Introspect.git";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 0.3.1;
 			};
 		};
 		D6EF55A72962F714002E36EC /* XCRemoteSwiftPackageReference "Sparkle" */ = {
@@ -708,11 +708,6 @@
 			package = D637A85D2974374C00C6DD7D /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */;
 			productName = LaunchAtLogin;
 		};
-		D65DE2892A19F4750051AAE3 /* Introspect */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D65DE2882A19F4750051AAE3 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
-			productName = Introspect;
-		};
 		D68DAFB12979946F009062CB /* SwiftLint */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D68DAFAC297993D4009062CB /* XCRemoteSwiftPackageReference "SwiftLintPlugin" */;
@@ -732,6 +727,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D6B238CC29601E690049CF72 /* XCRemoteSwiftPackageReference "DependencyList" */;
 			productName = "plugin:PrepareDependencyList";
+		};
+		D6EDD7F52A5FD752005FFF3F /* Introspect */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D6EDD7F42A5FD752005FFF3F /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
+			productName = Introspect;
 		};
 		D6EF55A82962F714002E36EC /* Sparkle */ = {
 			isa = XCSwiftPackageProductDependency;
