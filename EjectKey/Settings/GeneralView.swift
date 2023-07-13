@@ -30,7 +30,6 @@ struct GeneralView: View {
                     .onAppear {
                         automaticallyChecksForUpdates = updaterViewModel.automaticallyChecksForUpdates
                     }
-                Toggle(L10n.checkPrereleaseVersions, isOn: $updaterViewModel.checkPrereleaseVersions)
             }
             Section {
                 Defaults.Toggle(L10n.showNumberOfConnectedVolumes, key: .showNumberOfConnectedVolumes)
