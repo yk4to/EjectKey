@@ -21,8 +21,7 @@ env:
   EXPORT_OPTIONS_PLIST: "exportOptions.plist"
   CODE_SIGN_IDENTITY: "-"
   APP_NAME: "EjectKey.app"
-  DMG_NAME: "EjectKey"
-  DMG_FILE_NAME: "EjectKey.dmg"
+  ZIP_BASE_NAME: "EjectKey"
   ZIP_FILE_NAME: "EjectKey.zip"
   DEVELOPER_DIR: /Applications/Xcode_14.3.app/Contents/Developer
 
@@ -64,18 +63,6 @@ jobs:
         xcodebuild -exportArchive -archivePath "$BUILD_DIR/$XCODE_ARCHIVE" -exportPath "$BUILD_DIR" -exportOptionsPlist "$EXPORT_OPTIONS_PLIST"
     - name: Resign App
       run: codesign --force --deep -s "$CODE_SIGN_IDENTITY" "$BUILD_DIR/$APP_NAME"
-    - name: Install Dependency
-      run: npm install --global create-dmg
-    - name: Create DMG
-      run: create-dmg "$BUILD_DIR/$APP_NAME"
-      continue-on-error: true
-    - name: Rename DMG
-      run: mv *.dmg "$DMG_FILE_NAME"
-    - name: Upload DMG
-      uses: actions/upload-artifact@v3
-      with:
-        name: DMG
-        path: ${{ env.DMG_FILE_NAME }}
     - name: Compress ZIP
       run: zip -ry "$ZIP_FILE_NAME" "$APP_NAME"
       working-directory: ${{ env.BUILD_DIR }}
@@ -88,7 +75,7 @@ jobs:
         path: ${{ env.ZIP_FILE_NAME }}
 
   update_release_draft:
-    runs-on: macOS-12
+    runs-on: macOS-13
     if: github.ref == 'refs/heads/main'
     needs: build
     steps:
@@ -96,10 +83,6 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - name: Download DMG
-        uses: actions/download-artifact@v3
-        with:
-          name: DMG
       - name: Download ZIP
         uses: actions/download-artifact@v3
         with:
@@ -115,10 +98,8 @@ jobs:
         run: |
           echo "VERSION=$(cat version.txt)" >> "$GITHUB_ENV"
           echo "BUILD=$(git rev-list HEAD --count)" >> "$GITHUB_ENV"
-      - name: Rename DMG
-        run: mv *.dmg "$DMG_NAME-$VERSION.dmg"
       - name: Rename ZIP
-        run: mv *.zip "$DMG_NAME-$VERSION.zip"
+        run: mv *.zip "$ZIP_BASE_NAME-$VERSION.zip"
       - name: Create Release Draft
         id: create-draft
         uses: release-drafter/release-drafter@v5
@@ -132,11 +113,5 @@ jobs:
         uses: shogo82148/actions-upload-release-asset@v1
         with:
           upload_url: ${{ steps.create-draft.outputs.upload_url }}
-          asset_path: ${{ env.DMG_NAME }}-${{ env.VERSION }}.zip
-          overwrite: true
-      - name: Upload DMG
-        uses: shogo82148/actions-upload-release-asset@v1
-        with:
-          upload_url: ${{ steps.create-draft.outputs.upload_url }}
-          asset_path: ${{ env.DMG_NAME }}-${{ env.VERSION }}.dmg
+          asset_path: ${{ env.ZIP_BASE_NAME }}-${{ env.VERSION }}.zip
           overwrite: true
