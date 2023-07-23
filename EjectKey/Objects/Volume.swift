@@ -11,7 +11,6 @@
 
 import Dispatch
 import Cocoa
-import SwiftShell
 
 class Volume {
 
