@@ -31,63 +31,43 @@ class Volume {
     let isDiskImage: Bool
     
     init?(url: URL) {
-        let resourceValues = try? url.resourceValues(forKeys: [.volumeIsInternalKey, .volumeLocalizedFormatDescriptionKey])
+        guard let resourceValues = try? url.resourceValues(forKeys: [.volumeIsInternalKey, .volumeLocalizedFormatDescriptionKey]) else {
+            return nil
+        }
         
-        // let isExternalVolume = url.pathComponents.count > 1 && url.pathComponents[1] == "Volumes"
-        let isInternalVolume = resourceValues?.volumeIsInternal ?? false
+        let isInternalVolume = resourceValues.volumeIsInternal ?? false
+        
         if isInternalVolume {
             return nil
         }
         
-        guard let session = DASessionCreate(kCFAllocatorDefault) else {
+        guard let session = DASessionCreate(kCFAllocatorDefault),
+              let disk = DADiskCreateFromVolumePath(kCFAllocatorDefault, session, url as CFURL),
+              let diskInfo = DADiskCopyDescription(disk) as? [NSString: Any],
+              let name = diskInfo[kDADiskDescriptionVolumeNameKey] as? String,
+              let bsdName = diskInfo[kDADiskDescriptionMediaBSDNameKey] as? String,
+              let size = diskInfo[kDADiskDescriptionMediaSizeKey] as? Int,
+              let deviceProtocol = diskInfo[kDADiskDescriptionDeviceProtocolKey] as? String,
+              let deviceModel = diskInfo[kDADiskDescriptionDeviceModelKey] as? String,
+              let deviceVendor = diskInfo[kDADiskDescriptionDeviceVendorKey] as? String,
+              let devicePath = diskInfo[kDADiskDescriptionDevicePathKey] as? String,
+              let unitNumber = diskInfo[kDADiskDescriptionMediaBSDUnitKey] as? Int,
+              let idVal = diskInfo[kDADiskDescriptionVolumeUUIDKey]
+        else {
             return nil
         }
         
-        guard let disk = DADiskCreateFromVolumePath(kCFAllocatorDefault, session, url as CFURL) else {
-            return nil
-        }
-        
-        guard let diskInfo = DADiskCopyDescription(disk) as? [NSString: Any] else {
-            return nil
-        }
-        // For debug
-        // print("\(diskInfo as AnyObject)")
-        
-        guard let name = diskInfo[kDADiskDescriptionVolumeNameKey] as? String else {
-            return nil
-        }
-        guard let bsdName = diskInfo[kDADiskDescriptionMediaBSDNameKey] as? String else {
-            return nil
-        }
-        guard let size = diskInfo[kDADiskDescriptionMediaSizeKey] as? Int else {
-            return nil
-        }
-        guard let deviceProtocol = diskInfo[kDADiskDescriptionDeviceProtocolKey] as? String else {
-            return nil
-        }
-        guard let deviceModel = diskInfo[kDADiskDescriptionDeviceModelKey] as? String else {
-            return nil
-        }
-        guard let deviceVendor = diskInfo[kDADiskDescriptionDeviceVendorKey] as? String else {
-            return nil
-        }
-        guard let devicePath = diskInfo[kDADiskDescriptionDevicePathKey] as? String else {
-            return nil
-        }
-        guard let unitNumber = diskInfo[kDADiskDescriptionMediaBSDUnitKey] as? Int else {
-            return nil
-        }
-        let idVal = diskInfo[kDADiskDescriptionVolumeUUIDKey]
         // swiftlint:disable force_cast
         let uuid = idVal as! CFUUID
+        // swiftlint:enable force_cast
         guard let cfID = CFUUIDCreateString(kCFAllocatorDefault, uuid) else {
             return nil
         }
         let id = cfID as String
+
         let icon = NSWorkspace.shared.icon(forFile: url.path)
-        
-        let type = resourceValues?.volumeLocalizedFormatDescription ?? ""
-        
+        let type = resourceValues.volumeLocalizedFormatDescription ?? ""
+
         self.disk = disk
         self.bsdName = bsdName
         self.name = name
