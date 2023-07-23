@@ -31,6 +31,7 @@
 		D6288B4728A0CE2E00F80FF1 /* ShortcutsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6288B4628A0CE2E00F80FF1 /* ShortcutsView.swift */; };
 		D6347FC6297E8AE60084CF7E /* SwiftShell in Frameworks */ = {isa = PBXBuildFile; productRef = D6347FC5297E8AE60084CF7E /* SwiftShell */; };
 		D637A85F2974374C00C6DD7D /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = D637A85E2974374C00C6DD7D /* LaunchAtLogin */; };
+		D65AB5612A6CAACB00311461 /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65AB5602A6CAACB00311461 /* Command.swift */; };
 		D65DE2852A19F40D0051AAE3 /* SettingsForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65DE2842A19F40D0051AAE3 /* SettingsForm.swift */; };
 		D65DE28C2A19F4F40051AAE3 /* EffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65DE28B2A19F4F40051AAE3 /* EffectView.swift */; };
 		D65DE28E2A1A0A810051AAE3 /* HideSidebarToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65DE28D2A1A0A810051AAE3 /* HideSidebarToggle.swift */; };
@@ -87,6 +88,7 @@
 		D6288B3E289F44D100F80FF1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D6288B4228A0CBB500F80FF1 /* Shortcuts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shortcuts.swift; sourceTree = "<group>"; };
 		D6288B4628A0CE2E00F80FF1 /* ShortcutsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutsView.swift; sourceTree = "<group>"; };
+		D65AB5602A6CAACB00311461 /* Command.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Command.swift; sourceTree = "<group>"; };
 		D65DE2842A19F40D0051AAE3 /* SettingsForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsForm.swift; sourceTree = "<group>"; };
 		D65DE28B2A19F4F40051AAE3 /* EffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectView.swift; sourceTree = "<group>"; };
 		D65DE28D2A1A0A810051AAE3 /* HideSidebarToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideSidebarToggle.swift; sourceTree = "<group>"; };
@@ -219,6 +221,7 @@
 				D696B792291367FD001DD6FE /* Hidden.swift */,
 				D6288B16289EC7A200F80FF1 /* Resize.swift */,
 				D6288B18289EC7B600F80FF1 /* Unique.swift */,
+				D65AB5602A6CAACB00311461 /* Command.swift */,
 				D6EF55AB2962F76C002E36EC /* UpdaterViewModel.swift */,
 				D65DE28D2A1A0A810051AAE3 /* HideSidebarToggle.swift */,
 				D65DE28B2A19F4F40051AAE3 /* EffectView.swift */,
@@ -337,6 +340,7 @@
 				D65DE2852A19F40D0051AAE3 /* SettingsForm.swift in Sources */,
 				D6288B19289EC7B600F80FF1 /* Unique.swift in Sources */,
 				D6EEFE192962C335002B64AA /* Unit.swift in Sources */,
+				D65AB5612A6CAACB00311461 /* Command.swift in Sources */,
 				D6288AE9289EBE5600F80FF1 /* Strings.swift in Sources */,
 				D6288AFA289EC41900F80FF1 /* Observers.swift in Sources */,
 				D65DE28C2A19F4F40051AAE3 /* EffectView.swift in Sources */,
