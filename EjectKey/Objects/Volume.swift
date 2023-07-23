@@ -13,11 +13,6 @@ import Dispatch
 import Cocoa
 import SwiftShell
 
-struct Culprit: Equatable {
-    let name: String
-    let application: NSRunningApplication
-}
-
 class Volume {
 
     let disk: DADisk
@@ -123,7 +118,7 @@ class Volume {
         }
     }
 
-    func getCulprits() -> [Culprit] {
+    func getCulpritApps() -> [NSRunningApplication] {
         let volumePath = url.path(percentEncoded: false)
         let command = Command("/usr/sbin/lsof", ["-Fn", "+D", volumePath])
         
@@ -141,15 +136,8 @@ class Volume {
             }
         }).unique
         
-        let culprits = pids.compactMap({ pid in
-            if let app = NSRunningApplication(processIdentifier: pid),
-               let appName = app.localizedName {
-                return Culprit(name: appName, application: app)
-            } else {
-                return nil
-            }
-        })
+        let apps = pids.compactMap({ NSRunningApplication(processIdentifier: $0) })
         
-        return culprits
+        return apps
     }
 }

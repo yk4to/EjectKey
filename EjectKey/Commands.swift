@@ -40,22 +40,33 @@ extension AppModel {
                     
                     if Defaults[.showQuitDialogWhenEjectionFails] {
                         DispatchQueue.global().async {
-                            let culprits = volume.getCulprits()
+                            let culpritApps = volume.getCulpritApps()
                             
-                            if culprits.isEmpty {
+                            if culpritApps.isEmpty {
                                 return
                             }
+                            
+                            let infoText = culpritApps.map({ app in
+                                if let name = app.localizedName {
+                                    return name
+                                } else if let bundleId = app.bundleIdentifier {
+                                    return bundleId
+                                } else {
+                                    let pid = app.processIdentifier
+                                    return String(pid)
+                                }
+                            }).joined(separator: "\n")
                             
                             DispatchQueue.main.async {
                                 self.alert(
                                     alertStyle: .warning,
                                     messageText: L10n.theFollowingApplicationsAreUsingVol(volume.name),
-                                    informativeText: culprits.map(\.name).joined(separator: "\n"),
+                                    informativeText: infoText,
                                     buttonTitle: L10n.quit,
                                     showCancelButton: true,
                                     hasDestructiveAction: true
                                 ) {
-                                    culprits.forEach({ $0.application.terminate() })
+                                    culpritApps.forEach({ $0.terminate() })
                                 }
                             }
                         }
