@@ -11,12 +11,6 @@
 
 import Dispatch
 import Cocoa
-import SwiftShell
-
-struct Culprit: Equatable {
-    let name: String
-    let application: NSRunningApplication
-}
 
 class Volume {
 
@@ -122,31 +116,27 @@ class Volume {
             fileManager.unmountVolume(at: self.url, options: options, completionHandler: completionHandler)
         }
     }
-    
-    func getCulprits() -> [Culprit] {
-        var culprits: [Culprit] = []
+
+    func getCulpritApps() -> [NSRunningApplication] {
+        let volumePath = url.path(percentEncoded: false)
+        let command = Command("/usr/sbin/lsof", ["-Fn", "+D", volumePath])
         
-        let applications = NSWorkspace.shared.runningApplications
-        for application in applications {
-            let pid = String(application.processIdentifier)
-            let result = run("/usr/sbin/lsof", "-Fcnp", "-p", pid)
-            
-            if result.succeeded {
-                let lines = result.stdout.components(separatedBy: .newlines)
-                for line in lines {
-                    if line.count == 0 {
-                        continue
-                    }
-                    let c = line.prefix(1)
-                    let v = String(line.dropFirst(1))
-                    if c == "n" && v.hasPrefix("/Volumes/\(url.lastPathComponent)/") {
-                        if let appName = application.localizedName {
-                            culprits.append(Culprit(name: appName, application: application))
-                        }
-                    }
-                }
-            }
+        guard let result = command.run() else {
+            return []
         }
-        return culprits.unique
+        
+        let lines = result.components(separatedBy: .newlines)
+        
+        let pids = lines.compactMap({ line in
+            if line.starts(with: "p") {
+                return Int32(line.dropFirst(1))
+            } else {
+                return nil
+            }
+        }).unique
+        
+        let apps = pids.compactMap({ NSRunningApplication(processIdentifier: $0) })
+        
+        return apps
     }
 }

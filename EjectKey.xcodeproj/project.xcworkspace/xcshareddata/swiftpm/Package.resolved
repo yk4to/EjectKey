@@ -82,15 +82,6 @@
       }
     },
     {
-      "identity" : "swiftshell",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/kareman/SwiftShell",
-      "state" : {
-        "branch" : "master",
-        "revision" : "99680b2efc7c7dbcace1da0b3979d266f02e213c"
-      }
-    },
-    {
       "identity" : "swiftui-introspect",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/siteline/SwiftUI-Introspect.git",
