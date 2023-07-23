@@ -29,7 +29,6 @@
 		D6288B4128A0CB9800F80FF1 /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = D6288B4028A0CB9800F80FF1 /* KeyboardShortcuts */; };
 		D6288B4328A0CBB500F80FF1 /* Shortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6288B4228A0CBB500F80FF1 /* Shortcuts.swift */; };
 		D6288B4728A0CE2E00F80FF1 /* ShortcutsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6288B4628A0CE2E00F80FF1 /* ShortcutsView.swift */; };
-		D6347FC6297E8AE60084CF7E /* SwiftShell in Frameworks */ = {isa = PBXBuildFile; productRef = D6347FC5297E8AE60084CF7E /* SwiftShell */; };
 		D637A85F2974374C00C6DD7D /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = D637A85E2974374C00C6DD7D /* LaunchAtLogin */; };
 		D65AB5612A6CAACB00311461 /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65AB5602A6CAACB00311461 /* Command.swift */; };
 		D65DE2852A19F40D0051AAE3 /* SettingsForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65DE2842A19F40D0051AAE3 /* SettingsForm.swift */; };
@@ -116,7 +115,6 @@
 				D6EF55A92962F714002E36EC /* Sparkle in Frameworks */,
 				D6288B4128A0CB9800F80FF1 /* KeyboardShortcuts in Frameworks */,
 				D6288AEE289EC0E200F80FF1 /* Defaults in Frameworks */,
-				D6347FC6297E8AE60084CF7E /* SwiftShell in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -264,7 +262,6 @@
 				D6B238CD29601E690049CF72 /* DependencyList */,
 				D6EF55A82962F714002E36EC /* Sparkle */,
 				D637A85E2974374C00C6DD7D /* LaunchAtLogin */,
-				D6347FC5297E8AE60084CF7E /* SwiftShell */,
 				D6EDD7F52A5FD752005FFF3F /* Introspect */,
 			);
 			productName = EjectKey;
@@ -305,7 +302,6 @@
 				D637A85D2974374C00C6DD7D /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */,
 				D68DAFAC297993D4009062CB /* XCRemoteSwiftPackageReference "SwiftLintPlugin" */,
 				D68DAFB829799C76009062CB /* XCRemoteSwiftPackageReference "SwiftGenPlugin" */,
-				D6347FC4297E8AE60084CF7E /* XCRemoteSwiftPackageReference "SwiftShell" */,
 				D6EDD7F42A5FD752005FFF3F /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 			);
 			productRefGroup = D6288AC5289EB5DB00F80FF1;
@@ -628,14 +624,6 @@
 				kind = branch;
 			};
 		};
-		D6347FC4297E8AE60084CF7E /* XCRemoteSwiftPackageReference "SwiftShell" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/kareman/SwiftShell";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
 		D637A85D2974374C00C6DD7D /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/sindresorhus/LaunchAtLogin-Modern";
@@ -701,11 +689,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D6288B3F28A0CB9800F80FF1 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */;
 			productName = KeyboardShortcuts;
-		};
-		D6347FC5297E8AE60084CF7E /* SwiftShell */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D6347FC4297E8AE60084CF7E /* XCRemoteSwiftPackageReference "SwiftShell" */;
-			productName = SwiftShell;
 		};
 		D637A85E2974374C00C6DD7D /* LaunchAtLogin */ = {
 			isa = XCSwiftPackageProductDependency;
