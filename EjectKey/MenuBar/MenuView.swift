@@ -68,14 +68,22 @@ struct MenuView: View {
                                 Text("ID: \(volume.bsdName)")
                             }
                         } label: {
-                            Image(nsImage: volume.icon)
+                            if let icon = volume.icon {
+                                Image(nsImage: icon)
+                            } else {
+                                Image(systemSymbol: .externaldrive)
+                            }
                             Text(volume.name)
                         }
                     } else {
                         Button {
                             model.eject(volume)
                         } label: {
-                            Image(nsImage: volume.icon)
+                            if let icon = volume.icon {
+                                Image(nsImage: icon)
+                            } else {
+                                Image(systemSymbol: .externaldrive)
+                            }
                             Text(volume.name)
                         }
                     }

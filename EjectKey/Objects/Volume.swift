@@ -8,13 +8,15 @@
 // ref: https://github.com/bradleybernard/EjectBar/blob/master/EjectBar/Classes/Volume.swift
 // ref: https://github.com/nielsmouthaan/ejectify-macos/blob/main/ejectify/Model/ExternalVolume.swift
 // ref: https://github.com/phu54321/Semulov/blob/master/SLListCulprits.m
+// ref: https://github.com/CloverHackyColor/CloverBootloader/blob/master/CloverApp/Clover/Disks.swift
 
 import Dispatch
 import Cocoa
+import IOKit.kext
 
 class Volume {
 
-    let disk: DADisk
+    private let diskInfo: [NSString: Any]
     let bsdName: String
     let name: String
     let url: URL
@@ -26,7 +28,6 @@ class Volume {
     let type: String
     let unitNumber: Int
     let id: String
-    let icon: NSImage
     let isVirtual: Bool
     let isDiskImage: Bool
     
@@ -65,10 +66,9 @@ class Volume {
         }
         let id = cfID as String
 
-        let icon = NSWorkspace.shared.icon(forFile: url.path)
         let type = resourceValues.volumeLocalizedFormatDescription ?? ""
 
-        self.disk = disk
+        self.diskInfo = diskInfo
         self.bsdName = bsdName
         self.name = name
         self.url = url
@@ -80,9 +80,16 @@ class Volume {
         self.type = type
         self.unitNumber = unitNumber
         self.id = id
-        self.icon = icon
         self.isVirtual = deviceProtocol == "Virtual Interface"
         self.isDiskImage = self.isVirtual && deviceVendor == "Apple" && deviceModel == "Disk Image"
+    }
+    
+    var icon: NSImage? {
+        if let iconPath = getIconPath() {
+            return NSImage(byReferencingFile: iconPath)
+        } else {
+            return nil
+        }
     }
     
     func unmount(unmountAndEject: Bool, withoutUI: Bool, completionHandler: @escaping (Error?) -> Void) {
@@ -95,6 +102,28 @@ class Volume {
             
             fileManager.unmountVolume(at: self.url, options: options, completionHandler: completionHandler)
         }
+    }
+    
+    private func getIconPath() -> String? {
+        let iconPath = url.appending(path: "/.VolumeIcon.icns").path()
+        
+        if FileManager.default.fileExists(atPath: iconPath) {
+            return iconPath
+        }
+        
+        if let iconDict = diskInfo[kDADiskDescriptionMediaIconKey] as? NSDictionary,
+              let iconName = iconDict.object(forKey: kIOBundleResourceFileKey ) as? NSString {
+            // swiftlint:disable force_cast
+            let identifier = iconDict.object(forKey: kCFBundleIdentifierKey as String) as! CFString
+            // swiftlint:enable force_cast
+
+            let bundleUrl = Unmanaged.takeRetainedValue(KextManagerCreateURLForBundleIdentifier(kCFAllocatorDefault, identifier))() as URL
+            if let bundle = Bundle(url: bundleUrl),
+               let iconPath = bundle.path(forResource: iconName.deletingPathExtension, ofType: iconName.pathExtension) {
+                return iconPath
+            }
+        }
+        return nil
     }
 
     func getCulpritApps() -> [NSRunningApplication] {
