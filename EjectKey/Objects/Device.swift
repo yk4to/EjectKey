@@ -12,6 +12,7 @@ struct Device {
     let model: String?
     let vendor: String?
     let deviceProtocol: String?
+    let isInternal: Bool
     let isVirtual: Bool
     let isDiskImage: Bool
     let units: [Unit]
@@ -32,10 +33,12 @@ struct Device {
         let model = firstVolume.diskInfo[kDADiskDescriptionDeviceModelKey] as? String
         let vendor = firstVolume.diskInfo[kDADiskDescriptionDeviceVendorKey] as? String
         let deviceProtocol = firstVolume.diskInfo[kDADiskDescriptionDeviceProtocolKey] as? String
+        let isInternal = firstVolume.diskInfo[kDADiskDescriptionDeviceInternalKey] as? Bool ?? false
         
         self.model = model
         self.vendor = vendor
         self.deviceProtocol = deviceProtocol
+        self.isInternal = isInternal
         
         self.isVirtual = deviceProtocol == "Virtual Interface"
         self.isDiskImage = isVirtual && vendor == "Apple" && model == "Disk Image"

@@ -12,7 +12,8 @@ import AudioToolbox
 extension AppModel {
     func eject(_ volume: Volume) {
         DispatchQueue.global().async {
-            guard let device = self.devices.filter({ $0.path == volume.path }).first,
+            guard let path = volume.url?.path(),
+                  let device = self.devices.filter({ $0.path == path }).first,
                   let unit = device.units.filter({ $0.number == volume.unitNumber }).first else {
                 return
             }
@@ -129,7 +130,8 @@ extension AppModel {
             let mountedVolumes = new.filter({ !oldIds.contains($0.id) })
             
             for volume in mountedVolumes {
-                guard let device = self.devices.filter({ $0.path == volume.path }).first else {
+                guard let path = volume.url?.path(),
+                      let device = self.devices.filter({ $0.path == path }).first else {
                     return
                 }
                 if Defaults[.doNotSendNotificationsAboutVirtualVolumes] && device.isVirtual {

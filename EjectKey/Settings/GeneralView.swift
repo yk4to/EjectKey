@@ -40,6 +40,8 @@ struct GeneralView: View {
             Section {
                 Defaults.Toggle(L10n.showEjectAllVolumesButton, key: .showEjectAllVolumesButton)
                 Defaults.Toggle(L10n.showEjectAllVolumesInDiskButtons, key: .showEjectAllVolumesInDiskButtons)
+                Defaults.Toggle("Show Internal Volumes", key: .showInternalVolumes)
+                Defaults.Toggle("Show Unmounted Volumes", key: .showUnmountedVolumes)
                 Defaults.Toggle(L10n.showActionMenu, key: .showActionMenu)
                 Defaults.Toggle(L10n.showDetailedInformation, key: .showDetailedInformation)
             }

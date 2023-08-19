@@ -14,6 +14,7 @@ struct MenuView: View {
     
     @Default(.showEjectAllVolumesButton) var showEjectAllVolumesButton
     @Default(.showEjectAllVolumesInDiskButtons) var showEjectAllVolumesInDiskButtons
+    @Default(.showInternalVolumes) var showInternalVolumes
     @Default(.showActionMenu) var showActionMenu
     @Default(.showDetailedInformation) var showDetailedInformation
     
@@ -31,36 +32,38 @@ struct MenuView: View {
                 .hidden(!showEjectAllVolumesButton || model.devices.count <= 1)
             
             ForEach(model.devices.sorted(by: { $0.minUnitNumber < $1.minUnitNumber }), id: \.path) { device in
-                Menu {
-                    ForEach(device.units.sorted(by: { $0.number < $1.number }), id: \.number) { unit in
-                        if !unit.isApfs {
-                            Text("\(unit.name ?? "Unknown") (\(unit.bsdName))")
-                            Button(L10n.ejectNumVolumes(unit.volumes.count)) {
-                                model.ejectAllVolumeInDisk(unit)
+                if !(!showInternalVolumes && device.isInternal) {
+                    Menu {
+                        ForEach(device.units.sorted(by: { $0.number < $1.number }), id: \.number) { unit in
+                            if !unit.isApfs {
+                                Text("\(unit.name ?? "Unknown") (\(unit.bsdName))")
+                                Button(L10n.ejectNumVolumes(unit.volumes.count)) {
+                                    model.ejectAllVolumeInDisk(unit)
+                                }
+                                .hidden(!showEjectAllVolumesInDiskButtons || unit.volumes.count <= 1)
+                                
+                                VolumeList(model: model, device: device, unit: unit)
                             }
-                            .hidden(!showEjectAllVolumesInDiskButtons || unit.volumes.count <= 1)
-                            
-                            VolumeList(model: model, device: device, unit: unit)
                         }
-                    }
-                    if showDetailedInformation {
-                        Divider()
-                        Text("Protocol: \(device.deviceProtocol ?? "Unknown")")
-                    }
-                } label: {
-                    if showDetailedInformation {
-                        if device.isDiskImage {
-                            Text(L10n.diskImage)
-                        } else {
-                            Text("\(device.vendor ?? "Unknown") \(device.model ?? "Unknown")")
+                        if showDetailedInformation {
+                            Divider()
+                            Text("Protocol: \(device.deviceProtocol ?? "Unknown")")
                         }
-                    } else {
-                        let numbersStr = device.units.map({ String($0.number) }).joined(separator: ", ")
-                        if device.isDiskImage {
-                            Text(L10n.diskImageNum(numbersStr))
-                        } else {
-                            Text(L10n.diskNum(numbersStr))
-                        }
+                    } label: {
+                        // if showDetailedInformation {
+                            if device.isDiskImage {
+                                Text(L10n.diskImage)
+                            } else {
+                                Text("\(device.vendor ?? "Unknown") \(device.model ?? "Unknown")")
+                            }
+                        /*} else {
+                            let numbersStr = device.units.map({ String($0.number) }).joined(separator: ", ")
+                            if device.isDiskImage {
+                                Text(L10n.diskImageNum(numbersStr))
+                            } else {
+                                Text(L10n.diskNum(numbersStr))
+                            }
+                        }*/
                     }
                 }
             }

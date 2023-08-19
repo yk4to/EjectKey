@@ -24,22 +24,13 @@ class Volume {
     let type: VolumeType
     
     let name: String?
-    let path: String?
     let url: URL?
     let size: Int?
     let id: String?
     
+    let isMounted: Bool
+    
     init?(bsdName: String) {
-        /* guard let resourceValues = try? url.resourceValues(forKeys: [.volumeIsInternalKey, .volumeLocalizedFormatDescriptionKey]) else {
-            return nil
-        }
-        
-        let isInternalVolume = resourceValues.volumeIsInternal ?? false
-        
-        if isInternalVolume {
-            return nil
-        } */
-        
         guard let session = DASessionCreate(kCFAllocatorDefault),
               let disk = DADiskCreateFromBSDName(kCFAllocatorDefault, session, bsdName),
               let diskInfo = DADiskCopyDescription(disk) as? [NSString: Any],
@@ -58,12 +49,10 @@ class Volume {
         
         // Optional Properties
         let name = (diskInfo[kDADiskDescriptionVolumeNameKey] as? String) ?? (diskInfo[kDADiskDescriptionMediaNameKey] as? String)
-        let path = diskInfo[kDADiskDescriptionVolumePathKey] as? String
-        let url = (path != nil) ? URL(fileURLWithPath: path!) : nil
+        let url = diskInfo[kDADiskDescriptionVolumePathKey] as? URL
         let size = diskInfo[kDADiskDescriptionMediaSizeKey] as? Int
         
         self.name = name
-        self.path = path
         self.url = url
         self.size = size
         
@@ -80,14 +69,29 @@ class Volume {
         } else {
             self.id = nil
         }
+        
+        self.isMounted = url != nil
     }
     
     var icon: NSImage? {
-        if let iconPath = getIconPath() {
-            return NSImage(byReferencingFile: iconPath)
-        } else {
-            return nil
+        if url != nil {
+            return NSWorkspace.shared.icon(forFile: url!.path())
         }
+        
+        if let iconDict = diskInfo[kDADiskDescriptionMediaIconKey] as? NSDictionary,
+              let iconName = iconDict.object(forKey: kIOBundleResourceFileKey ) as? NSString {
+            // swiftlint:disable force_cast
+            let identifier = iconDict.object(forKey: kCFBundleIdentifierKey as String) as! CFString
+            // swiftlint:enable force_cast
+
+            let bundleUrl = Unmanaged.takeRetainedValue(KextManagerCreateURLForBundleIdentifier(kCFAllocatorDefault, identifier))() as URL
+            if let bundle = Bundle(url: bundleUrl),
+               let iconPath = bundle.path(forResource: iconName.deletingPathExtension, ofType: iconName.pathExtension) {
+                return NSImage(byReferencingFile: iconPath)
+            }
+        }
+        
+        return nil
     }
     
     func unmount(unmountAndEject: Bool, withoutUI: Bool, completionHandler: @escaping (Error?) -> Void) {
@@ -103,36 +107,13 @@ class Volume {
             }
         }
     }
-    
-    private func getIconPath() -> String? {
-        if let iconPath = url?.appending(path: "/.VolumeIcon.icns").path() {
-            if FileManager.default.fileExists(atPath: iconPath) {
-                return iconPath
-            }
-        }
-        
-        if let iconDict = diskInfo[kDADiskDescriptionMediaIconKey] as? NSDictionary,
-              let iconName = iconDict.object(forKey: kIOBundleResourceFileKey ) as? NSString {
-            // swiftlint:disable force_cast
-            let identifier = iconDict.object(forKey: kCFBundleIdentifierKey as String) as! CFString
-            // swiftlint:enable force_cast
-
-            let bundleUrl = Unmanaged.takeRetainedValue(KextManagerCreateURLForBundleIdentifier(kCFAllocatorDefault, identifier))() as URL
-            if let bundle = Bundle(url: bundleUrl),
-               let iconPath = bundle.path(forResource: iconName.deletingPathExtension, ofType: iconName.pathExtension) {
-                return iconPath
-            }
-        }
-        
-        return nil
-    }
 
     func getCulpritApps() -> [NSRunningApplication] {
-        guard path != nil else {
+        guard let path = url?.path() else {
             return []
         }
         
-        let command = Command("/usr/sbin/lsof", ["-Fn", "+D", path!])
+        let command = Command("/usr/sbin/lsof", ["-Fn", "+D", path])
         
         guard let result = command.run() else {
             return []

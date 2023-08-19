@@ -14,6 +14,7 @@ struct VolumeList: View {
     @State var unit: Unit
     
     @Default(.showEjectAllVolumesInDiskButtons) private var showEjectAllVolumesInDiskButtons
+    @Default(.showUnmountedVolumes) private var showUnmountedVolumes
     @Default(.showActionMenu) private var showActionMenu
     @Default(.showDetailedInformation) private var showDetailedInformation
     
@@ -22,52 +23,63 @@ struct VolumeList: View {
             // if showActionMenu {
             if volume.type == .apfsContainer {
                 if let contentUnit = device?.units.filter({ $0.physicalStoreBsdName == volume.bsdName }).first {
-                    Menu {
-                        // Text("APFS Container (\(unit.bsdName))")
-                        Button(L10n.ejectNumVolumes(contentUnit.volumes.count)) {
-                            model.ejectAllVolumeInDisk(unit)
+                    if !(!showUnmountedVolumes && !contentUnit.existsMountedVolume) {
+                        Menu {
+                            // Text("APFS Container (\(unit.bsdName))")
+                            Button(L10n.ejectNumVolumes(contentUnit.volumes.count)) {
+                                model.ejectAllVolumeInDisk(unit)
+                            }
+                            .hidden(!showEjectAllVolumesInDiskButtons || contentUnit.volumes.count <= 1)
+                            
+                            VolumeList(model: model, device: nil, unit: contentUnit)
+                            if showDetailedInformation {
+                                Divider()
+                                Text(volume.type.displayName())
+                                Text("\(L10n.size): \(volume.size?.formatted(.byteCount(style: .file)) ?? "Unknown")")
+                                Text("Physical Store: \(volume.bsdName)")
+                            }
+                        } label: {
+                            Image(systemSymbol: .shippingbox)
+                            Text("APFS Container (\(contentUnit.bsdName))")
                         }
-                        .hidden(!showEjectAllVolumesInDiskButtons || contentUnit.volumes.count <= 1)
-                        
-                        VolumeList(model: model, device: nil, unit: contentUnit)
-                        if showDetailedInformation {
-                            Divider()
-                            Text(volume.type.displayName())
-                            Text("\(L10n.size): \(volume.size?.formatted(.byteCount(style: .file)) ?? "Unknown")")
-                            Text("Physical Store: \(volume.bsdName)")
-                        }
-                    } label: {
-                        Image(systemSymbol: .shippingbox)
-                        Text("APFS Container (\(contentUnit.bsdName))")
                     }
                 }
             } else {
-                Menu {
-                    Button(L10n.eject) {
-                        model.eject(volume)
-                    }
-                    if let url = volume.url {
-                        Button(L10n.showInFinder) {
-                            NSWorkspace.shared.activateFileViewerSelecting([url])
-                        }
-                    }
-                    if showDetailedInformation {
-                        Divider()
-                        Text(volume.type.displayName())
-                        if unit.isApfs {
-                            Text("\(L10n.size): \(volume.size?.formatted(.byteCount(style: .file)) ?? "Unknown") (Shared)")
+                if !(!showUnmountedVolumes && !volume.isMounted) {
+                    Menu {
+                        if volume.isMounted {
+                            Button(L10n.eject) {
+                                model.eject(volume)
+                            }
                         } else {
-                            Text("\(L10n.size): \(volume.size?.formatted(.byteCount(style: .file)) ?? "Unknown")")
+                            Button("Mount") {
+                                // model.eject(volume)
+                            }
                         }
-                        Text("ID: \(volume.bsdName)")
+                        if let url = volume.url {
+                            Button(L10n.showInFinder) {
+                                NSWorkspace.shared.activateFileViewerSelecting([url])
+                            }
+                        }
+                        if showDetailedInformation {
+                            Divider()
+                            Text(volume.type.displayName())
+                            if unit.isApfs {
+                                Text("\(L10n.size): \(volume.size?.formatted(.byteCount(style: .file)) ?? "Unknown") (Shared)")
+                            } else {
+                                Text("\(L10n.size): \(volume.size?.formatted(.byteCount(style: .file)) ?? "Unknown")")
+                            }
+                            Text("ID: \(volume.bsdName)")
+                            Text(volume.isMounted ? "Mounted" : "Not Mounted")
+                        }
+                    } label: {
+                        if let icon = volume.icon {
+                            Image(nsImage: icon)
+                        } else {
+                            Image(systemSymbol: .externaldrive)
+                        }
+                        Text(volume.name ?? "Unknown")
                     }
-                } label: {
-                    if let icon = volume.icon {
-                        Image(nsImage: icon)
-                    } else {
-                        Image(systemSymbol: .externaldrive)
-                    }
-                    Text(volume.name ?? "Unknown")
                 }
             }
             /*} else {

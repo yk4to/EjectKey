@@ -12,6 +12,7 @@ struct Unit {
     let bsdName: String
     let name: String?
     let volumes: [Volume]
+    let existsMountedVolume: Bool
     let isApfs: Bool
     var physicalStoreBsdName: String?
     
@@ -33,6 +34,7 @@ struct Unit {
         self.bsdName = bsdName
         self.name = name
         self.volumes = volumes
+        self.existsMountedVolume = volumes.contains(where: \.isMounted)
         self.isApfs = name == "AppleAPFSMedia"
         
         self.physicalStoreBsdName = nil

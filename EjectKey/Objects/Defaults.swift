@@ -29,6 +29,8 @@ extension Defaults.Keys {
     static let doNotDisplayNumbersWhenNothingIsConnected = Key<Bool>("doNotDisplayNumbersWhenNothingIsConnected", default: false)
     static let showEjectAllVolumesButton = Key<Bool>("showEjectAllButton", default: true)
     static let showEjectAllVolumesInDiskButtons = Key<Bool>("showEjectAllVolumesInDiskButtons", default: true)
+    static let showInternalVolumes = Key<Bool>("showInternalVolumes", default: false)
+    static let showUnmountedVolumes = Key<Bool>("showUnmountedVolumes", default: false)
     static let showActionMenu = Key<Bool>("showActionMenu", default: false)
     static let showDetailedInformation = Key<Bool>("showDetailedInformation", default: false)
     // Touch Bar
