@@ -9,14 +9,13 @@ import SwiftUI
 import Defaults
 
 struct MenuView: View {
-    @ObservedObject var model: AppModel
+    @EnvironmentObject var model: AppModel
+    @EnvironmentObject var updaterViewModel: UpdaterViewModel
     
     @Default(.showEjectAllVolumesButton) var showEjectAllVolumesButton
     @Default(.showEjectAllVolumesInDiskButtons) var showEjectAllVolumesInDiskButtons
     @Default(.showActionMenu) var showActionMenu
     @Default(.showDetailedInformation) var showDetailedInformation
-    
-    @EnvironmentObject var updaterViewModel: UpdaterViewModel
     
     @Environment(\.openWindow) var openWindow
     
@@ -34,64 +33,26 @@ struct MenuView: View {
             ForEach(model.devices.sorted(by: { $0.minUnitNumber < $1.minUnitNumber }), id: \.path) { device in
                 Menu {
                     ForEach(device.units.sorted(by: { $0.number < $1.number }), id: \.number) { unit in
-                        if unit.isApfs {
-                            Text("APFS Container (\(unit.bsdName))")
-                        } else {
+                        if !unit.isApfs {
                             Text("\(unit.name ?? "Unknown") (\(unit.bsdName))")
-                        }
-                        
-                        Button(L10n.ejectNumVolumes(unit.volumes.count)) {
-                            model.ejectAllVolumeInDisk(unit)
-                        }
-                        .hidden(!showEjectAllVolumesInDiskButtons || unit.volumes.count <= 1)
-                        
-                        ForEach(unit.volumes.sorted(by: {$0.bsdName < $1.bsdName}), id: \.bsdName) { volume in
-                            if showActionMenu {
-                                Menu {
-                                    Button(L10n.eject) {
-                                        model.eject(volume)
-                                    }
-                                    if let url = volume.url {
-                                        Button(L10n.showInFinder) {
-                                            NSWorkspace.shared.activateFileViewerSelecting([url])
-                                        }
-                                    }
-                                    if showDetailedInformation {
-                                        Divider()
-                                        Text(volume.type.displayName())
-                                        Text("\(L10n.size): \(volume.size?.formatted(.byteCount(style: .file)) ?? "Unknown")")
-                                        Text("ID: \(volume.bsdName)")
-                                    }
-                                } label: {
-                                    if let icon = volume.icon {
-                                        Image(nsImage: icon)
-                                    } else {
-                                        Image(systemSymbol: .externaldrive)
-                                    }
-                                    Text(volume.name ?? "Unknown")
-                                }
-                            } else {
-                                Button {
-                                    model.eject(volume)
-                                } label: {
-                                    if let icon = volume.icon {
-                                        Image(nsImage: icon)
-                                    } else {
-                                        Image(systemSymbol: .externaldrive)
-                                    }
-                                    Text(volume.name ?? "Unknown")
-                                }
+                            Button(L10n.ejectNumVolumes(unit.volumes.count)) {
+                                model.ejectAllVolumeInDisk(unit)
                             }
+                            .hidden(!showEjectAllVolumesInDiskButtons || unit.volumes.count <= 1)
+                            
+                            VolumeList(model: model, device: device, unit: unit)
                         }
                     }
-                    Divider()
-                    Text("Protocol: \(device.deviceProtocol ?? "Unknown")")
+                    if showDetailedInformation {
+                        Divider()
+                        Text("Protocol: \(device.deviceProtocol ?? "Unknown")")
+                    }
                 } label: {
                     if showDetailedInformation {
                         if device.isDiskImage {
                             Text(L10n.diskImage)
                         } else {
-                            Text("\(device.vendor ?? "Unknown") \(device.model ?? "Unknown") (\(device.units.count))")
+                            Text("\(device.vendor ?? "Unknown") \(device.model ?? "Unknown")")
                         }
                     } else {
                         let numbersStr = device.units.map({ String($0.number) }).joined(separator: ", ")
@@ -142,6 +103,6 @@ struct MenuView: View {
 
 struct MenuView_Previews: PreviewProvider {
     static var previews: some View {
-        MenuView(model: AppModel())
+        MenuView()
     }
 }

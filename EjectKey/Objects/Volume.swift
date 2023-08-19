@@ -19,6 +19,7 @@ class Volume {
     
     let bsdName: String
     let devicePath: String
+    let mediaPath: String
     let unitNumber: Int
     let type: VolumeType
     
@@ -43,6 +44,7 @@ class Volume {
               let disk = DADiskCreateFromBSDName(kCFAllocatorDefault, session, bsdName),
               let diskInfo = DADiskCopyDescription(disk) as? [NSString: Any],
               let devicePath = diskInfo[kDADiskDescriptionDevicePathKey] as? String,
+              let mediaPath = diskInfo[kDADiskDescriptionMediaPathKey] as? String,
               let unitNumber = diskInfo[kDADiskDescriptionMediaBSDUnitKey] as? Int
         else {
             return nil
@@ -51,6 +53,7 @@ class Volume {
         self.diskInfo = diskInfo
         self.bsdName = bsdName
         self.devicePath = devicePath
+        self.mediaPath = mediaPath
         self.unitNumber = unitNumber
         
         // Optional Properties

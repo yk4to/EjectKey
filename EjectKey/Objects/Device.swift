@@ -23,7 +23,7 @@ struct Device {
         let volumes = allVolumes.filter { $0.devicePath == path }
         
         let unitNumbers = volumes.map(\.unitNumber).unique
-        self.units = unitNumbers.compactMap({ Unit(number: $0, allVolumes: volumes) })
+        self.units = unitNumbers.compactMap({ Unit(number: $0, deviceVolumes: volumes) })
         self.minUnitNumber = unitNumbers.min()!
         
         // Get information about this device from the first volume

@@ -19,7 +19,8 @@ struct EjectKeyApp: App {
     var body: some Scene {
 
         MenuBarExtra {
-            MenuView(model: model)
+            MenuView()
+                .environmentObject(model)
                 .environmentObject(updaterViewModel)
         } label: {
             Image(systemSymbol: .ejectFill)

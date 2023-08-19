@@ -13,9 +13,10 @@ struct Unit {
     let name: String?
     let volumes: [Volume]
     let isApfs: Bool
+    var physicalStoreBsdName: String?
     
-    init?(number: Int, allVolumes: [Volume]) {
-        let volumes = allVolumes.filter({ $0.unitNumber == number })
+    init?(number: Int, deviceVolumes: [Volume]) {
+        let volumes = deviceVolumes.filter({ $0.unitNumber == number })
         
         let bsdName = "disk\(number)"
         
@@ -33,5 +34,17 @@ struct Unit {
         self.name = name
         self.volumes = volumes
         self.isApfs = name == "AppleAPFSMedia"
+        
+        self.physicalStoreBsdName = nil
+        if isApfs {
+            guard let pathComponents = volumes.first?.mediaPath.components(separatedBy: "/"),
+                  let previousIndex = pathComponents.firstIndex(of: "IOGUIDPartitionScheme"),
+                  let physicalStoreName = pathComponents[previousIndex + 1].components(separatedBy: "@").first,
+                  let physicalStore = deviceVolumes.filter({ $0.name == physicalStoreName }).first
+            else {
+                return
+            }
+            self.physicalStoreBsdName = physicalStore.bsdName
+        }
     }
 }
