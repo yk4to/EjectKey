@@ -25,7 +25,7 @@ struct AboutView: View {
                         .font(.largeTitle)
                     Spacer()
                         .frame(height: 0.4)
-                    Text("\(L10n.version) \(version ?? "unknown") (\(build ?? "unknown"))")
+                    Text("\(L10n.version) \(version ?? L10n.unknown) (\(build ?? L10n.unknown))")
                         .foregroundColor(Color.secondary)
                         .textSelection(.enabled)
                     Spacer()

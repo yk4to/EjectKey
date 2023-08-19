@@ -9,7 +9,7 @@ import Foundation
 
 enum VolumeType {
     case efi
-    case apfsContainer, apfs, apfsSnapshot, apfsCaseSensitive, apfsEncrypted, apfsCaseSensitiveEncrypted
+    case apfsContainer, apfs, apfsSnapshot, apfsEncrypted, apfsCaseSensitive, apfsCaseSensitiveEncrypted
     case hfsPlus, hfsPlusCaseSensitive, hfsPlusJournaled, hfsPlusCaseSensitiveJournaled
     case linuxFilesystem, linuxSwap
     case windowsBasicData, windowsRecovery
@@ -29,10 +29,10 @@ enum VolumeType {
         case "41504653-0000-11AA-AA11-00306543ECAC":
             // APFS
             switch type {
-            case "APFS (Case-sensitive)":
-                self = .apfsCaseSensitive
             case "APFS (Encrypted)":
                 self = .apfsEncrypted
+            case "APFS (Case-sensitive)":
+                self = .apfsCaseSensitive
             case "APFS (Case-sensitive, Encrypted)":
                 self = .apfsCaseSensitiveEncrypted
             case nil:
@@ -78,39 +78,39 @@ enum VolumeType {
         case .efi:
             return "EFI"
         case .apfsContainer:
-            return "APFS Container"
+            return L10n.apfsContainer
         case .apfs:
             return "APFS"
         case .apfsSnapshot:
-            return "APFS Snapshot"
-        case .apfsCaseSensitive:
-            return "APFS (Case-sensitive)"
+            return L10n.apfsSnapshot
         case .apfsEncrypted:
-            return "APFS (Encrypted)"
+            return L10n.apfsEncrypted
+        case .apfsCaseSensitive:
+            return L10n.apfsCaseSensitive
         case .apfsCaseSensitiveEncrypted:
-            return "APFS (Case-sensitive, Encrypted)"
+            return L10n.apfsCaseSensitiveEncrypted
         case .hfsPlus:
-            return "Mac OS Extended"
+            return L10n.macOsExtended
         case .hfsPlusCaseSensitive:
-            return "Mac OS Extended (Case-sensitive)"
+            return L10n.macOsExtendedCaseSensitive
         case .hfsPlusJournaled:
-            return "Mac OS Extended (Journaled)"
+            return L10n.macOsExtendedJournaled
         case .hfsPlusCaseSensitiveJournaled:
-            return "Mac OS Extended (Case-sensitive, Journaled)"
+            return L10n.macOsExtendedCaseSensitiveJournaled
         case .linuxFilesystem:
-            return "Linux Filesystem"
+            return L10n.linuxFilesystem
         case .linuxSwap:
-            return "Linux Swap"
+            return L10n.linuxSwap
         case .windowsBasicData:
-            return "Windows Basic Data"
+            return L10n.windowsBasicData
         case .windowsRecovery:
-            return "Windows Recovery"
+            return L10n.windowsRecovery
         case .dosFat32:
             return "MS-DOS (FAT32)"
         case .partitionMap:
-            return "Partition Map"
+            return L10n.partitionMap
         case .unknown:
-            return "Unknown"
+            return L10n.unknown
         }
     }
     // swiftlint:enable cyclomatic_complexity

@@ -36,7 +36,7 @@ struct MenuView: View {
                     Menu {
                         ForEach(device.units.sorted(by: { $0.number < $1.number }), id: \.number) { unit in
                             if !unit.isApfs {
-                                Text("\(unit.name ?? "Unknown") (\(unit.bsdName))")
+                                Text("\(unit.name ?? L10n.unknown) (\(unit.bsdName))")
                                 Button(L10n.ejectNumVolumes(unit.volumes.count)) {
                                     model.ejectAllVolumeInDisk(unit)
                                 }
@@ -47,14 +47,14 @@ struct MenuView: View {
                         }
                         if showDetailedInformation {
                             Divider()
-                            Text("Protocol: \(device.deviceProtocol ?? "Unknown")")
+                            Text("\(L10n.connection): \(device.deviceProtocol ?? L10n.unknown)")
                         }
                     } label: {
                         // if showDetailedInformation {
                             if device.isDiskImage {
                                 Text(L10n.diskImage)
                             } else {
-                                Text("\(device.vendor ?? "Unknown") \(device.model ?? "Unknown")")
+                                Text("\(device.vendor ?? L10n.unknown) \(device.model ?? L10n.unknown)")
                             }
                         /*} else {
                             let numbersStr = device.units.map({ String($0.number) }).joined(separator: ", ")

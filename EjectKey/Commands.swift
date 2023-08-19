@@ -23,7 +23,7 @@ extension AppModel {
                     // Succeeded
                     if Defaults[.sendWhenVolumeIsEjected] {
                         self.sendNotification(
-                            title: L10n.volWasSuccessfullyEjected(volume.name ?? "Unknown"),
+                            title: L10n.volWasSuccessfullyEjected(volume.name ?? L10n.unknown),
                             body: device.isVirtual ? L10n.thisVolumeIsAVirtualInterface : L10n.safelyRemoved,
                             sound: .default,
                             identifier: UUID().uuidString
@@ -33,7 +33,7 @@ extension AppModel {
                     // Failed
                     if Defaults[.sendWhenVolumeIsEjected] {
                         self.sendNotification(
-                            title: L10n.failedToEjectVol(volume.name ?? "Unknown"),
+                            title: L10n.failedToEjectVol(volume.name ?? L10n.unknown),
                             body: error!.localizedDescription,
                             sound: .defaultCritical,
                             identifier: UUID().uuidString
@@ -62,7 +62,7 @@ extension AppModel {
                             DispatchQueue.main.async {
                                 self.alert(
                                     alertStyle: .warning,
-                                    messageText: L10n.theFollowingApplicationsAreUsingVol(volume.name ?? "Unknown"),
+                                    messageText: L10n.theFollowingApplicationsAreUsingVol(volume.name ?? L10n.unknown),
                                     informativeText: infoText,
                                     buttonTitle: L10n.quit,
                                     showCancelButton: true,
@@ -141,7 +141,7 @@ extension AppModel {
                 DispatchQueue.main.async {
                     self.sendNotification(
                         title: L10n.volumeConnected,
-                        body: device.isVirtual ? L10n.volIsAVirtualInterface(volume.name ?? "Unknown") : L10n.volIsAPhysicalDevice(volume.name ?? "Unknown"),
+                        body: device.isVirtual ? L10n.volIsAVirtualInterface(volume.name ?? L10n.unknown) : L10n.volIsAPhysicalDevice(volume.name ?? L10n.unknown),
                         sound: .default,
                         identifier: UUID().uuidString
                     )

@@ -35,12 +35,12 @@ struct VolumeList: View {
                             if showDetailedInformation {
                                 Divider()
                                 Text(volume.type.displayName())
-                                Text("\(L10n.size): \(volume.size?.formatted(.byteCount(style: .file)) ?? "Unknown")")
-                                Text("Physical Store: \(volume.bsdName)")
+                                Text("\(L10n.size): \(volume.size?.formatted(.byteCount(style: .file)) ?? L10n.unknown)")
+                                Text("\(L10n.physicalStores): \(volume.bsdName)")
                             }
                         } label: {
                             Image(systemSymbol: .shippingbox)
-                            Text("APFS Container (\(contentUnit.bsdName))")
+                            Text("\(L10n.container) (\(contentUnit.bsdName))")
                         }
                     }
                 }
@@ -52,7 +52,7 @@ struct VolumeList: View {
                                 model.eject(volume)
                             }
                         } else {
-                            Button("Mount") {
+                            Button(L10n.mount) {
                                 // model.eject(volume)
                             }
                         }
@@ -65,12 +65,12 @@ struct VolumeList: View {
                             Divider()
                             Text(volume.type.displayName())
                             if unit.isApfs {
-                                Text("\(L10n.size): \(volume.size?.formatted(.byteCount(style: .file)) ?? "Unknown") (Shared)")
+                                Text("\(L10n.size): \(volume.size?.formatted(.byteCount(style: .file)) ?? L10n.unknown)\(L10n.shared)")
                             } else {
-                                Text("\(L10n.size): \(volume.size?.formatted(.byteCount(style: .file)) ?? "Unknown")")
+                                Text("\(L10n.size): \(volume.size?.formatted(.byteCount(style: .file)) ?? L10n.unknown)")
                             }
-                            Text("ID: \(volume.bsdName)")
-                            Text(volume.isMounted ? "Mounted" : "Not Mounted")
+                            Text("\(L10n.device): \(volume.bsdName)")
+                            Text(volume.isMounted ? L10n.mounted : L10n.notMounted)
                         }
                     } label: {
                         if let icon = volume.icon {
@@ -78,7 +78,7 @@ struct VolumeList: View {
                         } else {
                             Image(systemSymbol: .externaldrive)
                         }
-                        Text(volume.name ?? "Unknown")
+                        Text(volume.name ?? L10n.unknown)
                     }
                 }
             }
@@ -91,7 +91,7 @@ struct VolumeList: View {
                     } else {
                         Image(systemSymbol: .externaldrive)
                     }
-                    Text(volume.name ?? "Unknown")
+                    Text(volume.name ?? L10n.unknown)
                 }
             }*/
         }
