@@ -8,27 +8,30 @@
 import Foundation
 
 struct Unit {
-    let deviceModel: String
-    let deviceVendor: String
-    let deviceProtocol: String
-    let devicePath: String
-    let isDiskImage: Bool
+    let number: Int
+    let bsdName: String
+    let name: String?
     let volumes: [Volume]
-    let numbers: [Int]
-    let minNumber: Int
+    let isApfs: Bool
     
-    init(devicePath: String, allVolumes: [Volume]) {
-        self.devicePath = devicePath
+    init?(number: Int, allVolumes: [Volume]) {
+        let volumes = allVolumes.filter({ $0.unitNumber == number })
         
-        self.volumes = allVolumes.filter { $0.devicePath == devicePath }
+        let bsdName = "disk\(number)"
         
-        let firstVolume = self.volumes.first!
-        self.deviceModel = firstVolume.deviceModel
-        self.deviceVendor = firstVolume.deviceVendor
-        self.deviceProtocol = firstVolume.deviceProtocol
-        self.isDiskImage = firstVolume.isDiskImage
+        guard let session = DASessionCreate(kCFAllocatorDefault),
+              let disk = DADiskCreateFromBSDName(kCFAllocatorDefault, session, bsdName),
+              let diskInfo = DADiskCopyDescription(disk) as? [NSString: Any]
+        else {
+            return nil
+        }
         
-        self.numbers = volumes.map(\.unitNumber).unique.sorted()
-        self.minNumber = numbers.min() ?? 0
+        let name = diskInfo[kDADiskDescriptionMediaNameKey] as? String
+        
+        self.number = number
+        self.bsdName = bsdName
+        self.name = name
+        self.volumes = volumes
+        self.isApfs = name == "AppleAPFSMedia"
     }
 }

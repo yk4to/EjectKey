@@ -21,70 +21,84 @@ struct MenuView: View {
     @Environment(\.openWindow) var openWindow
     
     var body: some View {
-        if model.units.isEmpty {
+        if model.devices.isEmpty {
             Text(L10n.noExternalVolumeConnected)
         } else {
             Button(L10n.ejectAllVolumes) {
                 model.ejectAll()
             }
-            .hidden(!showEjectAllVolumesButton || model.units.count <= 1)
+            .hidden(!showEjectAllVolumesButton || model.devices.count <= 1)
             Divider()
-                .hidden(!showEjectAllVolumesButton || model.units.count <= 1)
+                .hidden(!showEjectAllVolumesButton || model.devices.count <= 1)
             
-            ForEach(model.units.sorted(by: { $0.minNumber < $1.minNumber }), id: \.devicePath) { unit in
-                if showDetailedInformation {
-                    if unit.isDiskImage {
-                        Text(L10n.diskImage)
-                    } else {
-                        Text("\(unit.deviceVendor) \(unit.deviceModel) (\(unit.deviceProtocol))")
-                    }
-                } else {
-                    let numbersStr = unit.numbers.map(String.init).joined(separator: ", ")
-                    if unit.isDiskImage {
-                        Text(L10n.diskImageNum(numbersStr))
-                    } else {
-                        Text(L10n.diskNum(numbersStr))
-                    }
-                }
-                
-                Button(L10n.ejectNumVolumes(unit.volumes.count)) {
-                    model.ejectAllVolumeInDisk(unit)
-                }
-                .hidden(!showEjectAllVolumesInDiskButtons || unit.volumes.count <= 1)
-                
-                ForEach(unit.volumes.sorted(by: {$0.bsdName < $1.bsdName}), id: \.id) { volume in
-                    if showActionMenu {
-                        Menu {
-                            Button(L10n.eject) {
-                                model.eject(volume)
-                            }
-                            Button(L10n.showInFinder) {
-                                NSWorkspace.shared.activateFileViewerSelecting([volume.url])
-                            }
-                            if showDetailedInformation {
-                                Divider()
-                                Text(volume.type)
-                                Text("\(L10n.size): \(volume.size.formatted(.byteCount(style: .file)))")
-                                Text("ID: \(volume.bsdName)")
-                            }
-                        } label: {
-                            if let icon = volume.icon {
-                                Image(nsImage: icon)
+            ForEach(model.devices.sorted(by: { $0.minUnitNumber < $1.minUnitNumber }), id: \.path) { device in
+                Menu {
+                    ForEach(device.units.sorted(by: { $0.number < $1.number }), id: \.number) { unit in
+                        if unit.isApfs {
+                            Text("APFS Container (\(unit.bsdName))")
+                        } else {
+                            Text("\(unit.name ?? "Unknown") (\(unit.bsdName))")
+                        }
+                        
+                        Button(L10n.ejectNumVolumes(unit.volumes.count)) {
+                            model.ejectAllVolumeInDisk(unit)
+                        }
+                        .hidden(!showEjectAllVolumesInDiskButtons || unit.volumes.count <= 1)
+                        
+                        ForEach(unit.volumes.sorted(by: {$0.bsdName < $1.bsdName}), id: \.bsdName) { volume in
+                            if showActionMenu {
+                                Menu {
+                                    Button(L10n.eject) {
+                                        model.eject(volume)
+                                    }
+                                    if let url = volume.url {
+                                        Button(L10n.showInFinder) {
+                                            NSWorkspace.shared.activateFileViewerSelecting([url])
+                                        }
+                                    }
+                                    if showDetailedInformation {
+                                        Divider()
+                                        Text(volume.type ?? "Unknown")
+                                        Text("\(L10n.size): \(volume.size?.formatted(.byteCount(style: .file)) ?? "Unknown")")
+                                        Text("ID: \(volume.bsdName)")
+                                    }
+                                } label: {
+                                    if let icon = volume.icon {
+                                        Image(nsImage: icon)
+                                    } else {
+                                        Image(systemSymbol: .externaldrive)
+                                    }
+                                    Text(volume.name ?? "Unknown")
+                                }
                             } else {
-                                Image(systemSymbol: .externaldrive)
+                                Button {
+                                    model.eject(volume)
+                                } label: {
+                                    if let icon = volume.icon {
+                                        Image(nsImage: icon)
+                                    } else {
+                                        Image(systemSymbol: .externaldrive)
+                                    }
+                                    Text(volume.name ?? "Unknown")
+                                }
                             }
-                            Text(volume.name)
+                        }
+                    }
+                    Divider()
+                    Text("Protocol: \(device.deviceProtocol ?? "Unknown")")
+                } label: {
+                    if showDetailedInformation {
+                        if device.isDiskImage {
+                            Text(L10n.diskImage)
+                        } else {
+                            Text("\(device.vendor ?? "Unknown") \(device.model ?? "Unknown") (\(device.units.count))")
                         }
                     } else {
-                        Button {
-                            model.eject(volume)
-                        } label: {
-                            if let icon = volume.icon {
-                                Image(nsImage: icon)
-                            } else {
-                                Image(systemSymbol: .externaldrive)
-                            }
-                            Text(volume.name)
+                        let numbersStr = device.units.map({ String($0.number) }).joined(separator: ", ")
+                        if device.isDiskImage {
+                            Text(L10n.diskImageNum(numbersStr))
+                        } else {
+                            Text(L10n.diskNum(numbersStr))
                         }
                     }
                 }

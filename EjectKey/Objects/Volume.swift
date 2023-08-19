@@ -15,24 +15,21 @@ import Cocoa
 import IOKit.kext
 
 class Volume {
-
-    private let diskInfo: [NSString: Any]
-    let bsdName: String
-    let name: String
-    let url: URL
-    let size: Int
-    let deviceProtocol: String
-    let deviceModel: String
-    let deviceVendor: String
-    let devicePath: String
-    let type: String
-    let unitNumber: Int
-    let id: String
-    let isVirtual: Bool
-    let isDiskImage: Bool
+    let diskInfo: [NSString: Any]
     
-    init?(url: URL) {
-        guard let resourceValues = try? url.resourceValues(forKeys: [.volumeIsInternalKey, .volumeLocalizedFormatDescriptionKey]) else {
+    let bsdName: String
+    let devicePath: String
+    let unitNumber: Int
+    
+    let name: String?
+    let path: String?
+    let url: URL?
+    let size: Int?
+    let type: String?
+    let id: String?
+    
+    init?(bsdName: String) {
+        /* guard let resourceValues = try? url.resourceValues(forKeys: [.volumeIsInternalKey, .volumeLocalizedFormatDescriptionKey]) else {
             return nil
         }
         
@@ -40,48 +37,43 @@ class Volume {
         
         if isInternalVolume {
             return nil
-        }
+        } */
         
         guard let session = DASessionCreate(kCFAllocatorDefault),
-              let disk = DADiskCreateFromVolumePath(kCFAllocatorDefault, session, url as CFURL),
+              let disk = DADiskCreateFromBSDName(kCFAllocatorDefault, session, bsdName),
               let diskInfo = DADiskCopyDescription(disk) as? [NSString: Any],
-              let name = diskInfo[kDADiskDescriptionVolumeNameKey] as? String,
-              let bsdName = diskInfo[kDADiskDescriptionMediaBSDNameKey] as? String,
-              let size = diskInfo[kDADiskDescriptionMediaSizeKey] as? Int,
-              let deviceProtocol = diskInfo[kDADiskDescriptionDeviceProtocolKey] as? String,
-              let deviceModel = diskInfo[kDADiskDescriptionDeviceModelKey] as? String,
-              let deviceVendor = diskInfo[kDADiskDescriptionDeviceVendorKey] as? String,
               let devicePath = diskInfo[kDADiskDescriptionDevicePathKey] as? String,
-              let unitNumber = diskInfo[kDADiskDescriptionMediaBSDUnitKey] as? Int,
-              let idVal = diskInfo[kDADiskDescriptionVolumeUUIDKey]
+              let unitNumber = diskInfo[kDADiskDescriptionMediaBSDUnitKey] as? Int
         else {
             return nil
         }
         
-        // swiftlint:disable force_cast
-        let uuid = idVal as! CFUUID
-        // swiftlint:enable force_cast
-        guard let cfID = CFUUIDCreateString(kCFAllocatorDefault, uuid) else {
-            return nil
-        }
-        let id = cfID as String
-
-        let type = resourceValues.volumeLocalizedFormatDescription ?? ""
-
         self.diskInfo = diskInfo
         self.bsdName = bsdName
+        self.devicePath = devicePath
+        self.unitNumber = unitNumber
+        
+        // Optional Properties
+        let name = (diskInfo[kDADiskDescriptionVolumeNameKey] as? String) ?? (diskInfo[kDADiskDescriptionMediaNameKey] as? String)
+        let path = diskInfo[kDADiskDescriptionVolumePathKey] as? String
+        let url = (path != nil) ? URL(fileURLWithPath: path!) : nil
+        let size = diskInfo[kDADiskDescriptionMediaSizeKey] as? Int
+        let type = (diskInfo[kDADiskDescriptionVolumeTypeKey] as? String) ?? (diskInfo[kDADiskDescriptionVolumeKindKey] as? String)
+        
         self.name = name
+        self.path = path
         self.url = url
         self.size = size
-        self.deviceProtocol = deviceProtocol
-        self.deviceModel = deviceModel
-        self.deviceVendor = deviceVendor
-        self.devicePath = devicePath
         self.type = type
-        self.unitNumber = unitNumber
-        self.id = id
-        self.isVirtual = deviceProtocol == "Virtual Interface"
-        self.isDiskImage = self.isVirtual && deviceVendor == "Apple" && deviceModel == "Disk Image"
+        
+        if let idVal = diskInfo[kDADiskDescriptionVolumeUUIDKey] {
+            // swiftlint:disable force_cast
+            let id = CFUUIDCreateString(kCFAllocatorDefault, (idVal as! CFUUID)) as? String
+            // swiftlint:enable force_cast
+            self.id = id
+        } else {
+            self.id = nil
+        }
     }
     
     var icon: NSImage? {
@@ -100,15 +92,17 @@ class Volume {
                 withoutUI ? .withoutUI: []
             ]
             
-            fileManager.unmountVolume(at: self.url, options: options, completionHandler: completionHandler)
+            if self.url != nil {
+                fileManager.unmountVolume(at: self.url!, options: options, completionHandler: completionHandler)
+            }
         }
     }
     
     private func getIconPath() -> String? {
-        let iconPath = url.appending(path: "/.VolumeIcon.icns").path()
-        
-        if FileManager.default.fileExists(atPath: iconPath) {
-            return iconPath
+        if let iconPath = url?.appending(path: "/.VolumeIcon.icns").path() {
+            if FileManager.default.fileExists(atPath: iconPath) {
+                return iconPath
+            }
         }
         
         if let iconDict = diskInfo[kDADiskDescriptionMediaIconKey] as? NSDictionary,
@@ -123,12 +117,16 @@ class Volume {
                 return iconPath
             }
         }
+        
         return nil
     }
 
     func getCulpritApps() -> [NSRunningApplication] {
-        let volumePath = url.path(percentEncoded: false)
-        let command = Command("/usr/sbin/lsof", ["-Fn", "+D", volumePath])
+        guard path != nil else {
+            return []
+        }
+        
+        let command = Command("/usr/sbin/lsof", ["-Fn", "+D", path!])
         
         guard let result = command.run() else {
             return []

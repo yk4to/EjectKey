@@ -39,6 +39,8 @@
 		D696B793291367FD001DD6FE /* Hidden.swift in Sources */ = {isa = PBXBuildFile; fileRef = D696B792291367FD001DD6FE /* Hidden.swift */; };
 		D696B7962913CD57001DD6FE /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D696B7952913CD57001DD6FE /* AboutView.swift */; };
 		D6B238CE29601E690049CF72 /* DependencyList in Frameworks */ = {isa = PBXBuildFile; productRef = D6B238CD29601E690049CF72 /* DependencyList */; };
+		D6EB67862A8EF0ED00C479FF /* IOUSBDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EB67852A8EF0ED00C479FF /* IOUSBDetector.swift */; };
+		D6EB67932A8F237A00C479FF /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EB67922A8F237A00C479FF /* Device.swift */; };
 		D6EDD7F62A5FD752005FFF3F /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = D6EDD7F52A5FD752005FFF3F /* Introspect */; };
 		D6EEFE162962BBA2002B64AA /* ExperimentalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EEFE152962BBA2002B64AA /* ExperimentalView.swift */; };
 		D6EEFE192962C335002B64AA /* Unit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EEFE182962C335002B64AA /* Unit.swift */; };
@@ -96,6 +98,8 @@
 		D696B78E2912A19D001DD6FE /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
 		D696B792291367FD001DD6FE /* Hidden.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hidden.swift; sourceTree = "<group>"; };
 		D696B7952913CD57001DD6FE /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
+		D6EB67852A8EF0ED00C479FF /* IOUSBDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOUSBDetector.swift; sourceTree = "<group>"; };
+		D6EB67922A8F237A00C479FF /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		D6EEFE152962BBA2002B64AA /* ExperimentalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperimentalView.swift; sourceTree = "<group>"; };
 		D6EEFE182962C335002B64AA /* Unit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Unit.swift; sourceTree = "<group>"; };
 		D6EF55AB2962F76C002E36EC /* UpdaterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdaterViewModel.swift; sourceTree = "<group>"; };
@@ -172,8 +176,10 @@
 		D6288AFD289EC45000F80FF1 /* Objects */ = {
 			isa = PBXGroup;
 			children = (
+				D6EB67922A8F237A00C479FF /* Device.swift */,
 				D6EEFE182962C335002B64AA /* Unit.swift */,
 				D6288AFE289EC45A00F80FF1 /* Volume.swift */,
+				D6EB67852A8EF0ED00C479FF /* IOUSBDetector.swift */,
 				D6288B00289EC47D00F80FF1 /* Defaults.swift */,
 				D6288B4228A0CBB500F80FF1 /* Shortcuts.swift */,
 			);
@@ -341,8 +347,10 @@
 				D6288AFA289EC41900F80FF1 /* Observers.swift in Sources */,
 				D65DE28C2A19F4F40051AAE3 /* EffectView.swift in Sources */,
 				D696B78B29126D65001DD6FE /* MenuView.swift in Sources */,
+				D6EB67932A8F237A00C479FF /* Device.swift in Sources */,
 				D6288B12289EC72A00F80FF1 /* TouchBarView.swift in Sources */,
 				D6288B4728A0CE2E00F80FF1 /* ShortcutsView.swift in Sources */,
+				D6EB67862A8EF0ED00C479FF /* IOUSBDetector.swift in Sources */,
 				D6288B07289EC54A00F80FF1 /* TouchBar.swift in Sources */,
 				D65DE28E2A1A0A810051AAE3 /* HideSidebarToggle.swift in Sources */,
 				D696B78F2912A19D001DD6FE /* AppModel.swift in Sources */,

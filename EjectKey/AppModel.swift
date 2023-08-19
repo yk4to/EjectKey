@@ -11,7 +11,7 @@ import UserNotifications
 final class AppModel: ObservableObject {
     
     @Published var allVolumes: [Volume] = []
-    @Published var units: [Unit] = []
+    @Published var devices: [Device] = []
     
     // Workaround for switching tabs of Settings View programmatically
     @Published var settingsTabSelection: SettingsPage.Name = .general
@@ -19,6 +19,8 @@ final class AppModel: ObservableObject {
     let userNotificationCenter = UNUserNotificationCenter.current()
     
     var touchBarItem: NSCustomTouchBarItem?
+    
+    let ioDetector = IOUSBDetector()
     
     init() {
         // For debug

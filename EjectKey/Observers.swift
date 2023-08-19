@@ -18,6 +18,13 @@ extension AppModel {
         notificationCenter.addObserver(self, selector: #selector(didMountHandler), name: NSWorkspace.didMountNotification, object: nil)
         
         notificationCenter.addObserver(self, selector: #selector(didUnmountHandler), name: NSWorkspace.didUnmountNotification, object: nil)
+        
+        /* ioDetector?.callbackQueue = DispatchQueue.main
+         ioDetector?.callback = { _, event, _ in
+            print("Event \(event)")
+            self.setUnitsAndVolumes()
+        }
+         ioDetector?.start() */
     }
     
     @objc private func didMountHandler() {
