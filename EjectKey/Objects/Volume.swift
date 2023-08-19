@@ -20,12 +20,12 @@ class Volume {
     let bsdName: String
     let devicePath: String
     let unitNumber: Int
+    let type: VolumeType
     
     let name: String?
     let path: String?
     let url: URL?
     let size: Int?
-    let type: String?
     let id: String?
     
     init?(bsdName: String) {
@@ -58,13 +58,16 @@ class Volume {
         let path = diskInfo[kDADiskDescriptionVolumePathKey] as? String
         let url = (path != nil) ? URL(fileURLWithPath: path!) : nil
         let size = diskInfo[kDADiskDescriptionMediaSizeKey] as? Int
-        let type = (diskInfo[kDADiskDescriptionVolumeTypeKey] as? String) ?? (diskInfo[kDADiskDescriptionVolumeKindKey] as? String)
         
         self.name = name
         self.path = path
         self.url = url
         self.size = size
-        self.type = type
+        
+        let guid = diskInfo[kDADiskDescriptionMediaContentKey] as? String
+        let type = diskInfo[kDADiskDescriptionVolumeTypeKey] as? String
+        let kind = diskInfo[kDADiskDescriptionVolumeKindKey] as? String
+        self.type = VolumeType(guid, type, kind)
         
         if let idVal = diskInfo[kDADiskDescriptionVolumeUUIDKey] {
             // swiftlint:disable force_cast
@@ -89,7 +92,7 @@ class Volume {
             let fileManager = FileManager.default
             let options: FileManager.UnmountOptions = [
                 unmountAndEject ? .allPartitionsAndEjectDisk : [],
-                withoutUI ? .withoutUI: []
+                withoutUI ? .withoutUI : []
             ]
             
             if self.url != nil {

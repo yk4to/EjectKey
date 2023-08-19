@@ -58,7 +58,7 @@ struct MenuView: View {
                                     }
                                     if showDetailedInformation {
                                         Divider()
-                                        Text(volume.type ?? "Unknown")
+                                        Text(volume.type.displayName())
                                         Text("\(L10n.size): \(volume.size?.formatted(.byteCount(style: .file)) ?? "Unknown")")
                                         Text("ID: \(volume.bsdName)")
                                     }
