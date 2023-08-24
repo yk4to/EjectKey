@@ -13,6 +13,9 @@ final class AppModel: ObservableObject {
     @Published var allVolumes: [Volume] = []
     @Published var devices: [Device] = []
     
+    @Published var mountedVolumeUrls: [URL] = []
+    @Published var connectedVolumeBsdNames: [String] = []
+    
     // Workaround for switching tabs of Settings View programmatically
     @Published var settingsTabSelection: SettingsPage.Name = .general
 
@@ -21,6 +24,8 @@ final class AppModel: ObservableObject {
     var touchBarItem: NSCustomTouchBarItem?
     
     let ioDetector = IOUSBDetector()
+    
+    let debouncer = Debouncer(interval: 0.5)
     
     init() {
         // For debug

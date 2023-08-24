@@ -19,18 +19,23 @@ extension AppModel {
         
         notificationCenter.addObserver(self, selector: #selector(didUnmountHandler), name: NSWorkspace.didUnmountNotification, object: nil)
         
-        /* ioDetector?.callbackQueue = DispatchQueue.main
-         ioDetector?.callback = { _, event, _ in
-            print("Event \(event)")
+        ioDetector?.callbackQueue = DispatchQueue.main
+        ioDetector?.callback = { _, event, _ in
+            switch event {
+            case .Matched:
+                print("Connected")
+            case .Terminated:
+                print("Terminated")
+            }
             self.setUnitsAndVolumes()
         }
-         ioDetector?.start() */
+        ioDetector?.start()
     }
     
     @objc private func didMountHandler() {
-        let oldVolumes = allVolumes
+        let oldVolumes = allVolumes.filter(\.isMounted)
         setUnitsAndVolumes()
-        let newVolumes = allVolumes
+        let newVolumes = allVolumes.filter(\.isMounted)
         checkMountedVolumes(old: oldVolumes, new: newVolumes)
         
         if Defaults[.displayOnlyWhenExternalVolumeIsConnected] {
@@ -39,10 +44,10 @@ extension AppModel {
     }
     
     @objc private func didUnmountHandler() {
-        let oldVolumes = allVolumes
+        let oldVolumes = allVolumes.filter(\.isMounted)
         setUnitsAndVolumes()
-        let newVolumes = allVolumes
-        checkEjectedVolumes(old: oldVolumes, new: newVolumes)
+        let newVolumes = allVolumes.filter(\.isMounted)
+        checkUnmountedVolumes(old: oldVolumes, new: newVolumes)
         
         if Defaults[.displayOnlyWhenExternalVolumeIsConnected] {
             setupTouchBar()

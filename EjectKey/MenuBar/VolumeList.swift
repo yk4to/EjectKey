@@ -10,7 +10,7 @@ import Defaults
 
 struct VolumeList: View {
     @ObservedObject var model: AppModel
-    @State var device: Device?
+    @State var device: Device
     @State var unit: Unit
     
     @Default(.showEjectAllVolumesInDiskButtons) private var showEjectAllVolumesInDiskButtons
@@ -19,10 +19,10 @@ struct VolumeList: View {
     @Default(.showDetailedInformation) private var showDetailedInformation
     
     var body: some View {
-        ForEach(unit.volumes.sorted(by: {$0.bsdName < $1.bsdName}), id: \.bsdName) { volume in
+        ForEach(unit.volumes.sorted(by: {$0.bsdName < $1.bsdName})) { volume in
             // if showActionMenu {
             if volume.type == .apfsContainer {
-                if let contentUnit = device?.units.filter({ $0.physicalStoreBsdName == volume.bsdName }).first {
+                if let contentUnit = device.units.filter({ $0.physicalStoreBsdName == volume.bsdName }).first {
                     if !(!showUnmountedVolumes && !contentUnit.existsMountedVolume) {
                         Menu {
                             // Text("APFS Container (\(unit.bsdName))")
@@ -31,7 +31,7 @@ struct VolumeList: View {
                             }
                             .hidden(!showEjectAllVolumesInDiskButtons || contentUnit.volumes.count <= 1)
                             
-                            VolumeList(model: model, device: nil, unit: contentUnit)
+                            VolumeList(model: model, device: device, unit: contentUnit)
                             if showDetailedInformation {
                                 Divider()
                                 Text(volume.type.displayName())
@@ -47,13 +47,15 @@ struct VolumeList: View {
             } else {
                 if !(!showUnmountedVolumes && !volume.isMounted) {
                     Menu {
-                        if volume.isMounted {
-                            Button(L10n.eject) {
-                                model.eject(volume)
-                            }
-                        } else {
-                            Button(L10n.mount) {
-                                // model.eject(volume)
+                        if volume.isMountable {
+                            if volume.isMounted {
+                                Button(L10n.unmount) {
+                                    // volume.unmount()
+                                }
+                            } else {
+                                Button(L10n.mount) {
+                                    // model.eject(volume)
+                                }
                             }
                         }
                         if let url = volume.url {

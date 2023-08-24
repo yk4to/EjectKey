@@ -14,7 +14,10 @@ import Dispatch
 import Cocoa
 import IOKit.kext
 
-class Volume {
+class Volume: Identifiable {
+    let id = UUID()
+    
+    private let disk: DADisk
     let diskInfo: [NSString: Any]
     
     let bsdName: String
@@ -26,7 +29,8 @@ class Volume {
     let name: String?
     let url: URL?
     let size: Int?
-    let id: String?
+    
+    let isMountable: Bool
     
     let isMounted: Bool
     
@@ -41,6 +45,7 @@ class Volume {
             return nil
         }
         
+        self.disk = disk
         self.diskInfo = diskInfo
         self.bsdName = bsdName
         self.devicePath = devicePath
@@ -61,16 +66,12 @@ class Volume {
         let kind = diskInfo[kDADiskDescriptionVolumeKindKey] as? String
         self.type = VolumeType(guid, type, kind)
         
-        if let idVal = diskInfo[kDADiskDescriptionVolumeUUIDKey] {
-            // swiftlint:disable force_cast
-            let id = CFUUIDCreateString(kCFAllocatorDefault, (idVal as! CFUUID)) as? String
-            // swiftlint:enable force_cast
-            self.id = id
-        } else {
-            self.id = nil
-        }
+        let isMountable = diskInfo[kDADiskDescriptionVolumeMountableKey] as? Bool ?? false
+        self.isMountable = isMountable
         
         self.isMounted = url != nil
+        
+        print(name ?? "???", bsdName, isMountable)
     }
     
     var icon: NSImage? {
@@ -94,18 +95,61 @@ class Volume {
         return nil
     }
     
-    func unmount(unmountAndEject: Bool, withoutUI: Bool, completionHandler: @escaping (Error?) -> Void) {
-        DispatchQueue.global(qos: .userInitiated).async {
-            let fileManager = FileManager.default
-            let options: FileManager.UnmountOptions = [
-                unmountAndEject ? .allPartitionsAndEjectDisk : [],
-                withoutUI ? .withoutUI : []
-            ]
-            
-            if self.url != nil {
-                fileManager.unmountVolume(at: self.url!, options: options, completionHandler: completionHandler)
-            }
+    func mount(callback: @escaping DADiskMountCallback) {
+        guard !isMounted else {
+            return
         }
+        
+        print("mount: \(self.name ?? "unknown") (\(self.bsdName))")
+        guard let session = DASessionCreate(kCFAllocatorDefault) else {
+            return
+        }
+        var context = UnsafeMutablePointer<Int>.allocate(capacity: 1)
+        context.initialize(repeating: 0, count: 1)
+        context.pointee = 0
+
+        DASessionScheduleWithRunLoop(session, CFRunLoopGetCurrent(), CFRunLoopMode.defaultMode.rawValue)
+        /*let callback: DADiskMountCallback = { _, dissenter, context in
+            if (dissenter != nil) && (context != nil) {
+                print("mount failure: " + printDAReturn(r: DADissenterGetStatus(dissenter!)))
+            }
+            CFRunLoopStop(CFRunLoopGetCurrent())
+        }*/
+        DADiskMountWithArguments(disk, nil, DADiskMountOptions(kDADiskMountOptionDefault), callback, &context, nil)
+
+        CFRunLoopRun()
+        DASessionUnscheduleFromRunLoop(session, CFRunLoopGetCurrent(), CFRunLoopMode.defaultMode.rawValue)
+
+        context.deallocate()
+    }
+    
+    func unmount(force: Bool, callback: @escaping DADiskUnmountCallback) {
+        guard isMounted else {
+            return
+        }
+        
+        print("unmount: \(self.name ?? "unknown") (\(self.bsdName))")
+        guard let session = DASessionCreate(kCFAllocatorDefault) else {
+            return
+        }
+        var context = UnsafeMutablePointer<Int>.allocate(capacity: 1)
+        context.initialize(repeating: 0, count: 1)
+        context.pointee = 0
+
+        DASessionScheduleWithRunLoop(session, CFRunLoopGetCurrent(), CFRunLoopMode.defaultMode.rawValue)
+        // let force = false
+        /*let callback: DADiskMountCallback = { _, dissenter, context in
+            if (dissenter != nil) && (context != nil) {
+                print("un mount failure: " + printDAReturn(r: DADissenterGetStatus(dissenter!)))
+            }
+            CFRunLoopStop(CFRunLoopGetCurrent())
+        }*/
+        DADiskUnmount(disk, DADiskUnmountOptions(force ? kDADiskUnmountOptionForce : kDADiskUnmountOptionDefault), callback, &context)
+
+        CFRunLoopRun()
+        DASessionUnscheduleFromRunLoop(session, CFRunLoopGetCurrent(), CFRunLoopMode.defaultMode.rawValue)
+
+        context.deallocate()
     }
 
     func getCulpritApps() -> [NSRunningApplication] {

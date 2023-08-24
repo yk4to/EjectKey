@@ -7,7 +7,9 @@
 
 import Foundation
 
-struct Unit {
+struct Unit: Identifiable {
+    let id = UUID()
+    
     let number: Int
     let bsdName: String
     let name: String?
@@ -48,5 +50,12 @@ struct Unit {
             }
             self.physicalStoreBsdName = physicalStore.bsdName
         }
+    }
+    
+    func eject() {
+        guard !existsMountedVolume else {
+            return
+        }
+        
     }
 }

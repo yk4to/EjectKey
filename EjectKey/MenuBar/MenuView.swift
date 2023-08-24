@@ -31,17 +31,17 @@ struct MenuView: View {
             Divider()
                 .hidden(!showEjectAllVolumesButton || model.devices.count <= 1)
             
-            ForEach(model.devices.sorted(by: { $0.minUnitNumber < $1.minUnitNumber }), id: \.path) { device in
+            ForEach(model.devices.sorted(by: { $0.minUnitNumber < $1.minUnitNumber })) { device in
                 if !(!showInternalVolumes && device.isInternal) {
                     Menu {
-                        ForEach(device.units.sorted(by: { $0.number < $1.number }), id: \.number) { unit in
+                        ForEach(device.units.sorted(by: { $0.number < $1.number })) { unit in
                             if !unit.isApfs {
                                 Text("\(unit.name ?? L10n.unknown) (\(unit.bsdName))")
-                                Button(L10n.ejectNumVolumes(unit.volumes.count)) {
-                                    model.ejectAllVolumeInDisk(unit)
+                                if !device.isInternal && showEjectAllVolumesInDiskButtons && unit.volumes.count > 2 {
+                                    Button(L10n.ejectNumVolumes(unit.volumes.count)) {
+                                        model.ejectAllVolumeInDisk(unit)
+                                    }
                                 }
-                                .hidden(!showEjectAllVolumesInDiskButtons || unit.volumes.count <= 1)
-                                
                                 VolumeList(model: model, device: device, unit: unit)
                             }
                         }

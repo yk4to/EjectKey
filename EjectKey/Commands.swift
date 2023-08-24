@@ -12,13 +12,30 @@ import AudioToolbox
 extension AppModel {
     func eject(_ volume: Volume) {
         DispatchQueue.global().async {
-            guard let path = volume.url?.path(),
-                  let device = self.devices.filter({ $0.path == path }).first,
+            guard let device = self.devices.filter({ $0.path == volume.devicePath }).first,
                   let unit = device.units.filter({ $0.number == volume.unitNumber }).first else {
                 return
             }
             let isLastVolume = unit.volumes.count == 1
-            volume.unmount(unmountAndEject: isLastVolume, withoutUI: false) { error in
+            /*let callback: DADiskUnmountCallback = { _, dissenter, context in
+                if dissenter == nil || context == nil {
+                    // Suceeded
+                    if Defaults[.sendWhenVolumeIsEjected] {
+                        self.sendNotification(
+                            title: L10n.volWasSuccessfullyEjected(volume.name ?? L10n.unknown),
+                            body: device.isVirtual ? L10n.thisVolumeIsAVirtualInterface : L10n.safelyRemoved,
+                            sound: .default,
+                            identifier: UUID().uuidString
+                        )
+                    }
+                } else {
+                    // Failes
+                    print("unmount failure: " + printDAReturn(r: DADissenterGetStatus(dissenter!)))
+                }
+                CFRunLoopStop(CFRunLoopGetCurrent())
+            }
+            volume.unmount(force: false, callback: callback)*/
+            /*volume.unmount(unmountAndEject: isLastVolume, withoutUI: false) { error in
                 if error.isNil {
                     // Succeeded
                     if Defaults[.sendWhenVolumeIsEjected] {
@@ -74,7 +91,7 @@ extension AppModel {
                         }
                     }
                 }
-            }
+            }*/
         }
     }
     
@@ -90,10 +107,10 @@ extension AppModel {
         }
     }
     
-    func setUnitsAndVolumes() {
+    private func getConnectedVolumeBsdNames() -> [String] {
         let matchingDict: CFMutableDictionary = IOServiceMatching("IOMedia")
         var entryIterator: io_iterator_t = 0
-        var volumeBsdNames: [String] = []
+        var bsdNames: [String] = []
         if IOServiceGetMatchingServices(kIOMainPortDefault, matchingDict, &entryIterator) == kIOReturnSuccess {
             var serviceObject: io_registry_entry_t = 0
             repeat {
@@ -108,16 +125,34 @@ extension AppModel {
                     if let dict = serviceDictionary?.takeRetainedValue() as? [String: Any],
                        let bsdName = dict[kIOBSDNameKey] as? String,
                        bsdName.dropFirst(4).contains("s") {
-                        volumeBsdNames.append(bsdName)
+                        bsdNames.append(bsdName)
                     }
                 }
             } while serviceObject != 0
             IOObjectRelease(entryIterator)
         }
-        allVolumes = volumeBsdNames.compactMap(Volume.init)
+        return bsdNames
+    }
+    
+    func setUnitsAndVolumes() {
+        let _connectedVolumeBsdNames = getConnectedVolumeBsdNames()
+        let _mountedVolumeUrls = FileManager.default.mountedVolumeURLs(includingResourceValuesForKeys: nil)
         
-        let devicePaths = allVolumes.map(\.devicePath).unique
-        devices = devicePaths.compactMap({ Device(path: $0, allVolumes: allVolumes) })
+        guard (connectedVolumeBsdNames != _connectedVolumeBsdNames) || (mountedVolumeUrls != _mountedVolumeUrls) else {
+            return
+        }
+        
+        connectedVolumeBsdNames = _connectedVolumeBsdNames
+        mountedVolumeUrls = _mountedVolumeUrls ?? []
+        
+        allVolumes = connectedVolumeBsdNames.compactMap(Volume.init)
+        
+        // Prevent multiple changes to `devices` in a short period of time (and thus updating the UI)
+        // by a device with multiple volumes.
+        debouncer.debounce {
+            let devicePaths = self.allVolumes.map(\.devicePath).unique
+            self.devices = devicePaths.compactMap({ Device(path: $0, allVolumes: self.allVolumes) })
+        }
     }
     
     func checkMountedVolumes(old: [Volume], new: [Volume]) {
@@ -150,16 +185,16 @@ extension AppModel {
         }
     }
     
-    func checkEjectedVolumes(old: [Volume], new: [Volume]) {
+    func checkUnmountedVolumes(old: [Volume], new: [Volume]) {
         if !Defaults[.showMoveToTrashDialog] {
             return
         }
         
         DispatchQueue.global().async {
             let newIds = new.map(\.id)
-            let ejectedVolumes = old.filter({ !newIds.contains($0.id) })
+            let unmountedVolumes = old.filter({ !newIds.contains($0.id) })
             
-            if ejectedVolumes.isEmpty {
+            if unmountedVolumes.isEmpty {
                 return
             }
             
@@ -170,7 +205,7 @@ extension AppModel {
                 return
             }
             
-            for volume in ejectedVolumes {
+            for volume in unmountedVolumes {
                 guard let device = self.devices.filter({ $0.path == volume.devicePath }).first,
                       !device.isDiskImage,
                       let fixedVolumeName = volume.name?.lowercased().replacingOccurrences(of: " ", with: "[ -_]*"),
