@@ -15,6 +15,21 @@
 "action_when_button_is_pressed" = "ボタンを押した時の動作";
 
 
+"apfs_case_sensitive" = "APFS（大文字/小文字を区別）";
+
+
+"apfs_case_sensitive_encrypted" = "APFS（大文字/小文字を区別、暗号化）";
+
+
+"apfs_container" = "APFSコンテナ";
+
+
+"apfs_encrypted" = "APFS（暗号化）";
+
+
+"apfs_snapshot" = "APFSスナップショット";
+
+
 "cancel" = "キャンセル";
 
 
@@ -24,7 +39,13 @@
 "check_for_updates_automatically" = "アップデートを自動的に確認";
 
 
-"check_prerelease_versions" = "プレリリースされたバージョンも確認する";
+"connection" = "接続";
+
+
+"container" = "コンテナ";
+
+
+"device" = "装置";
 
 
 "disk_image" = "ディスクイメージ";
@@ -78,13 +99,40 @@
 "license" = "ライセンス";
 
 
+"linux_filesystem" = "Linuxファイルシステム";
+
+
+"linux_swap" = "Linuxスワップ";
+
+
+"mac_os_extended" = "Mac OS拡張";
+
+
+"mac_os_extended_case_sensitive" = "Mac OS拡張（大文字/小文字を区別）";
+
+
+"mac_os_extended_case_sensitive_journaled" = "Mac OS拡張（大文字/小文字を区別、ジャーナリング）";
+
+
+"mac_os_extended_journaled" = "Mac OS拡張（ジャーナリング）";
+
+
 "menu_bar" = "メニューバー";
+
+
+"mount" = "マウント";
+
+
+"mounted" = "マウント済み";
 
 
 "move_to_trash" = "ゴミ箱に入れる";
 
 
 "no_external_volume_connected" = "接続された外部ボリュームはありません";
+
+
+"not_mounted" = "未マウント";
 
 
 "notifications" = "通知";
@@ -94,6 +142,12 @@
 
 
 "open_settings" = "設定を開く...";
+
+
+"partition_map" = "パーティションマップ";
+
+
+"physical_stores" = "物理ストア";
 
 
 "quit" = "終了";
@@ -106,6 +160,9 @@
 
 
 "settings" = "設定...";
+
+
+"shared" = "（共有中）";
 
 
 "shortcuts" = "ショートカット";
@@ -126,7 +183,10 @@
 "show_eject_all_volumes_in_disk_buttons" = "「ディスク内のすべてのボリュームを取り出す」ボタンを表示";
 
 
-"show_in_finder" = "Finderで表示";
+"show_in_finder" = "Finderに表示";
+
+
+"show_internal_volumes" = "内部ボリュームを表示";
 
 
 "show_move_to_trash_dialog" = "ディスクイメージの取り出し時にダウンロードフォルダ内に関連する.dmgファイルが存在した場合、「ゴミ箱に入れる」ダイアログを表示";
@@ -136,6 +196,9 @@
 
 
 "show_quit_dialog_when_ejection_fails" = "取り出し失敗時にボリュームを使用中のアプリケーションを終了するダイアログを表示";
+
+
+"show_unmounted_volumes" = "マウントされていないボリュームを表示";
 
 
 "size" = "容量";
@@ -151,6 +214,12 @@
 
 
 "touch_bar" = "Touch Bar";
+
+
+"unknown" = "不明";
+
+
+"unmount" = "マウント解除";
 
 
 "version" = "バージョン";
@@ -172,3 +241,9 @@
 
 
 "when_volume_is_ejected" = "ボリュームが取り出された時";
+
+
+"windows_basic_data" = "Windowsベーシックデータ";
+
+
+"windows_recovery" = "Windowsリカバリ";

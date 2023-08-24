@@ -7,28 +7,55 @@
 
 import Foundation
 
-struct Unit {
-    let deviceModel: String
-    let deviceVendor: String
-    let deviceProtocol: String
-    let devicePath: String
-    let isDiskImage: Bool
-    let volumes: [Volume]
-    let numbers: [Int]
-    let minNumber: Int
+struct Unit: Identifiable {
+    let id = UUID()
     
-    init(devicePath: String, allVolumes: [Volume]) {
-        self.devicePath = devicePath
+    let number: Int
+    let bsdName: String
+    let name: String?
+    let volumes: [Volume]
+    let existsMountedVolume: Bool
+    let isApfs: Bool
+    var physicalStoreBsdName: String?
+    
+    init?(number: Int, deviceVolumes: [Volume]) {
+        let volumes = deviceVolumes.filter({ $0.unitNumber == number })
         
-        self.volumes = allVolumes.filter { $0.devicePath == devicePath }
+        let bsdName = "disk\(number)"
         
-        let firstVolume = self.volumes.first!
-        self.deviceModel = firstVolume.deviceModel
-        self.deviceVendor = firstVolume.deviceVendor
-        self.deviceProtocol = firstVolume.deviceProtocol
-        self.isDiskImage = firstVolume.isDiskImage
+        guard let session = DASessionCreate(kCFAllocatorDefault),
+              let disk = DADiskCreateFromBSDName(kCFAllocatorDefault, session, bsdName),
+              let diskInfo = DADiskCopyDescription(disk) as? [NSString: Any]
+        else {
+            return nil
+        }
         
-        self.numbers = volumes.map(\.unitNumber).unique.sorted()
-        self.minNumber = numbers.min() ?? 0
+        let name = diskInfo[kDADiskDescriptionMediaNameKey] as? String
+        
+        self.number = number
+        self.bsdName = bsdName
+        self.name = name
+        self.volumes = volumes
+        self.existsMountedVolume = volumes.contains(where: \.isMounted)
+        self.isApfs = name == "AppleAPFSMedia"
+        
+        self.physicalStoreBsdName = nil
+        if isApfs {
+            guard let pathComponents = volumes.first?.mediaPath.components(separatedBy: "/"),
+                  let previousIndex = pathComponents.firstIndex(of: "IOGUIDPartitionScheme"),
+                  let physicalStoreName = pathComponents[previousIndex + 1].components(separatedBy: "@").first,
+                  let physicalStore = deviceVolumes.filter({ $0.name == physicalStoreName }).first
+            else {
+                return
+            }
+            self.physicalStoreBsdName = physicalStore.bsdName
+        }
+    }
+    
+    func eject() {
+        guard !existsMountedVolume else {
+            return
+        }
+        
     }
 }

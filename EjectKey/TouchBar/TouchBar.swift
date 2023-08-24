@@ -11,7 +11,7 @@ import SFSafeSymbols
 
 extension AppModel {
     func setupTouchBar() {
-        let isPresent = !(Defaults[.displayOnlyWhenExternalVolumeIsConnected] && units.isEmpty) && Defaults[.showControlStripButton]
+        let isPresent = !(Defaults[.displayOnlyWhenExternalVolumeIsConnected] && devices.isEmpty) && Defaults[.showControlStripButton]
         
         DFRSystemModalShowsCloseBoxWhenFrontMost(isPresent)
         

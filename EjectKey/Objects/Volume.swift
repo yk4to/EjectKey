@@ -14,101 +14,69 @@ import Dispatch
 import Cocoa
 import IOKit.kext
 
-class Volume {
-
-    private let diskInfo: [NSString: Any]
-    let bsdName: String
-    let name: String
-    let url: URL
-    let size: Int
-    let deviceProtocol: String
-    let deviceModel: String
-    let deviceVendor: String
-    let devicePath: String
-    let type: String
-    let unitNumber: Int
-    let id: String
-    let isVirtual: Bool
-    let isDiskImage: Bool
+class Volume: Identifiable {
+    let id = UUID()
     
-    init?(url: URL) {
-        guard let resourceValues = try? url.resourceValues(forKeys: [.volumeIsInternalKey, .volumeLocalizedFormatDescriptionKey]) else {
-            return nil
-        }
-        
-        let isInternalVolume = resourceValues.volumeIsInternal ?? false
-        
-        if isInternalVolume {
-            return nil
-        }
-        
+    private let disk: DADisk
+    let diskInfo: [NSString: Any]
+    
+    let bsdName: String
+    let devicePath: String
+    let mediaPath: String
+    let unitNumber: Int
+    let type: VolumeType
+    
+    let name: String?
+    let url: URL?
+    let size: Int?
+    
+    let isMountable: Bool
+    
+    let isMounted: Bool
+    
+    init?(bsdName: String) {
         guard let session = DASessionCreate(kCFAllocatorDefault),
-              let disk = DADiskCreateFromVolumePath(kCFAllocatorDefault, session, url as CFURL),
+              let disk = DADiskCreateFromBSDName(kCFAllocatorDefault, session, bsdName),
               let diskInfo = DADiskCopyDescription(disk) as? [NSString: Any],
-              let name = diskInfo[kDADiskDescriptionVolumeNameKey] as? String,
-              let bsdName = diskInfo[kDADiskDescriptionMediaBSDNameKey] as? String,
-              let size = diskInfo[kDADiskDescriptionMediaSizeKey] as? Int,
-              let deviceProtocol = diskInfo[kDADiskDescriptionDeviceProtocolKey] as? String,
-              let deviceModel = diskInfo[kDADiskDescriptionDeviceModelKey] as? String,
-              let deviceVendor = diskInfo[kDADiskDescriptionDeviceVendorKey] as? String,
               let devicePath = diskInfo[kDADiskDescriptionDevicePathKey] as? String,
-              let unitNumber = diskInfo[kDADiskDescriptionMediaBSDUnitKey] as? Int,
-              let idVal = diskInfo[kDADiskDescriptionVolumeUUIDKey]
+              let mediaPath = diskInfo[kDADiskDescriptionMediaPathKey] as? String,
+              let unitNumber = diskInfo[kDADiskDescriptionMediaBSDUnitKey] as? Int
         else {
             return nil
         }
         
-        // swiftlint:disable force_cast
-        let uuid = idVal as! CFUUID
-        // swiftlint:enable force_cast
-        guard let cfID = CFUUIDCreateString(kCFAllocatorDefault, uuid) else {
-            return nil
-        }
-        let id = cfID as String
-
-        let type = resourceValues.volumeLocalizedFormatDescription ?? ""
-
+        self.disk = disk
         self.diskInfo = diskInfo
         self.bsdName = bsdName
+        self.devicePath = devicePath
+        self.mediaPath = mediaPath
+        self.unitNumber = unitNumber
+        
+        // Optional Properties
+        let name = (diskInfo[kDADiskDescriptionVolumeNameKey] as? String) ?? (diskInfo[kDADiskDescriptionMediaNameKey] as? String)
+        let url = diskInfo[kDADiskDescriptionVolumePathKey] as? URL
+        let size = diskInfo[kDADiskDescriptionMediaSizeKey] as? Int
+        
         self.name = name
         self.url = url
         self.size = size
-        self.deviceProtocol = deviceProtocol
-        self.deviceModel = deviceModel
-        self.deviceVendor = deviceVendor
-        self.devicePath = devicePath
-        self.type = type
-        self.unitNumber = unitNumber
-        self.id = id
-        self.isVirtual = deviceProtocol == "Virtual Interface"
-        self.isDiskImage = self.isVirtual && deviceVendor == "Apple" && deviceModel == "Disk Image"
+        
+        let guid = diskInfo[kDADiskDescriptionMediaContentKey] as? String
+        let type = diskInfo[kDADiskDescriptionVolumeTypeKey] as? String
+        let kind = diskInfo[kDADiskDescriptionVolumeKindKey] as? String
+        self.type = VolumeType(guid, type, kind)
+        
+        let isMountable = diskInfo[kDADiskDescriptionVolumeMountableKey] as? Bool ?? false
+        self.isMountable = isMountable
+        
+        self.isMounted = url != nil
+        
+        print(name ?? "???", bsdName, isMountable)
     }
     
     var icon: NSImage? {
-        if let iconPath = getIconPath() {
-            return NSImage(byReferencingFile: iconPath)
-        } else {
-            return nil
-        }
-    }
-    
-    func unmount(unmountAndEject: Bool, withoutUI: Bool, completionHandler: @escaping (Error?) -> Void) {
-        DispatchQueue.global(qos: .userInitiated).async {
-            let fileManager = FileManager.default
-            let options: FileManager.UnmountOptions = [
-                unmountAndEject ? .allPartitionsAndEjectDisk : [],
-                withoutUI ? .withoutUI: []
-            ]
-            
-            fileManager.unmountVolume(at: self.url, options: options, completionHandler: completionHandler)
-        }
-    }
-    
-    private func getIconPath() -> String? {
-        let iconPath = url.appending(path: "/.VolumeIcon.icns").path()
-        
-        if FileManager.default.fileExists(atPath: iconPath) {
-            return iconPath
+        if url != nil {
+            return NSWorkspace.shared.icon(forFile: url!.path())
         }
         
         if let iconDict = diskInfo[kDADiskDescriptionMediaIconKey] as? NSDictionary,
@@ -120,15 +88,76 @@ class Volume {
             let bundleUrl = Unmanaged.takeRetainedValue(KextManagerCreateURLForBundleIdentifier(kCFAllocatorDefault, identifier))() as URL
             if let bundle = Bundle(url: bundleUrl),
                let iconPath = bundle.path(forResource: iconName.deletingPathExtension, ofType: iconName.pathExtension) {
-                return iconPath
+                return NSImage(byReferencingFile: iconPath)
             }
         }
+        
         return nil
+    }
+    
+    func mount(callback: @escaping DADiskMountCallback) {
+        guard !isMounted else {
+            return
+        }
+        
+        print("mount: \(self.name ?? "unknown") (\(self.bsdName))")
+        guard let session = DASessionCreate(kCFAllocatorDefault) else {
+            return
+        }
+        var context = UnsafeMutablePointer<Int>.allocate(capacity: 1)
+        context.initialize(repeating: 0, count: 1)
+        context.pointee = 0
+
+        DASessionScheduleWithRunLoop(session, CFRunLoopGetCurrent(), CFRunLoopMode.defaultMode.rawValue)
+        /*let callback: DADiskMountCallback = { _, dissenter, context in
+            if (dissenter != nil) && (context != nil) {
+                print("mount failure: " + printDAReturn(r: DADissenterGetStatus(dissenter!)))
+            }
+            CFRunLoopStop(CFRunLoopGetCurrent())
+        }*/
+        DADiskMountWithArguments(disk, nil, DADiskMountOptions(kDADiskMountOptionDefault), callback, &context, nil)
+
+        CFRunLoopRun()
+        DASessionUnscheduleFromRunLoop(session, CFRunLoopGetCurrent(), CFRunLoopMode.defaultMode.rawValue)
+
+        context.deallocate()
+    }
+    
+    func unmount(force: Bool, callback: @escaping DADiskUnmountCallback) {
+        guard isMounted else {
+            return
+        }
+        
+        print("unmount: \(self.name ?? "unknown") (\(self.bsdName))")
+        guard let session = DASessionCreate(kCFAllocatorDefault) else {
+            return
+        }
+        var context = UnsafeMutablePointer<Int>.allocate(capacity: 1)
+        context.initialize(repeating: 0, count: 1)
+        context.pointee = 0
+
+        DASessionScheduleWithRunLoop(session, CFRunLoopGetCurrent(), CFRunLoopMode.defaultMode.rawValue)
+        // let force = false
+        /*let callback: DADiskMountCallback = { _, dissenter, context in
+            if (dissenter != nil) && (context != nil) {
+                print("un mount failure: " + printDAReturn(r: DADissenterGetStatus(dissenter!)))
+            }
+            CFRunLoopStop(CFRunLoopGetCurrent())
+        }*/
+        DADiskUnmount(disk, DADiskUnmountOptions(force ? kDADiskUnmountOptionForce : kDADiskUnmountOptionDefault), callback, &context)
+
+        CFRunLoopRun()
+        DASessionUnscheduleFromRunLoop(session, CFRunLoopGetCurrent(), CFRunLoopMode.defaultMode.rawValue)
+
+        context.deallocate()
     }
 
     func getCulpritApps() -> [NSRunningApplication] {
-        let volumePath = url.path(percentEncoded: false)
-        let command = Command("/usr/sbin/lsof", ["-Fn", "+D", volumePath])
+        guard let path = url?.path() else {
+            return []
+        }
+        
+        let command = Command("/usr/sbin/lsof", ["-Fn", "+D", path])
         
         guard let result = command.run() else {
             return []

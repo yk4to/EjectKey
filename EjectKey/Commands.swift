@@ -12,17 +12,36 @@ import AudioToolbox
 extension AppModel {
     func eject(_ volume: Volume) {
         DispatchQueue.global().async {
-            guard let unit = self.units.filter({ $0.devicePath == volume.devicePath }).first else {
+            guard let device = self.devices.filter({ $0.path == volume.devicePath }).first,
+                  let unit = device.units.filter({ $0.number == volume.unitNumber }).first else {
                 return
             }
             let isLastVolume = unit.volumes.count == 1
-            volume.unmount(unmountAndEject: isLastVolume, withoutUI: false) { error in
+            /*let callback: DADiskUnmountCallback = { _, dissenter, context in
+                if dissenter == nil || context == nil {
+                    // Suceeded
+                    if Defaults[.sendWhenVolumeIsEjected] {
+                        self.sendNotification(
+                            title: L10n.volWasSuccessfullyEjected(volume.name ?? L10n.unknown),
+                            body: device.isVirtual ? L10n.thisVolumeIsAVirtualInterface : L10n.safelyRemoved,
+                            sound: .default,
+                            identifier: UUID().uuidString
+                        )
+                    }
+                } else {
+                    // Failes
+                    print("unmount failure: " + printDAReturn(r: DADissenterGetStatus(dissenter!)))
+                }
+                CFRunLoopStop(CFRunLoopGetCurrent())
+            }
+            volume.unmount(force: false, callback: callback)*/
+            /*volume.unmount(unmountAndEject: isLastVolume, withoutUI: false) { error in
                 if error.isNil {
                     // Succeeded
                     if Defaults[.sendWhenVolumeIsEjected] {
                         self.sendNotification(
-                            title: L10n.volWasSuccessfullyEjected(volume.name),
-                            body: volume.isVirtual ? L10n.thisVolumeIsAVirtualInterface : L10n.safelyRemoved,
+                            title: L10n.volWasSuccessfullyEjected(volume.name ?? L10n.unknown),
+                            body: device.isVirtual ? L10n.thisVolumeIsAVirtualInterface : L10n.safelyRemoved,
                             sound: .default,
                             identifier: UUID().uuidString
                         )
@@ -31,7 +50,7 @@ extension AppModel {
                     // Failed
                     if Defaults[.sendWhenVolumeIsEjected] {
                         self.sendNotification(
-                            title: L10n.failedToEjectVol(volume.name),
+                            title: L10n.failedToEjectVol(volume.name ?? L10n.unknown),
                             body: error!.localizedDescription,
                             sound: .defaultCritical,
                             identifier: UUID().uuidString
@@ -60,7 +79,7 @@ extension AppModel {
                             DispatchQueue.main.async {
                                 self.alert(
                                     alertStyle: .warning,
-                                    messageText: L10n.theFollowingApplicationsAreUsingVol(volume.name),
+                                    messageText: L10n.theFollowingApplicationsAreUsingVol(volume.name ?? L10n.unknown),
                                     informativeText: infoText,
                                     buttonTitle: L10n.quit,
                                     showCancelButton: true,
@@ -72,7 +91,7 @@ extension AppModel {
                         }
                     }
                 }
-            }
+            }*/
         }
     }
     
@@ -88,12 +107,52 @@ extension AppModel {
         }
     }
     
+    private func getConnectedVolumeBsdNames() -> [String] {
+        let matchingDict: CFMutableDictionary = IOServiceMatching("IOMedia")
+        var entryIterator: io_iterator_t = 0
+        var bsdNames: [String] = []
+        if IOServiceGetMatchingServices(kIOMainPortDefault, matchingDict, &entryIterator) == kIOReturnSuccess {
+            var serviceObject: io_registry_entry_t = 0
+            repeat {
+                serviceObject = IOIteratorNext(entryIterator)
+                if serviceObject != 0 {
+                    var serviceDictionary: Unmanaged<CFMutableDictionary>?
+                    if IORegistryEntryCreateCFProperties(serviceObject, &serviceDictionary, kCFAllocatorDefault, 0) != kIOReturnSuccess {
+                        IOObjectRelease(serviceObject)
+                        continue
+                    }
+                    
+                    if let dict = serviceDictionary?.takeRetainedValue() as? [String: Any],
+                       let bsdName = dict[kIOBSDNameKey] as? String,
+                       bsdName.dropFirst(4).contains("s") {
+                        bsdNames.append(bsdName)
+                    }
+                }
+            } while serviceObject != 0
+            IOObjectRelease(entryIterator)
+        }
+        return bsdNames
+    }
+    
     func setUnitsAndVolumes() {
-        let mountedVolumeURLs = FileManager.default.mountedVolumeURLs(includingResourceValuesForKeys: nil, options: [])
-        allVolumes = mountedVolumeURLs?.compactMap(Volume.init) ?? []
+        let _connectedVolumeBsdNames = getConnectedVolumeBsdNames()
+        let _mountedVolumeUrls = FileManager.default.mountedVolumeURLs(includingResourceValuesForKeys: nil)
         
-        let devicePaths = allVolumes.map(\.devicePath).unique
-        units = devicePaths.map({ Unit(devicePath: $0, allVolumes: allVolumes) })
+        guard (connectedVolumeBsdNames != _connectedVolumeBsdNames) || (mountedVolumeUrls != _mountedVolumeUrls) else {
+            return
+        }
+        
+        connectedVolumeBsdNames = _connectedVolumeBsdNames
+        mountedVolumeUrls = _mountedVolumeUrls ?? []
+        
+        allVolumes = connectedVolumeBsdNames.compactMap(Volume.init)
+        
+        // Prevent multiple changes to `devices` in a short period of time (and thus updating the UI)
+        // by a device with multiple volumes.
+        debouncer.debounce {
+            let devicePaths = self.allVolumes.map(\.devicePath).unique
+            self.devices = devicePaths.compactMap({ Device(path: $0, allVolumes: self.allVolumes) })
+        }
     }
     
     func checkMountedVolumes(old: [Volume], new: [Volume]) {
@@ -106,14 +165,18 @@ extension AppModel {
             let mountedVolumes = new.filter({ !oldIds.contains($0.id) })
             
             for volume in mountedVolumes {
-                if Defaults[.doNotSendNotificationsAboutVirtualVolumes] && volume.isVirtual {
+                guard let path = volume.url?.path(),
+                      let device = self.devices.filter({ $0.path == path }).first else {
+                    return
+                }
+                if Defaults[.doNotSendNotificationsAboutVirtualVolumes] && device.isVirtual {
                     return
                 }
                 
                 DispatchQueue.main.async {
                     self.sendNotification(
                         title: L10n.volumeConnected,
-                        body: volume.isVirtual ? L10n.volIsAVirtualInterface(volume.name) : L10n.volIsAPhysicalDevice(volume.name),
+                        body: device.isVirtual ? L10n.volIsAVirtualInterface(volume.name ?? L10n.unknown) : L10n.volIsAPhysicalDevice(volume.name ?? L10n.unknown),
                         sound: .default,
                         identifier: UUID().uuidString
                     )
@@ -122,36 +185,35 @@ extension AppModel {
         }
     }
     
-    func checkEjectedVolumes(old: [Volume], new: [Volume]) {
+    func checkUnmountedVolumes(old: [Volume], new: [Volume]) {
         if !Defaults[.showMoveToTrashDialog] {
             return
         }
         
         DispatchQueue.global().async {
             let newIds = new.map(\.id)
-            let ejectedVolumes = old.filter({ !newIds.contains($0.id) })
+            let unmountedVolumes = old.filter({ !newIds.contains($0.id) })
             
-            if ejectedVolumes.isEmpty {
+            if unmountedVolumes.isEmpty {
                 return
             }
             
             let fileManager = FileManager.default
-            guard let downloadsDir = fileManager.urls(for: .downloadsDirectory, in: .userDomainMask).first else {
-                return
-            }
-            guard let files = try? fileManager.contentsOfDirectory(atPath: downloadsDir.path()) else {
+            guard let downloadsDir = fileManager.urls(for: .downloadsDirectory, in: .userDomainMask).first,
+                  let files = try? fileManager.contentsOfDirectory(atPath: downloadsDir.path())
+            else {
                 return
             }
             
-            for volume in ejectedVolumes {
-                if !volume.isDiskImage {
+            for volume in unmountedVolumes {
+                guard let device = self.devices.filter({ $0.path == volume.devicePath }).first,
+                      !device.isDiskImage,
+                      let fixedVolumeName = volume.name?.lowercased().replacingOccurrences(of: " ", with: "[ -_]*"),
+                      let regex = try? Regex("\(fixedVolumeName).*\\.dmg$")
+                else {
                     return
                 }
                 
-                let fixedVolumeName = volume.name.lowercased().replacingOccurrences(of: " ", with: "[ -_]*")
-                guard let regex = try? Regex("\(fixedVolumeName).*\\.dmg$") else {
-                    return
-                }
                 let dmgFileNames = files.filter({$0.lowercased().firstMatch(of: regex)?.0 != nil})
                 if dmgFileNames.isEmpty {
                     return

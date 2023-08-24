@@ -9,83 +9,61 @@ import SwiftUI
 import Defaults
 
 struct MenuView: View {
-    @ObservedObject var model: AppModel
+    @EnvironmentObject var model: AppModel
+    @EnvironmentObject var updaterViewModel: UpdaterViewModel
     
     @Default(.showEjectAllVolumesButton) var showEjectAllVolumesButton
     @Default(.showEjectAllVolumesInDiskButtons) var showEjectAllVolumesInDiskButtons
+    @Default(.showInternalVolumes) var showInternalVolumes
     @Default(.showActionMenu) var showActionMenu
     @Default(.showDetailedInformation) var showDetailedInformation
-    
-    @EnvironmentObject var updaterViewModel: UpdaterViewModel
     
     @Environment(\.openWindow) var openWindow
     
     var body: some View {
-        if model.units.isEmpty {
+        if model.devices.isEmpty {
             Text(L10n.noExternalVolumeConnected)
         } else {
             Button(L10n.ejectAllVolumes) {
                 model.ejectAll()
             }
-            .hidden(!showEjectAllVolumesButton || model.units.count <= 1)
+            .hidden(!showEjectAllVolumesButton || model.devices.count <= 1)
             Divider()
-                .hidden(!showEjectAllVolumesButton || model.units.count <= 1)
+                .hidden(!showEjectAllVolumesButton || model.devices.count <= 1)
             
-            ForEach(model.units.sorted(by: { $0.minNumber < $1.minNumber }), id: \.devicePath) { unit in
-                if showDetailedInformation {
-                    if unit.isDiskImage {
-                        Text(L10n.diskImage)
-                    } else {
-                        Text("\(unit.deviceVendor) \(unit.deviceModel) (\(unit.deviceProtocol))")
-                    }
-                } else {
-                    let numbersStr = unit.numbers.map(String.init).joined(separator: ", ")
-                    if unit.isDiskImage {
-                        Text(L10n.diskImageNum(numbersStr))
-                    } else {
-                        Text(L10n.diskNum(numbersStr))
-                    }
-                }
-                
-                Button(L10n.ejectNumVolumes(unit.volumes.count)) {
-                    model.ejectAllVolumeInDisk(unit)
-                }
-                .hidden(!showEjectAllVolumesInDiskButtons || unit.volumes.count <= 1)
-                
-                ForEach(unit.volumes.sorted(by: {$0.bsdName < $1.bsdName}), id: \.id) { volume in
-                    if showActionMenu {
-                        Menu {
-                            Button(L10n.eject) {
-                                model.eject(volume)
+            ForEach(model.devices.sorted(by: { $0.minUnitNumber < $1.minUnitNumber })) { device in
+                if !(!showInternalVolumes && device.isInternal) {
+                    Menu {
+                        ForEach(device.units.sorted(by: { $0.number < $1.number })) { unit in
+                            if !unit.isApfs {
+                                Text("\(unit.name ?? L10n.unknown) (\(unit.bsdName))")
+                                if !device.isInternal && showEjectAllVolumesInDiskButtons && unit.volumes.count > 2 {
+                                    Button(L10n.ejectNumVolumes(unit.volumes.count)) {
+                                        model.ejectAllVolumeInDisk(unit)
+                                    }
+                                }
+                                VolumeList(model: model, device: device, unit: unit)
                             }
-                            Button(L10n.showInFinder) {
-                                NSWorkspace.shared.activateFileViewerSelecting([volume.url])
-                            }
-                            if showDetailedInformation {
-                                Divider()
-                                Text(volume.type)
-                                Text("\(L10n.size): \(volume.size.formatted(.byteCount(style: .file)))")
-                                Text("ID: \(volume.bsdName)")
-                            }
-                        } label: {
-                            if let icon = volume.icon {
-                                Image(nsImage: icon)
-                            } else {
-                                Image(systemSymbol: .externaldrive)
-                            }
-                            Text(volume.name)
                         }
-                    } else {
-                        Button {
-                            model.eject(volume)
-                        } label: {
-                            if let icon = volume.icon {
-                                Image(nsImage: icon)
-                            } else {
-                                Image(systemSymbol: .externaldrive)
-                            }
-                            Text(volume.name)
+                        if showDetailedInformation {
+                            Divider()
+                            Text("\(L10n.connection): \(device.deviceProtocol ?? L10n.unknown)")
                         }
+                    } label: {
+                        // if showDetailedInformation {
+                            if device.isDiskImage {
+                                Text(L10n.diskImage)
+                            } else {
+                                Text("\(device.vendor ?? L10n.unknown) \(device.model ?? L10n.unknown)")
+                            }
+                        /*} else {
+                            let numbersStr = device.units.map({ String($0.number) }).joined(separator: ", ")
+                            if device.isDiskImage {
+                                Text(L10n.diskImageNum(numbersStr))
+                            } else {
+                                Text(L10n.diskNum(numbersStr))
+                            }
+                        }*/
                     }
                 }
             }
@@ -128,6 +106,6 @@ struct MenuView: View {
 
 struct MenuView_Previews: PreviewProvider {
     static var previews: some View {
-        MenuView(model: AppModel())
+        MenuView()
     }
 }
